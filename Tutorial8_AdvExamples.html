@@ -430,7 +430,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-and-plot">Run and Plot</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-vec-a-vec-b">Recall:
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-vec-a-vec-b">Recall
 $$ \vec{A} \vec{B}</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix">\begin{bmatrix}
 a_{11} &amp; a_{12} \
@@ -583,18 +583,6 @@ a_{21}  b_{11} + a_{22}b_{21} &amp; a_{21}  b_{12} + a_{22}b_{22}
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x24e4fa58a30&gt;
-</pre></div>
-</div>
-<img alt="_images/f6a6a1a135336cb91acd285eaf2c88e42231c2ff3c6f2fa2249ac5f07924d934.png" src="_images/f6a6a1a135336cb91acd285eaf2c88e42231c2ff3c6f2fa2249ac5f07924d934.png" />
-</div>
 </div>
 <p>Inputs look good, but now we need to actually perform each multiplication that occurs in matrix multiplication.</p>
 <p>First, we will use one of Nengo’s reusable networks <code class="docutils literal notranslate"><span class="pre">product</span></code> instead of manually creating multiplication neurons as we did in <code class="docutils literal notranslate"><span class="pre">neuron_transformations.ipynb</span></code> (although we could definitely do it this way!). The <code class="docutils literal notranslate"><span class="pre">product</span></code> network computes the element-wise product of two equally sized vectors where <code class="docutils literal notranslate"><span class="pre">input_a</span></code> is the first vector and <code class="docutils literal notranslate"><span class="pre">input_b</span></code> is the second. Read more about different reusable networks <a class="reference external" href="https://www.nengo.ai/nengo/networks.html#nengo.networks.Product">here</a>.</p>
@@ -632,28 +620,6 @@ a_{21}  b_{11} + a_{22}b_{21} &amp; a_{21}  b_{12} + a_{22}b_{22}
     <span class="n">conn</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">input_a</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transformA</span><span class="p">)</span>
     <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">input_b</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transformB</span><span class="p">)</span>
     <span class="n">C_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">output</span><span class="p">,</span> <span class="n">sample_every</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A-&gt;C
-[[1. 0. 0. 0.]
- [0. 1. 0. 0.]
- [1. 0. 0. 0.]
- [0. 1. 0. 0.]
- [0. 0. 1. 0.]
- [0. 0. 0. 1.]
- [0. 0. 1. 0.]
- [0. 0. 0. 1.]]
-B-&gt;C
-[[1. 0. 0. 0.]
- [0. 0. 1. 0.]
- [0. 1. 0. 0.]
- [0. 0. 0. 1.]
- [1. 0. 0. 0.]
- [0. 0. 1. 0.]
- [0. 1. 0. 0.]
- [0. 0. 0. 1.]]
 </pre></div>
 </div>
 </div>
@@ -706,16 +672,6 @@ B-&gt;C
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x24e49baa230&gt;
-</pre></div>
-</div>
-<img alt="_images/2199f74ee808a8fc51d9cce4045071ca5200fdf8a1cc3f162e235e57b53372a7.png" src="_images/2199f74ee808a8fc51d9cce4045071ca5200fdf8a1cc3f162e235e57b53372a7.png" />
-</div>
 </div>
 <p>Now we have to add the appropriate elements to complete matrix multiplication. We use the same <code class="docutils literal notranslate"><span class="pre">transform</span></code> argument (i.e. decoders/weights) to choose which of the outputs from C should be added together.</p>
 <div class="cell docutils container">
@@ -740,21 +696,12 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C-&gt;D
-[[1. 1. 0. 0. 0. 0. 0. 0.]
- [0. 0. 1. 1. 0. 0. 0. 0.]
- [0. 0. 0. 0. 1. 1. 0. 0.]
- [0. 0. 0. 0. 0. 0. 1. 1.]]
-</pre></div>
-</div>
-</div>
 </div>
 <p>We have 8 outputs from C. We add two at a time to compute the four outputs of our two 2x2 matrices being multiplied together.</p>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="recall-vec-a-vec-b">
-<h1>Recall:
+<h1>Recall
 $$ \vec{A} \vec{B}<a class="headerlink" href="#recall-vec-a-vec-b" title="Link to this heading">#</a></h1>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix">
@@ -802,16 +749,6 @@ a_{2}  b_{0} + a_{3}b_{2} &amp; a_{2}  b_{1} + a_{0}b_{3}
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;D&#39;)
-</pre></div>
-</div>
-<img alt="_images/9ab9f4f838a1dee12632a5cd678e0188f4612177fa562cef2bcae8da0195d782.png" src="_images/9ab9f4f838a1dee12632a5cd678e0188f4612177fa562cef2bcae8da0195d782.png" />
 </div>
 </div>
 <section id="discussion">
@@ -883,13 +820,6 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<img alt="_images/d576b29f39999e8c73c47759f45136260dd4aa30409edff14fab47248c427daa.png" src="_images/d576b29f39999e8c73c47759f45136260dd4aa30409edff14fab47248c427daa.png" />
-</div>
 </div>
 </section>
 <section id="online-learning">
@@ -935,16 +865,6 @@ Simulation finished in 0:00:01.
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:02.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x24e4d2e6680&gt;
-</pre></div>
-</div>
-<img alt="_images/54cc59f95e98aedb64759a61767001c52ae43550d884a0356e4065a123ff3caf.png" src="_images/54cc59f95e98aedb64759a61767001c52ae43550d884a0356e4065a123ff3caf.png" />
 </div>
 </div>
 </section>
@@ -1006,16 +926,6 @@ Simulation finished in 0:00:02.
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">((</span><span class="s2">&quot;Decoder 10[0]&quot;</span><span class="p">,</span> <span class="s2">&quot;Decoder 10[1]&quot;</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:03.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x24e502a8e50&gt;
-</pre></div>
-</div>
-<img alt="_images/86b471be682800d23ab604eb6aacf98819428c08d1fddbfdf4ae2ef6de8654d7.png" src="_images/86b471be682800d23ab604eb6aacf98819428c08d1fddbfdf4ae2ef6de8654d7.png" />
 </div>
 </div>
 </section>
@@ -1095,7 +1005,7 @@ Simulation finished in 0:00:03.
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-and-plot">Run and Plot</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-vec-a-vec-b">Recall:
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-vec-a-vec-b">Recall
 $$ \vec{A} \vec{B}</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#begin-bmatrix-a-11-a-12-a-21-a-22-end-bmatrix-begin-bmatrix-b-11-b-12-b-21-b-22-end-bmatrix">\begin{bmatrix}
 a_{11} &amp; a_{12} \
