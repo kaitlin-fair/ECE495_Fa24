@@ -12,7 +12,16 @@
 
 - [Download and save this file](_static/requirements.txt) to your `495_workspace` folder.
 
-- Create a virtual environment using Python 3.10.11. The process to do so is to create a new environment using Python 3.10.11, activate the new environment, then download the packages using the requirements.txt file. 
+- Open your `495_workspace` folder in VS Code. You can do this within `Explorer` (the double page symbol on the leftmost column) by either clicking `Open Folder` or right clicking within your workspace and selecting `Add Folder to Workspace`
+
+- Type in `>Python: Create Environment` in the searchbar at the top of VS Code and select it.
+
+- When prompted to `Select an environment type`, select `Venv`
+
+- If prompted to `Select a workspace to create environment`, select your `495_workspace` folder.
+
+- Select `Enter interpreter path...` and navigate to the Python path where you downloaded **Python 3.10.11**. This is critical: it _MUST be **Python 3.10.11**_!  
+
   
 ### Test your environment
 
