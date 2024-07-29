@@ -1,11 +1,10 @@
 # Intro to Neuromorphic Engineering
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+Welcome to ECE495 - Intro to Neuromorphic Engineering!
 
-Check out the content pages bundled with this sample book to see more.
+This page contains the Jupyter notebooks you'll need for class lectures and labs. Some of these files will be throughout the semester. It's recommended you download as we go into a folder containing your virtual environment.
+
+Also note you will need to 
 
 ```{tableofcontents}
 ```
