@@ -12,10 +12,10 @@ parts:
     chapters:
       - file: Tutorial3a_NeuronBasics
       - file: Tutorial3b_NeuronBasics
-      - file: Tutorial4_Dynamics
-      - file: Tutorial6_PathPlanning
-      - file: Tutorial7_SpikingData
-      - file: Tutorial8_AdvExamples
+      #- file: Tutorial4_Dynamics
+      #- file: Tutorial6_PathPlanning
+      #- file: Tutorial7_SpikingData
+      #- file: Tutorial8_AdvExamples
   - caption: Lab Assignments
     chapters:
       - file: Lab1_DNN_LastName
