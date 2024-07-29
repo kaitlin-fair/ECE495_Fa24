@@ -4,7 +4,7 @@
 
 - For this course, you will need a Python environment that uses **python 3.10.11** with specific software packages listed in requirements.txt in this repository. [Download Python 3.10.11](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe) - This link will download the *.exe file for Python 3.10.11. Double click the downloaded file to start the installer. *Be sure to check the box that says add to PATH!*
 
-- Install VS Code if you don't already have it: https://code.visualstudio.com/download
+- [Install VS Code](https://code.visualstudio.com/download) if you don't already have it.
 
 ### Create your Virtual Environment
 
@@ -16,7 +16,7 @@
   
 ### Test your environment
 
-- [Download and save this file](_static/requirements.txt) to your `495_workspace` folder. 
+- [Download and save this file](_static/nengo_495setup.ipynb) to your `495_workspace` folder. 
 - Open the file in VS Code and click `Run All`. 
 - It may ask you to install a Jupyter extension - if it does, do it! 
 - If it runs properly, edit the title of the plot (line 57) to also display your last name. For me, the title shows "Decoded Neuron Output - Fair". Run your edited code. Your code should return 1 plot that displays the decoded neuron output with your last name in the title. Run again and save your file so that the updated plot shows in your notebook. Don't worry about understanding the code yet! We will get there later.
