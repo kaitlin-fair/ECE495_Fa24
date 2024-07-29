@@ -1,0 +1,1338 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ECE495 Intro to programming neurons with Nengo: Transformation &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tutorial3b_NeuronBasics';</script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ECE495 Intro to programming neurons with Nengo: Dynamics" href="Tutorial4_Dynamics.html" />
+    <link rel="prev" title="ECE495 Intro to programming neurons with Nengo: Representation" href="Tutorial3a_NeuronBasics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Neuromorphic Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">ECE495 Intro to programming neurons with Nengo: Representation</a></li>
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Intro to programming neurons with Nengo: Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">ECE495 Intro to programming neurons with Nengo: Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Krichmar Path Planning using Nengo - Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo - Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial8_AdvExamples.html">ECE495 Programming neurons with Nengo: Advanced Examples</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/kaitlin-fair/ECE495_Fa24/blob/main/book/Tutorial3b_NeuronBasics.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2FTutorial3b_NeuronBasics.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tutorial3b_NeuronBasics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ECE495 Intro to programming neurons with Nengo: Transformation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#addition-using-neurons">Addition using neurons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-talk-decoders-again">Let’s talk decoders (again)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-channel">Communication Channel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-your-model">Build your model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-probes-to-your-model">Add probes to your model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-model">Run your model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-your-data">View your data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-decoders">View Decoders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-computations-using-neurons-and-their-decoders">Simple computations using neurons and their decoders</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-it">Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-results">View results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-check-our-intuition-on-decoders-once-more">Let’s check our intuition on decoders once more</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-2-dimensional-neurons">Computations with 2-dimensional neurons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Build your model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-all-the-things-and-run-it">Probe all the things and run it!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-results">Plot results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-2-dimensional-neurons-again">Computations with 2-dimensional neurons, again</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Build your model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Probe all the things and run it!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plot Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your Turn</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ece495-intro-to-programming-neurons-with-nengo-transformation">
+<h1>ECE495 Intro to programming neurons with Nengo: Transformation<a class="headerlink" href="#ece495-intro-to-programming-neurons-with-nengo-transformation" title="Link to this heading">#</a></h1>
+<p>In this demonstration we will:</p>
+<ol class="arabic simple">
+<li><p>Add using a single neuron</p></li>
+<li><p>Discuss decoders in more depth</p></li>
+<li><p>Perform simple mathematical computations using neurons (such as squaring values)</p></li>
+<li><p>Perform mathematical computations that require 2-D neurons (such as multiplication)</p></li>
+</ol>
+<section id="set-up">
+<h2>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<p><strong>Ensure you are using your <a class="reference external" href="https://github.com/kaitlin-fair/495venv_setup">495 Virtual Environment</a> before you begin!</strong></p>
+<p>Import Nengo and other supporting libraries into your program to get started:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="kn">import</span> <span class="nn">nengo</span>
+<span class="kn">from</span> <span class="nn">nengo.utils.matplotlib</span> <span class="kn">import</span> <span class="n">rasterplot</span>
+<span class="kn">from</span> <span class="nn">nengo.dists</span> <span class="kn">import</span> <span class="n">Uniform</span>
+<span class="kn">from</span> <span class="nn">nengo.processes</span> <span class="kn">import</span> <span class="n">WhiteSignal</span>
+<span class="kn">from</span> <span class="nn">nengo.processes</span> <span class="kn">import</span> <span class="n">Piecewise</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="addition-using-neurons">
+<h2>Addition using neurons<a class="headerlink" href="#addition-using-neurons" title="Link to this heading">#</a></h2>
+<p>Do you think you need multiple neurons to add, or can a single neuron do it alone?</p>
+<p>Inputs to a neuron ensemble are spike rates. Higher spike rates represent higher values, lower rates for lower values. If the neuron ensemble is recieving all of these spikes and passing along the info, the spike rate out is the combined rate.</p>
+<p>Think through this: all neurons are firing at 100Hz over 1 second and you’re wanting to add a value of .2 (20 spikes) to .3 (30 spikes). That means your adder neuron ensemble receives 50 spikes. What value would that decode to for a firing rate of 100Hz??</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the model object</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Addition&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Create 3 ensembles each containing 100 leaky integrate-and-fire neurons</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Create input nodes representing constant values</span>
+    <span class="n">input_a</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">output</span><span class="o">=-</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">input_b</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">output</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="c1"># Connect the input nodes to the appropriate ensembles</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">input_a</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">input_b</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+
+    <span class="c1"># Connect input ensembles A and B to output ensemble C</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">input_a_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">input_a</span><span class="p">)</span>
+    <span class="n">input_b_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">input_b</span><span class="p">)</span>
+    <span class="n">A_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">B_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">C_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">spikesA</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">neurons</span><span class="p">)</span>
+    <span class="n">spikesB</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">neurons</span><span class="p">)</span>
+    <span class="n">spikesC</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">neurons</span><span class="p">)</span>
+
+<span class="c1"># Create the simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 5 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Plot the input signals and decoded ensemble values</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">A_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded Ensemble A&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">B_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded Ensemble B&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">C_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded Ensemble C&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_a_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input A&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_b_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input B&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;0.75&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.0</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time [s]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
+Simulation finished in 0:00:01.                                                 
+</pre></div>
+</div>
+<img alt="_images/c9c18fe8faf204563015225e0901f12d91c7a9935fdc28ac663ab2cfaa75ffc6.png" src="_images/c9c18fe8faf204563015225e0901f12d91c7a9935fdc28ac663ab2cfaa75ffc6.png" />
+</div>
+</div>
+<p>If this is not intuitive to you, I encourage you to use a single neuron to encode .2 at 100Hz and a single neuron to encode .3 at 100Hz. View your output spikes. Add them together using a third (single) neuron at 100Hz and view the output spikes.</p>
+<section id="let-s-talk-decoders-again">
+<h3>Let’s talk decoders (again)<a class="headerlink" href="#let-s-talk-decoders-again" title="Link to this heading">#</a></h3>
+<p>Adding is easy! But what if you want to do something a little more complex - say, <span class="math notranslate nohighlight">\((x+y)^2\)</span>? This requires us to dive into decoders once more.</p>
+<p>Recall (from neuron representation): We multiply our “filtered spike trains” with decoding weights and sum them together to give an estimate of the input based on the spikes (i.e. our decoded signal). The decoding weights assign weights to each neuron output based on how important that is to approximating the signal (i.e. more important = higher amplitude/weight when added together).</p>
+<p>Nengo trains decoding weights - similar to weights of a neural network - that are used to reconstruct the input value via spiking neuron outputs. The decoding weights are determined by minimizing the squared difference between the decoded estimate and the actual input signal. Nengo does this for us and we can get our decoding values from our model. Because weights are trained values between neuron layers, we must get the weights from a connection.</p>
+<p>There is a really <a class="reference external" href="https://youtu.be/JCA2gOhN5oM?si=S0Pj-T4NoHHfEEuO&amp;amp;t=5576">helpful video</a> to understand how these decoder weights can be learned in real-time - great for edge computing. The whole video is great, but this link should start the video at 1hr32min and will explain how decoders are learned in real-time.</p>
+</section>
+</section>
+<section id="communication-channel">
+<h2>Communication Channel<a class="headerlink" href="#communication-channel" title="Link to this heading">#</a></h2>
+<p>To solidify our understanding of decoders, let’s connect two neuron ensembles together to represent an input signal:<br />
+[Input] —&gt; (A) —&gt; (B) —&gt; [Output]</p>
+<p>We will then assess the decoders and decide if it makes sense.</p>
+<section id="build-your-model">
+<h3>Build your model<a class="headerlink" href="#build-your-model" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a &#39;model&#39; object to which we can add ensembles, connections, etc.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Communications Channel&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Create an abstract input signal that oscillates as sin(t)</span>
+    <span class="n">sin</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>
+
+    <span class="c1"># Create an ouput node to view weights from 2nd ensemble</span>
+    <span class="n">out_node</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">size_in</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Create the neuronal ensembles</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Connect the input to the first neuronal ensemble</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">sin</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+
+    <span class="c1"># Connect the first neuronal ensemble to the second</span>
+    <span class="c1"># (this is the communication channel)</span>
+    <span class="n">decoder_connA</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+
+    <span class="c1"># Connect the second neuronal ensemble to the output node</span>
+    <span class="c1"># (this is where decoders for B are stored)</span>
+    <span class="n">decoder_connB</span> <span class="o">=</span><span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">out_node</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="add-probes-to-your-model">
+<h3>Add probes to your model<a class="headerlink" href="#add-probes-to-your-model" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">sin_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">sin</span><span class="p">)</span>
+    <span class="n">A_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># ensemble output</span>
+    <span class="n">B_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="run-your-model">
+<h3>Run your model<a class="headerlink" href="#run-your-model" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
+Simulation finished in 0:00:01.                                                 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="view-your-data">
+<h3>View your data<a class="headerlink" href="#view-your-data" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Input&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">sin_probe</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">A_probe</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">B_probe</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x18f58982560&gt;]
+</pre></div>
+</div>
+<img alt="_images/5732408f6a6621de29a031d304c59e8d6c6850dc9e1002ca9a4e21ac73a65139.png" src="_images/5732408f6a6621de29a031d304c59e8d6c6850dc9e1002ca9a4e21ac73a65139.png" />
+</div>
+</div>
+</section>
+<section id="view-decoders">
+<h3>View Decoders<a class="headerlink" href="#view-decoders" title="Link to this heading">#</a></h3>
+<p>Do you think decoder values for A and B will be the same or different?? Why??</p>
+<p>Let’s check your intuition:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># probe the weights from the connection between the neuron and output node (out_conn)</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="n">decodersA</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">decoder_connA</span><span class="p">]</span><span class="o">.</span><span class="n">weights</span>
+    <span class="n">decodersB</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">decoder_connB</span><span class="p">]</span><span class="o">.</span><span class="n">weights</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; [  A Decoders   |   B Decoders  ]&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">decodersA</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">decodersB</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
+ [  A Decoders   |   B Decoders  ]
+[[ 4.64126109e-05  1.32826088e-04]
+ [ 5.23381837e-05 -4.75002269e-05]
+ [ 4.99313481e-05  5.37908195e-05]
+ [-3.64730625e-05 -6.70219617e-05]
+ [-7.11860111e-05  8.21147291e-05]
+ [-7.49998934e-05 -4.74085492e-05]
+ [ 6.15482641e-05  5.20171473e-05]
+ [ 4.26688595e-05 -5.50187033e-05]
+ [ 5.32589237e-05 -4.74957120e-05]
+ [ 7.15766063e-05  5.69782597e-05]
+ [-5.27714705e-05  6.50100690e-05]
+ [ 5.37314662e-05  5.91606403e-05]
+ [-5.08394522e-05 -4.52157453e-05]
+ [-7.87096671e-05  5.05218423e-05]
+ [ 5.92808480e-05  5.55746586e-05]
+ [-5.93313028e-05  7.77861119e-05]
+ [-5.16157276e-05  4.70795883e-05]
+ [-4.93086278e-05  5.70029918e-05]
+ [-5.77830036e-05  5.32583616e-05]
+ [-7.58175002e-05  6.61269101e-05]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion">
+<h3>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h3>
+<p>Decoder values are computing using least squares, where the decoders minimize the squared difference between the decoded estimate and the actual input signal:</p>
+<div class="math notranslate nohighlight">
+\[&lt;&lt;x-\hat{x}&gt;^2&gt;_x\]</div>
+<p>where:</p>
+<div class="math notranslate nohighlight">
+\[\hat{x} = \sum{a_i d_i}\]</div>
+<p>with <span class="math notranslate nohighlight">\(x\)</span> being the original input signal, <span class="math notranslate nohighlight">\(\hat{x}\)</span> being the decoded signal, <span class="math notranslate nohighlight">\(a_i\)</span>  being neuron activities (i.e. firing rates), and <span class="math notranslate nohighlight">\(d_i\)</span> being decoder values.</p>
+<p>Now, given that every neuron in a neuron ensemble has randomly set parameters (unless you hand-choose them), we <em>should not expect the decoders at ensemble A to be equivalent to those at ensemble B</em>. Suppose our ensemble A parameters are exactly equivalent to ensemble B, then what? Let’s see:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Makes the tuning curves perfectly spaced out</span>
+<span class="k">def</span> <span class="nf">aligned</span><span class="p">(</span><span class="n">n_neurons</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.9</span><span class="p">):</span>
+    <span class="n">intercepts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">radius</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">n_neurons</span><span class="p">)</span> <span class="c1"># even spaced from -.9 to .9</span>
+    <span class="n">encoders</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="p">(</span><span class="n">n_neurons</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="c1"># half care about negative, half positive</span>
+    <span class="n">intercepts</span> <span class="o">*=</span> <span class="n">encoders</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">intercepts</span><span class="p">,</span> <span class="n">encoders</span>
+
+<span class="n">intercepts</span><span class="p">,</span> <span class="n">encoders</span> <span class="o">=</span> <span class="n">aligned</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>  <span class="c1"># Makes evenly spaced intercepts</span>
+
+<span class="c1"># Create a &#39;model&#39; object to which we can add ensembles, connections, etc.</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Communications Channel 2&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Create an abstract input signal that oscillates as sin(t)</span>
+    <span class="n">sin</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">t</span><span class="p">))</span>
+
+    <span class="c1"># Create an ouput node to view weights from 2nd ensemble</span>
+    <span class="n">out_node</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">size_in</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Create the neuronal ensembles</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">intercepts</span><span class="o">=</span><span class="n">intercepts</span><span class="p">,</span>
+        <span class="n">max_rates</span><span class="o">=</span><span class="n">Uniform</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="c1">#evenly distributed between 80 and 100Hz</span>
+        <span class="n">encoders</span><span class="o">=</span><span class="n">encoders</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">intercepts</span><span class="o">=</span><span class="n">intercepts</span><span class="p">,</span>
+        <span class="n">max_rates</span><span class="o">=</span><span class="n">Uniform</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="c1">#evenly distributed between 80 and 100Hz</span>
+        <span class="n">encoders</span><span class="o">=</span><span class="n">encoders</span><span class="p">)</span>
+
+    <span class="c1"># Connect the input to the first neuronal ensemble</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">sin</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+
+    <span class="c1"># Connect the first neuronal ensemble to the second</span>
+    <span class="c1"># (this is the communication channel)</span>
+    <span class="n">decoder_connA</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+
+    <span class="c1"># Connect the second neuronal ensemble to the output node</span>
+    <span class="c1"># (this is where decoders for B are stored)</span>
+    <span class="n">decoder_connB</span> <span class="o">=</span><span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">out_node</span><span class="p">)</span>
+
+    <span class="c1"># probe the weights from the connection between the neuron and output node (out_conn)</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="n">decodersA</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">decoder_connA</span><span class="p">]</span><span class="o">.</span><span class="n">weights</span>
+    <span class="n">decodersB</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">decoder_connB</span><span class="p">]</span><span class="o">.</span><span class="n">weights</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; [  A Decoders   |   B Decoders  ]&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">decodersA</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">decodersB</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
+ [  A Decoders   |   B Decoders  ]
+[[ 1.95933510e-04  1.95856255e-04]
+ [-9.72016871e-05 -9.76026217e-05]
+ [ 1.97704685e-04  1.97646404e-04]
+ [-9.44058766e-05 -9.47443559e-05]
+ [ 2.02017310e-04  2.01866918e-04]
+ [-9.60053444e-05 -9.60326660e-05]
+ [ 2.07169629e-04  2.07084203e-04]
+ [-1.01017965e-04 -1.01075403e-04]
+ [ 2.12316543e-04  2.12298655e-04]
+ [-1.07542985e-04 -1.07916871e-04]
+ [ 2.17326832e-04  2.17160102e-04]
+ [-1.15546481e-04 -1.15372724e-04]
+ [ 2.21856681e-04  2.21759196e-04]
+ [-1.23847611e-04 -1.23719764e-04]
+ [ 2.25851735e-04  2.25851191e-04]
+ [-1.31886556e-04 -1.32013932e-04]
+ [ 2.29581934e-04  2.29544522e-04]
+ [-1.40285031e-04 -1.40170176e-04]
+ [ 2.32801581e-04  2.32845197e-04]
+ [-1.48340998e-04 -1.48397648e-04]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>The weights are <em>the same</em>! However, notice that the decoded signals are a little noiser. This may be becuase we do not adequately span the space of our signal. With more variety of neuron parameters, we can better capture the complexity of the signal.</p>
+</section>
+</section>
+<section id="simple-computations-using-neurons-and-their-decoders">
+<h2>Simple computations using neurons and their decoders<a class="headerlink" href="#simple-computations-using-neurons-and-their-decoders" title="Link to this heading">#</a></h2>
+<p>So, why did we hit decoders <em>again</em>??</p>
+<p>Encoding and decoding allow us to encode signals over time, and decode transformations of those signals. So far, we’ve only decoded the signal itself (i.e. a boring but necessary to understand transformation).</p>
+<p>Now, we will decode arbitrary transformations of the input signal. These arbitrary transformations are functions performed on our neuron activities (i.e. outputs of the neuron ensembles that encode the input signal). These functions are computed by <em>learning decoder weights that perform the computation</em>. This means that if we want to square an input signal, the decoder weights will be learned such that when the filtered neuron spikes are weighted and added up, they’ll result in the squared value.</p>
+<p>If equations are helpful to you, we now have an output that is <span class="math notranslate nohighlight">\(f(x)=x^2\)</span>. Nengo learns the encoders in the same way as before, except it’s now minimizing the difference between the decoded estimate of <span class="math notranslate nohighlight">\(\hat{f}(x)=\hat{x}^2\)</span> and the actual computed value <span class="math notranslate nohighlight">\(f(x)=x^2\)</span>, where <span class="math notranslate nohighlight">\(\hat{x}\)</span> is the encoded input signal and <span class="math notranslate nohighlight">\(x\)</span> is the actual input signal:</p>
+<div class="math notranslate nohighlight">
+\[&lt;&lt;f(x)-\hat{f}(x)&gt;^2&gt;_{x}\]</div>
+<p>where:</p>
+<div class="math notranslate nohighlight">
+\[\hat{f}(x) = \sum{a_i d_i}\]</div>
+<p>Note: these decoders are learned such that it can handle time-varying input so long as the values used fall within the neuron’s radius! This means that regardless of input values, these decoder weights should be used able to effectively decode the function outputs. If it’s innacurate, you might just need more neurons.</p>
+<p>Enough about that, let’s decode the square of a white noise input:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the model object</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Squaring&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">WhiteSignal</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="n">size_out</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_rates</span><span class="o">=</span><span class="n">Uniform</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+
+    <span class="c1"># connect the input to the neuron ensemble</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+
+    <span class="c1"># probe input node and neuron ensemble</span>
+    <span class="n">input_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+    <span class="n">A_spikes</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">neurons</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The key here is that we now define a function to be used at a connection. This is how we will square our white noise input.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+
+<span class="c1"># Define functions</span>
+
+    <span class="k">def</span> <span class="nf">square</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, our connection between our neuron ensemble (encoding the input) and our output node (the final answer) contains the decoders that compute <span class="math notranslate nohighlight">\(x^2\)</span>. This is completed by adding an argument called <code class="docutils literal notranslate"><span class="pre">function</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># add an output node</span>
+    <span class="n">Asquare</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">size_in</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># connect the neuron ensemble to the output node with a function</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Asquare</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">square</span><span class="p">)</span>
+
+    <span class="c1"># probe the output to assess results</span>
+    <span class="n">Asquare_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">Asquare</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="run-it">
+<h3>Run it<a class="headerlink" href="#run-it" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
+Simulation finished in 0:00:01.                                                 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="view-results">
+<h3>View results<a class="headerlink" href="#view-results" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input signal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">Asquare_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded estimate&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input signal squared&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;medium&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">rasterplot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">A_spikes</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Neuron&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Neuron&#39;)
+</pre></div>
+</div>
+<img alt="_images/3c9f161fdaf286f68ba9dda76b96b90d7c650b503062c49ced3c553816680a9e.png" src="_images/3c9f161fdaf286f68ba9dda76b96b90d7c650b503062c49ced3c553816680a9e.png" />
+</div>
+</div>
+</section>
+<section id="let-s-check-our-intuition-on-decoders-once-more">
+<h3>Let’s check our intuition on decoders once more<a class="headerlink" href="#let-s-check-our-intuition-on-decoders-once-more" title="Link to this heading">#</a></h3>
+<p>I know… hang with me though…</p>
+<p>We will add an additional output probe that connects the same ensemble to an output that is just passing data. This means there will be no function associated with the connection, but there will still be trained/learned decoders.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># add an output node</span>
+    <span class="n">Aoutput</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">size_in</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># connect the neuron ensemble to the output node WITHOUT a function</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">Aoutput</span><span class="p">)</span>
+
+    <span class="c1"># probe the output to assess results</span>
+    <span class="n">Aout_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">Aoutput</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input signal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">Asquare_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded estimate&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input signal squared&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;medium&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">rasterplot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">A_spikes</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Neuron&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input signal&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">Aout_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded estimate&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;medium&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">rasterplot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">A_spikes</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Neuron&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
+Simulation finished in 0:00:01.                                                 
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Neuron&#39;)
+</pre></div>
+</div>
+<img alt="_images/e76a762315f993cd0a7e83fe3a3d2855367ecbdd144628911c29a58ea5939215.png" src="_images/e76a762315f993cd0a7e83fe3a3d2855367ecbdd144628911c29a58ea5939215.png" />
+<img alt="_images/9aed10d227525d25d8750fda1c70f2094730d8a8c8273dd4d1d4b746295c885e.png" src="_images/9aed10d227525d25d8750fda1c70f2094730d8a8c8273dd4d1d4b746295c885e.png" />
+</div>
+</div>
+<p>Notice that the spike trains are exactly the same!! The only difference is how we’re interpreting those spikes. We told Nengo to compute two sets of decoders, one that estimates the function <span class="math notranslate nohighlight">\(x^2\)</span> and one that estimates the input signal.</p>
+<p>In general, the transformation principle determines how we can decode spike trains to compute linear and nonlinear transformations of signals encoded in a population of neurons. We can then project those transformed signals into another population, and repeat the process. This means we can use the same neuron ensemble output and do many different things to it in parallel by connecting it to different nodes / ensembles with different weights. This will come in quite handy when we start mapping algorithms to neurons.</p>
+<p><strong>Your turn! Try changing your function and see how well it works.</strong></p>
+</section>
+</section>
+<section id="computations-with-2-dimensional-neurons">
+<h2>Computations with 2-dimensional neurons<a class="headerlink" href="#computations-with-2-dimensional-neurons" title="Link to this heading">#</a></h2>
+<p>You may have noticed that you can only generate functions using the above model if it involves a single input. Recall addition - we had 2 inputs but we didn’t need any distinction between the two. What if instead you wanted to compute <span class="math notranslate nohighlight">\(x^2+y\)</span>? We can do <span class="math notranslate nohighlight">\(x^2\)</span> using the above model, but how do we ensure we square only the input <span class="math notranslate nohighlight">\(x\)</span> and not <span class="math notranslate nohighlight">\(y\)</span>??</p>
+<p>2D neurons can keep the two values separate as they enter the ensemble. One dimension is used for the first input <span class="math notranslate nohighlight">\(x\)</span>, the other for the second input <span class="math notranslate nohighlight">\(y\)</span>. Then, you can learn decoders for a function <span class="math notranslate nohighlight">\(f(x,y)=x^2+y\)</span> between the 2D ensemble and whatever is next.</p>
+<p>We will do multiplication of a piecewise function to show how this works.</p>
+<section id="id1">
+<h3>Build your model<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the model object</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Multiplication&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+
+    <span class="c1"># Create a piecewise step function for input</span>
+    <span class="n">inputA</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">}))</span>
+    <span class="n">inputB</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">:</span> <span class="mf">.2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">:</span> <span class="mf">.2</span><span class="p">}))</span>
+
+    <span class="n">correct_ans</span> <span class="o">=</span> <span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">:</span> <span class="mf">.2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">:</span> <span class="o">-</span><span class="mf">.2</span><span class="p">})</span>
+
+    <span class="c1"># Create 4 ensembles of leaky integrate-and-fire neurons</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">combined</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  
+    <span class="n">prod</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Connect the input nodes to the appropriate ensembles</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">inputA</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">inputB</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+
+    <span class="c1"># Connect input ensembles A and B to the 2D combined ensemble</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">combined</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">combined</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Define a function that computes the multiplication of two inputs</span>
+    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Connect the combined ensemble to the output ensemble D</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">combined</span><span class="p">,</span> <span class="n">prod</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">product</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="probe-all-the-things-and-run-it">
+<h3>Probe all the things and run it!<a class="headerlink" href="#probe-all-the-things-and-run-it" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">inputA_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">inputA</span><span class="p">)</span>
+    <span class="n">inputB_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">inputB</span><span class="p">)</span>
+    <span class="n">A_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">B_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">combined_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">combined</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">prod_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="c1"># Create the simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 5 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
+Simulation finished in 0:00:01.                                                 
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-results">
+<h3>Plot results<a class="headerlink" href="#plot-results" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the input signals and decoded ensemble values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">A_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded A&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">B_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded B&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">prod_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded product&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">correct_ans</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">sim</span><span class="o">.</span><span class="n">dt</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Actual product&quot;</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-1.1, 1.1)
+</pre></div>
+</div>
+<img alt="_images/07fe257f4453607a185a367b635ab13c39dfb9ade94e2461d0c15ba68c457c35.png" src="_images/07fe257f4453607a185a367b635ab13c39dfb9ade94e2461d0c15ba68c457c35.png" />
+</div>
+</div>
+<p>What if we wanted to use values greater than 1?? Let’s take a look at our Nengo GUI!</p>
+<p>In your terminal, type <code class="docutils literal notranslate"><span class="pre">nengo</span></code>. This will launch a web browser with (hopefully) a ready to go default simulation file. We are going to take a look at what happens when we start working with values greater than 1 and how to deal with 2-D neurons as their values also increase.</p>
+</section>
+<section id="computations-with-2-dimensional-neurons-again">
+<h3>Computations with 2-dimensional neurons, again<a class="headerlink" href="#computations-with-2-dimensional-neurons-again" title="Link to this heading">#</a></h3>
+<p>Here, we repeat our multiplication, but with values greater than 1.</p>
+<p>Note the radii defined for each neuron ensemble. For the 1D neurons, you set the radius to your known max value, <span class="math notranslate nohighlight">\(10\)</span>. For the 2D neuron, you need to think of your possible values as a “unit square”, resulting in the max value of the 2D neuron (<span class="math notranslate nohighlight">\(\sqrt{10}+\sqrt{10}\)</span>).</p>
+</section>
+<section id="id2">
+<h3>Build your model<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the model object</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Multiplication 2&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+
+    <span class="c1"># Create a piecewise step function for input</span>
+    <span class="n">inputA</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="o">-</span><span class="mi">10</span><span class="p">}))</span>
+    <span class="n">inputB</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">:</span> <span class="mi">2</span><span class="p">}))</span>
+
+    <span class="n">correct_ans</span> <span class="o">=</span> <span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">:</span> <span class="o">-</span><span class="mi">20</span><span class="p">})</span>
+
+    <span class="c1"># Create 4 ensembles of leaky integrate-and-fire neurons</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">combined</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span>
+        <span class="mi">220</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">15</span>
+    <span class="p">)</span>  <span class="c1"># This radius is ~sqrt(10^2+10^2)</span>
+    <span class="n">prod</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+
+    <span class="c1"># Connect the input nodes to the appropriate ensembles</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">inputA</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">inputB</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+
+    <span class="c1"># Connect input ensembles A and B to the 2D combined ensemble</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">combined</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">combined</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Define a function that computes the multiplication of two inputs</span>
+    <span class="k">def</span> <span class="nf">product</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Connect the combined ensemble to the output ensemble D</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">combined</span><span class="p">,</span> <span class="n">prod</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">product</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h3>Probe all the things and run it!<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">inputA_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">inputA</span><span class="p">)</span>
+    <span class="n">inputB_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">inputB</span><span class="p">)</span>
+    <span class="n">A_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">B_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">combined_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">combined</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">prod_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">prod</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="c1"># Create the simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 5 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Plot Results<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the input signals and decoded ensemble values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">A_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded A&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">B_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded B&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">prod_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded product&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">correct_ans</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="n">sim</span><span class="o">.</span><span class="n">dt</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Actual product&quot;</span>
+<span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="your-turn">
+<h3>Your Turn<a class="headerlink" href="#your-turn" title="Link to this heading">#</a></h3>
+<p>Using everything we’ve learned, implement the function <span class="math notranslate nohighlight">\(f(x,y)=x^2+y\)</span> using neurons. If you choose to use values greater than 1, choose your neuron radii accordingly.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Tutorial3a_NeuronBasics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ECE495 Intro to programming neurons with Nengo: Representation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Tutorial4_Dynamics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ECE495 Intro to programming neurons with Nengo: Dynamics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#addition-using-neurons">Addition using neurons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-talk-decoders-again">Let’s talk decoders (again)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#communication-channel">Communication Channel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#build-your-model">Build your model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-probes-to-your-model">Add probes to your model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-model">Run your model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-your-data">View your data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-decoders">View Decoders</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-computations-using-neurons-and-their-decoders">Simple computations using neurons and their decoders</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-it">Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#view-results">View results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-check-our-intuition-on-decoders-once-more">Let’s check our intuition on decoders once more</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-2-dimensional-neurons">Computations with 2-dimensional neurons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Build your model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-all-the-things-and-run-it">Probe all the things and run it!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-results">Plot results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computations-with-2-dimensional-neurons-again">Computations with 2-dimensional neurons, again</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Build your model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Probe all the things and run it!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plot Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#your-turn">Your Turn</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kaitlin Fair
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

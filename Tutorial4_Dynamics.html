@@ -1,0 +1,1535 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ECE495 Intro to programming neurons with Nengo: Dynamics &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tutorial4_Dynamics';</script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Krichmar Path Planning using Nengo - Tutorial" href="Tutorial6_PathPlanning.html" />
+    <link rel="prev" title="ECE495 Intro to programming neurons with Nengo: Transformation" href="Tutorial3b_NeuronBasics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Neuromorphic Engineering</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">ECE495 Intro to programming neurons with Nengo: Representation</a></li>
+
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">ECE495 Intro to programming neurons with Nengo: Transformation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Intro to programming neurons with Nengo: Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Krichmar Path Planning using Nengo - Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo - Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial8_AdvExamples.html">ECE495 Programming neurons with Nengo: Advanced Examples</a></li>
+
+
+
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/kaitlin-fair/ECE495_Fa24/blob/main/book/Tutorial4_Dynamics.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2FTutorial4_Dynamics.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Tutorial4_Dynamics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ECE495 Intro to programming neurons with Nengo: Dynamics</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrence-in-nengo">Recurrence in Nengo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#okay-but-why">Okay, but WHY?!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-feedback">Why feedback?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-actually-do-that-now">Let’s actually do that now!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrator">Integrator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-and-run-it">Probe it and Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-it">Plot it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-memory">Working Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Probe it and Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Plot it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-oscillator">Simple Oscillator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><em>Get rid of last example (oscillator) - instead maybe discuss transforms vs functions once more. Add in an example of recurrence without any f’ and g’ and what the outputs would be. this drives home the why.</em></p>
+<section id="ece495-intro-to-programming-neurons-with-nengo-dynamics">
+<h1>ECE495 Intro to programming neurons with Nengo: Dynamics<a class="headerlink" href="#ece495-intro-to-programming-neurons-with-nengo-dynamics" title="Link to this heading">#</a></h1>
+<p>In this demonstration we will:</p>
+<ol class="arabic simple">
+<li><p>Understand and implement recurrence in a Nengo network</p></li>
+<li><p>Create an integrator with neurons</p></li>
+<li><p>Create an oscillator with neurons</p></li>
+</ol>
+<section id="set-up">
+<h2>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<p><strong>Ensure you are using your <a class="reference external" href="https://github.com/kaitlin-fair/495venv_setup">495 Virtual Environment</a> before you begin!</strong></p>
+<p>Import Nengo and other supporting libraries into your program to get started:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">nengo</span>
+<span class="kn">from</span> <span class="nn">nengo.processes</span> <span class="kn">import</span> <span class="n">Piecewise</span>
+<span class="kn">from</span> <span class="nn">nengo.processes</span> <span class="kn">import</span> <span class="n">WhiteSignal</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">nengo</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="recurrence-in-nengo">
+<h2>Recurrence in Nengo<a class="headerlink" href="#recurrence-in-nengo" title="Link to this heading">#</a></h2>
+<p>Recurrence in neural networks can be used to implement stable dynamics. Such dynamics are important for memory, noise cleanup, statistical inference, and many other dynamic transformations. Recurrent neurons can also be used if you will be performing the same computation over and over again within an algorithm (i.e. just build the neuron once and send in different inputs). Another use of recurrent neurons is online learning (edge computing), depending on the algorithm.</p>
+<p>We have discussed how to compute the neuron representation of a signal in depth (i.e. decode the spikes). As it turns out, this is something we did in ECE 346. Any guesses?</p>
+<p>Imagine this is a block diagram:<br />
+<span class="math notranslate nohighlight">\(u(t)\)</span> –&gt; [<span class="math notranslate nohighlight">\(h(t)\)</span>] –&gt; <span class="math notranslate nohighlight">\(x(t)\)</span></p>
+<p>Where <span class="math notranslate nohighlight">\(u(t)\)</span> is our input, <span class="math notranslate nohighlight">\(h(t)\)</span> is our transfer function, and <span class="math notranslate nohighlight">\(x(t)\)</span> is the transformed input (or state of the system). Here, math tells us that <span class="math notranslate nohighlight">\(x(t)=u(t)*h(t)\)</span> where <span class="math notranslate nohighlight">\(u(t)\)</span> is our output spikes, <span class="math notranslate nohighlight">\(h(t)\)</span> is our neuron action potential, and <span class="math notranslate nohighlight">\(x(t)\)</span> is our decoded signal. <em>This is how we (and Nengo) have decoded our spikes!</em></p>
+<p>In the case where we are considering <span class="math notranslate nohighlight">\(u(t)\)</span> to be spikes, convolution is not terribly difficult - we’ve been doing it for two weeks! However, if we begin to think of our outputs as an input signal (at the algorithm level), convolution gets complicated. Therefore, we want to use…. <em>Laplace Transforms</em>.</p>
+<div class="math notranslate nohighlight">
+\[\mathscr{L}\{x(t)\} = X(s)= U(s)H(s)\]</div>
+<p>This is now just multiplication!</p>
+<p>Fun fact: if the membrane action potential is approximated as <span class="math notranslate nohighlight">\(h(t)=e^{-t/\tau}\)</span> - which is how Nengo approximates it - the Laplace is:</p>
+<div class="math notranslate nohighlight">
+\[\mathscr{L}\{h(t)\}=\frac{1}{1+s\tau}\]</div>
+<p>If we plut <span class="math notranslate nohighlight">\(H(s)\)</span> into <span class="math notranslate nohighlight">\(X(s)=U(s)H(s)\)</span> and rearrange a bit, we get the following:</p>
+<div class="math notranslate nohighlight">
+\[sX(s) = \frac{1}{\tau}(U(s)-X(s))\]</div>
+<p>The Inverse Laplace of <span class="math notranslate nohighlight">\(sX(s)\)</span> is <span class="math notranslate nohighlight">\(\dot{x}\)</span>, which we can use to describe the dynamics of our system (i.e. how much we’ve changed over time)!</p>
+<div class="math notranslate nohighlight">
+\[\dot{x(t)}=-\frac{1}{\tau}(x(t))-u(t))\]</div>
+<p>This is a lot of math, but this is simply what we did in our Jupyter Notebook on Neuron Representation. <span class="math notranslate nohighlight">\(\tau\)</span> is the rate at which we change and <span class="math notranslate nohighlight">\(x(t)-u(t)\)</span> is the total change in our system over time (output-input). You can go back to our very first example and see how <span class="math notranslate nohighlight">\(\tau\)</span> impacts the rate at which we change over time as we move toward the value we intend to represent.</p>
+<section id="okay-but-why">
+<h3>Okay, but WHY?!<a class="headerlink" href="#okay-but-why" title="Link to this heading">#</a></h3>
+<p>Well, this lays the foundation for implementing recurrence using neurons. AND it again shows you how useful ECE346 actually was, even if it was brutal along the way.</p>
+<p>Now, we are going to feedback our output state x(t) to our input - you hopefully can recall implementing feedback in block diagrams from ECE346. We will use some Laplace math to determine the functions that will be implemented in our feedback connections in Nengo.</p>
+</section>
+<section id="why-feedback">
+<h3>Why feedback?<a class="headerlink" href="#why-feedback" title="Link to this heading">#</a></h3>
+<p>I mentioned that recurrent neurons can be used to implement stable dynamics. Recall our synapse values - when they’re larger, the neurons more accurately represent our signal but it takes a while to get there. Smaller is noiser but faster. However, biological systems only offer synpatic time constants of about 2-200ms. If we decide to stay true to biological systems when we model our algorithms (totally your call), recurrence can enable larger <span class="math notranslate nohighlight">\(\tau\)</span> for the network itself. This means that if our neuron synapses are .005s in our neuron ensemble, we can feed the output of our neuron back to itself with a particular set of dynamics such that the network itself responds at a synaptic time constant of .5 instead! Let’s see how this works. In order to do so, we must math…</p>
+<p>Now, our block diagram has a feedback from <span class="math notranslate nohighlight">\(x(t)\)</span> back to the input line, with a function of <span class="math notranslate nohighlight">\(f(x(t))\)</span> attached to the feedback line. If we ignore any external input <span class="math notranslate nohighlight">\(u(t)\)</span> and assess the dynamics alone, we get the same thing as last time, except now we have <span class="math notranslate nohighlight">\(f(x(t))\)</span> instead of <span class="math notranslate nohighlight">\(u(t)\)</span> (because <span class="math notranslate nohighlight">\(f(x(t))\)</span> is now the input if there’s not external input <span class="math notranslate nohighlight">\(u(t)\)</span>).</p>
+<div class="math notranslate nohighlight">
+\[\dot{x}(t)=-\frac{1}{\tau}(x(t))-f(x(t)))\]</div>
+<p>But we know we will have an external input! We will call our external input <span class="math notranslate nohighlight">\(g(u(t))\)</span>. So now, we simply add <span class="math notranslate nohighlight">\(g(u(t))+f(x(t))\)</span> and call that our input, which updates our <span class="math notranslate nohighlight">\(\dot{x}(t)\)</span> to:</p>
+<div class="math notranslate nohighlight">
+\[\dot{x}(t)=-\frac{1}{\tau}(x(t))-g(u(t))-f(x(t)))=\frac{1}{\tau}(f(x(t)+g(u(t)))-x(t))\]</div>
+<p>Here’s the deal about controls - it’s heavily studied and instead of tring to see what we get, we can instead say what we want to get and go from there. For simplicity of notation, we will drop all <span class="math notranslate nohighlight">\(t\)</span> s.</p>
+<p>We choose</p>
+<div class="math notranslate nohighlight">
+\[\dot{x}=f(x)+g(u)\]</div>
+<p>meaning our state is simply the feedback of <span class="math notranslate nohighlight">\(f(x)\)</span> added to our input <span class="math notranslate nohighlight">\(g(u)\)</span>. In this case, we want our output to be the representation of our input, just getting there more gradually than the neurons themselves would get us there (i.e. slower but accurate). Therefore, we create a new function that will get us to <span class="math notranslate nohighlight">\(\dot{x}(t)=f(x)+g(u)= \frac{1}{\tau}(f(x(t)+g(u(t)))-x(t))\)</span>, and that is:</p>
+<div class="math notranslate nohighlight">
+\[\dot{f}+\dot{g}=\tau (f(x) + g(u) +x)\]</div>
+<p>And we replace <span class="math notranslate nohighlight">\(f(x)+g(u)\)</span> with <span class="math notranslate nohighlight">\(\dot{f}(x)+\dot{g}(u)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\dot{x}(t)=\frac{1}{\tau}([\tau (f(x) + g(u) +x)]-x))=f(x)+g(u)\]</div>
+<p>Recall, we want <span class="math notranslate nohighlight">\(\dot{x}=f(x)+g(u)\)</span> and we got there! Now we just need a <span class="math notranslate nohighlight">\(\dot{f}\)</span> and a <span class="math notranslate nohighlight">\(\dot{g}\)</span> to make that happen. These two functions achieve the dynamics we are looking for:</p>
+<div class="math notranslate nohighlight">
+\[\dot{f}(x(t))=\tau f(x(t)) + x(t)\]</div>
+<div class="math notranslate nohighlight">
+\[\dot{g}(u)=\tau g(u)\]</div>
+<p>These two functions are what we will use at our connections in our Nengo model!</p>
+</section>
+<section id="let-s-actually-do-that-now">
+<h3>Let’s actually do that now!<a class="headerlink" href="#let-s-actually-do-that-now" title="Link to this heading">#</a></h3>
+<p>Suppose we want the following dynamics in our system (i.e. our entire network):</p>
+<div class="math notranslate nohighlight">
+\[\dot{x}=-\frac{1}{.05}(x(t)-u(t))\]</div>
+<p>This means that we want our network time constant to be <span class="math notranslate nohighlight">\(.05\)</span> regardless of our neuron synaptic time constants. Yes… we could just adjust each neurons time constants, but for one reason or another, maybe that’s not accessible to us.</p>
+<p>Instead, we need to implement the dynamics we just derived to make that happen, where <span class="math notranslate nohighlight">\(f(x)=-\frac{x}{.05}\)</span> and <span class="math notranslate nohighlight">\(g(u)=\frac{u}{.05}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\dot{f}=-\frac{\tau}{.05}x + x\]</div>
+<div class="math notranslate nohighlight">
+\[\dot{g}=\frac{\tau}{.05}u\]</div>
+<p>These will be the functions used in our Nengo network to achieve the desired dynamics, with <span class="math notranslate nohighlight">\(\dot{f}\)</span> being the feed forward function and <span class="math notranslate nohighlight">\(\dot{g}\)</span> being the feedback function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Recurrence&quot;</span><span class="p">)</span>
+
+<span class="n">synaptic_tau</span> <span class="o">=</span> <span class="mf">.005</span> <span class="c1"># actual neuron tau, much smaller, responds quickly but noisily</span>
+<span class="n">desired_tau</span> <span class="o">=</span> <span class="mf">.05</span> <span class="c1"># much larger, therefore more stable for network as a whole</span>
+
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">stim</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">}))</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">stim</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+
+    <span class="n">b</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">synaptic_tau</span><span class="o">/</span><span class="n">desired_tau</span><span class="p">)</span><span class="o">*</span><span class="n">u</span>
+    
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">function</span> <span class="o">=</span> <span class="n">forward</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">synaptic_tau</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">recurrent</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">synaptic_tau</span><span class="o">/</span><span class="n">desired_tau</span><span class="p">)</span><span class="o">*</span><span class="n">x</span>
+    
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">recurrent</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">synaptic_tau</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Probe it, run it, plot it</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">a_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">synaptic_tau</span><span class="p">)</span>
+    <span class="n">b_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">synaptic_tau</span><span class="p">)</span>
+
+<span class="c1"># Create our simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 6 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Plot the decoded output of the ensemble</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">a_probe</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Synpatic tau&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">b_probe</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Network (desired) tau&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("dd951e05-fecb-4572-814f-6d6998a85920");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="dd951e05-fecb-4572-814f-6d6998a85920" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('dd951e05-fecb-4572-814f-6d6998a85920');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+                  
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div><div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("981e5c54-0025-4f39-80f5-af0bf2d1957f");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="981e5c54-0025-4f39-80f5-af0bf2d1957f" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('981e5c54-0025-4f39-80f5-af0bf2d1957f');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Simulation finished in 0:00:01.';
+                  
+            if (100.0 > 0.) {
+                fill.style.transition = 'width 0.1s linear';
+            } else {
+                fill.style.transition = 'none';
+            }
+
+            fill.style.width = '100.0%';
+            fill.style.animation = 'none';
+            fill.style.backgroundImage = 'none'
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div><img alt="_images/cfda5ed364a66957003b34e528b4fb7ae1ddad73eccdcfd35444ac4a3c0a48cc.png" src="_images/cfda5ed364a66957003b34e528b4fb7ae1ddad73eccdcfd35444ac4a3c0a48cc.png" />
+</div>
+</div>
+</section>
+<section id="discussion">
+<h3>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h3>
+<p>In the plots, you can see that the neurons themselves have a shorter time constant than that of the network. We can choose any synaptic time constant for your neurons and you’ll get the same results for the network using this dynamical system. <strong>Try it!</strong></p>
+<p>That was a whole lot of math to do something pretty simple in Nengo. BUT I wanted you to understand how the functions were determined. Ultimately, whatever dynamics we want our system to have can be achieved using a feedback of some sort with the right associated functions.</p>
+<p>Let’s keep going with two more examples.</p>
+</section>
+</section>
+<section id="integrator">
+<h2>Integrator<a class="headerlink" href="#integrator" title="Link to this heading">#</a></h2>
+<p>This is a simple example of a recurrent network to create an integrator, which essentially builds memory with neurons. Integrators are biologically plausible. In fact, we have neurons that perform this function to convert velocity signals (horizontal and vertical movements) into eye position commands (where you want your eye to go based on velocity). The interesting thing about integrators is that the neuron output remains the same even if the input is 0 and only moves again if the input becomes non-zero (i.e. once your eye goes to the top-left, it doesn’t drift back to center until you decide it should). Now, think through this in terms of feedback to decide if this is intuitive to you. We will then be able to see this in our output plots.</p>
+<p>In terms of dynamics, we start with this linear dynamical system:</p>
+<div class="math notranslate nohighlight">
+\[\dot{x}=f(x)+g(u)=Ax+Bu \]</div>
+<p>where <span class="math notranslate nohighlight">\(x\)</span> is again our output state, <span class="math notranslate nohighlight">\(u\)</span> is our input, and <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> determine the direction/strenght of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(u\)</span> contributions. We only want our outputs to change as a result of our input and we want to remember our prior input when the current input is 0. Therefore, A=0 and B=I. This tells us that at every point in time, the change to our state is the input as expected per our above definition of an integrator.</p>
+<p>We must define functions for our feed forward and feedback aspects of our recurring network:</p>
+<div class="math notranslate nohighlight">
+\[\dot{f}(x)= \tau f(x) + x = \tau Ax + x = x\]</div>
+<div class="math notranslate nohighlight">
+\[\dot{g}(u)=\tau g(u)  =\tau Bu = \tau Iu =\tau u\]</div>
+<p>For this example, our input is a piecewise function so you can see that the output is integrating (i.e. summing over time) the input. Note that since the integrator constantly sums its input, it will saturate quickly if you leave the input non-zero. This makes it clear that neurons have a finite range of representation. Such saturation effects however can be exploited to perform useful computations (e.g. soft normalization).</p>
+<p>You’ll notice we call an argument <code class="docutils literal notranslate"><span class="pre">transform</span></code> instead of <code class="docutils literal notranslate"><span class="pre">function</span></code> in our connections. Because we simply multiply <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(u\)</span> by 1 and <span class="math notranslate nohighlight">\(\tau\)</span> respectively (a linear transformation), we can use the <code class="docutils literal notranslate"><span class="pre">transform</span></code> argument, which may be simpler than spending time defining a function. However, for cases in which your function is more complicated (such as implementing a reLU - i.e. a nonlinear transformation), the <code class="docutils literal notranslate"><span class="pre">function</span></code> argument will be the way to go. Read more about this <a class="reference external" href="https://www.nengo.ai/nengo/connections.html">here</a>. If this isn’t intuitive to you, feel free to instead define functions. You can always define a function and use <code class="docutils literal notranslate"><span class="pre">function</span></code> for your connections; however, note that there are cases (non-linear transformations / more complicated functions) in which <code class="docutils literal notranslate"><span class="pre">transform</span></code> will not work.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Integrator&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># create the recurrent neuron ensemble</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># create piecewise input</span>
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">0</span><span class="p">}))</span>
+
+    <span class="c1"># Using a long time constant for stability (less noise)</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="mf">0.1</span> 
+    
+    <span class="c1"># if you wanted to define functions, they might look like this</span>
+    <span class="c1">#def forward(u):</span>
+    <span class="c1">#    return tau*u</span>
+    <span class="c1">#def recurrent(x):</span>
+    <span class="c1">#    return x</span>
+
+    <span class="c1"># Connect the population to itself</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span>  
+    
+    <span class="c1"># Connect the input</span>
+    <span class="c1"># The same time constant as recurrent to make it more &#39;ideal&#39;</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="p">[[</span><span class="n">tau</span><span class="p">]],</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<section id="probe-it-and-run-it">
+<h3>Probe it and Run it<a class="headerlink" href="#probe-it-and-run-it" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Add probes</span>
+    <span class="n">input_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+    <span class="n">A_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="c1"># Create our simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 6 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("66f69edd-67a2-407d-ab1c-d72aeb050d52");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="66f69edd-67a2-407d-ab1c-d72aeb050d52" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('66f69edd-67a2-407d-ab1c-d72aeb050d52');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+                  
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div><div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("c3be76e8-285c-46b4-92ae-fe00ba1eb4d9");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="c3be76e8-285c-46b4-92ae-fe00ba1eb4d9" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('c3be76e8-285c-46b4-92ae-fe00ba1eb4d9');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Simulation finished in 0:00:01.';
+                  
+            if (100.0 > 0.) {
+                fill.style.transition = 'width 0.1s linear';
+            } else {
+                fill.style.transition = 'none';
+            }
+
+            fill.style.width = '100.0%';
+            fill.style.animation = 'none';
+            fill.style.backgroundImage = 'none'
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div></div>
+</div>
+</section>
+<section id="plot-it">
+<h3>Plot it<a class="headerlink" href="#plot-it" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the decoded output of the ensemble</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">A_probe</span><span class="p">],</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Integrator output&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x283a45d9c60&gt;
+</pre></div>
+</div>
+<img alt="_images/c2c4d541fbe2a3b3d386719958e9678bf388be4506589bc42b1eb8a8ac84ebfb.png" src="_images/c2c4d541fbe2a3b3d386719958e9678bf388be4506589bc42b1eb8a8ac84ebfb.png" />
+</div>
+</div>
+</section>
+<section id="id1">
+<h3>Discussion<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>The graph shows the response to the input by the integrator. Because it is implemented in neurons, it will not be perfect (i.e. there will be drift). Running several times will give a sense of the kinds of drift you might expect. Drift can be reduced by increasing the number of neurons, using a larger time constant (100-200ms work pretty well for feedback), or changing the inputs more rapidly.</p>
+<p>Intuition check: this integrator function is <em>not</em> trying to represent the input signal. Instead, you can think of the input signal as a velocity at which you are moving until the input changes or becomes zero. When the input becomes zero, you can see the “memory” at play. Think through this in terms of eye movement, where the input signal is the velocity at which your eye is moving.</p>
+</section>
+</section>
+<section id="working-memory">
+<h2>Working Memory<a class="headerlink" href="#working-memory" title="Link to this heading">#</a></h2>
+<p>An integrator is certainly biologically plausible and useful; however, what if we want to reset the value that’s being stored to zero (not wait for the position based on velocity to slowly get there AND THEN have to turn off velocity at just the right time step)?</p>
+<p>We can do that since we now understand feedback, how to design an integrator, and multiplication (from neuron_transformations). In this case, we have a system with these dynamics:</p>
+<div class="math notranslate nohighlight">
+\[ \dot{x} = \alpha Ax + Bu \]</div>
+<p>where <span class="math notranslate nohighlight">\(\dot{x}\)</span> is our memory, our input is <span class="math notranslate nohighlight">\(u\)</span>, and our control is <span class="math notranslate nohighlight">\(\alpha\)</span>. Our control determines when we store our input state and clear our controlled storage, which is where multiplication comes into play. If you make <span class="math notranslate nohighlight">\(\alpha\)</span> a negative value, it will clear the state gradually back to zero. More negative values for the controller clear it to zero more quickly. The idea here is that instead of feeding back <span class="math notranslate nohighlight">\(x\)</span> like in our integrator, we feedback something like <span class="math notranslate nohighlight">\(-x+x\)</span> to feedback less than x such that we decay back to zero. If <span class="math notranslate nohighlight">\(\alpha\)</span> is instead zero, we implement the integrator itself, where we feedback <span class="math notranslate nohighlight">\(0+x\)</span> just as before.</p>
+<p>Notice that the control <span class="math notranslate nohighlight">\(\alpha\)</span> has no impact on the input itself! So if <span class="math notranslate nohighlight">\(u\)</span> is zero and <span class="math notranslate nohighlight">\(\alpha\)</span> is 0, we hold steady at the value. If <span class="math notranslate nohighlight">\(u\)</span> is zero and <span class="math notranslate nohighlight">\(alpha\)</span> is negative, we decay to zero. If <span class="math notranslate nohighlight">\(u\)</span> is nonzero and <span class="math notranslate nohighlight">\(\alpha\)</span> is negative, once <span class="math notranslate nohighlight">\(u\)</span> becomes zero again, the output will decay to zero.</p>
+<p>The functions for our feed forward and feedback aspects of our recurring network look similar to those prior, except now we want for our feedback to negate the x if we are in storage mode. Therefore, <span class="math notranslate nohighlight">\(A=I\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span> is either 0 or negative:</p>
+<div class="math notranslate nohighlight">
+\[\dot{f}(x)= \tau f(x) + x = \tau \alpha Ax + x = \tau \alpha Ix + x = \tau \alpha x + x\]</div>
+<div class="math notranslate nohighlight">
+\[\dot{g}(u)=\tau g(u)  =\tau Bu = \tau Iu =\tau u\]</div>
+<p>Notice that our feedback function is now non-linear! Meaning we need a 2D neuron ensemble to take in both <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Memory&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    
+    <span class="c1"># create piecewise input u</span>
+    <span class="n">input_u</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">0</span><span class="p">}))</span>
+
+    <span class="c1"># create piecewise input for controller (consists of 0s and negative values)</span>
+    <span class="n">input_control</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="o">-</span><span class="mf">.25</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">0</span><span class="p">}))</span>    
+
+    <span class="c1"># create the recurrent neuron ensemble that recieves the above two inputs</span>
+    <span class="n">memory</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Using a long time constant for stability (less noise)</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="mf">0.1</span> 
+    
+    <span class="c1"># if you wanted to define a function for feedforward, it might look like this</span>
+    <span class="c1">#def forward(u):</span>
+    <span class="c1">#    return tau*u</span>
+
+    <span class="c1"># feedback function - this is nonlinear and harder for neurons to approximate!</span>
+    <span class="c1">#  increase neurons to help </span>
+    <span class="k">def</span> <span class="nf">recurrent</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+        <span class="n">alpha</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">state</span>
+        <span class="k">return</span> <span class="n">tau</span><span class="o">*</span><span class="n">alpha</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">x</span> 
+
+    <span class="c1"># Create the connection for the controller to the memory ensemble</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">input_control</span><span class="p">,</span><span class="n">memory</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+    <span class="c1"># Connect the input to the memory ensemble - feed forward (this remains the same!)</span>
+    <span class="c1"># The same time constant as recurrent to make it more &#39;ideal&#39;</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">input_u</span><span class="p">,</span> <span class="n">memory</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">transform</span><span class="o">=</span><span class="p">[[</span><span class="n">tau</span><span class="p">]],</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span> 
+
+    <span class="c1"># Connect the population to itself - feedback</span>
+    <span class="c1">#  we only want this to impact the u value going in! NOT the controller</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="n">memory</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">function</span><span class="o">=</span><span class="n">recurrent</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<section id="id2">
+<h3>Probe it and Run it<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Add probes</span>
+    <span class="n">input_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">input_u</span><span class="p">)</span>
+    <span class="n">control_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">input_control</span><span class="p">)</span>
+    <span class="n">mem_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">memory</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="c1"># Create our simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 6 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("5ec89b52-9427-47d8-87b0-93df3c6a8b81");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="5ec89b52-9427-47d8-87b0-93df3c6a8b81" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('5ec89b52-9427-47d8-87b0-93df3c6a8b81');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+                  
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div><div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("85b30cf4-4f49-4283-ac4c-61bc7187a504");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="85b30cf4-4f49-4283-ac4c-61bc7187a504" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('85b30cf4-4f49-4283-ac4c-61bc7187a504');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Simulation finished in 0:00:02.';
+                  
+            if (100.0 > 0.) {
+                fill.style.transition = 'width 0.1s linear';
+            } else {
+                fill.style.transition = 'none';
+            }
+
+            fill.style.width = '100.0%';
+            fill.style.animation = 'none';
+            fill.style.backgroundImage = 'none'
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div></div>
+</div>
+</section>
+<section id="id3">
+<h3>Plot it<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the decoded output of the ensemble</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">control_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Control&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">mem_probe</span><span class="p">][:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Memory output&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x283a4b9d9f0&gt;
+</pre></div>
+</div>
+<img alt="_images/b8e334c3c988ffcc868488a021f984da7fda7e56deb947ffd19dc611f662e0e6.png" src="_images/b8e334c3c988ffcc868488a021f984da7fda7e56deb947ffd19dc611f662e0e6.png" />
+</div>
+</div>
+</section>
+<section id="id4">
+<h3>Discussion<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>The more negative <span class="math notranslate nohighlight">\(\alpha\)</span> is, the faster it decays to zero (you can see this transition within 2-4 seconds). You can also see from 4-5 seconds that if you have non-zero values for both <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span>, you won’t have a linear change in position. Recall drift to account for times when both <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span> are zero (1-2 seconds and 5-6 seconds).</p>
+</section>
+</section>
+<section id="simple-oscillator">
+<h2>Simple Oscillator<a class="headerlink" href="#simple-oscillator" title="Link to this heading">#</a></h2>
+<p>Have you had to do some physics math regarding a spring on a block that’s sliding on a frictionless surface? Or a pendullum? These are good examples of simple harmonic oscillators, and we can implement these using recurrent neurons! Turns out this is also biologically plausible - think of repetitive or rhythmic movements (walking, chewing, etc) - and neurons have been measured to show this oscillatory behavior for comparable movements in fish.</p>
+<p>Let’s work through a spring on a block that slides on a frictionless surface. Here, we have</p>
+<div class="math notranslate nohighlight">
+\[F=-kx=ma=m\ddot{x}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\)</span> is position, <span class="math notranslate nohighlight">\(F\)</span> is the force applied to the block, <span class="math notranslate nohighlight">\(k\)</span> is our spring constant, <span class="math notranslate nohighlight">\(m\)</span> is our mass of the object, and <span class="math notranslate nohighlight">\(\ddot{x}\)</span> is acceleration of the mass as a result of force. This can be rearranged to a 2nd order ODE:</p>
+<div class="math notranslate nohighlight">
+\[ \ddot{x}+\frac{k}{m}x=0 \]</div>
+<p>This looks different than the other examples we’ve done where <span class="math notranslate nohighlight">\(\dot{x}=f(x)+g(u)=Ax+Bu\)</span>. First, we will assume an unforced oscillator, therefore <span class="math notranslate nohighlight">\(Bu\)</span> goes to 0. We’d now like to rewrite our problem in the form of <span class="math notranslate nohighlight">\(\dot{x}=Ax\)</span>. Let <span class="math notranslate nohighlight">\(\omega=\sqrt{\frac{k}{m}}\)</span>. With some magical math, we can get something that looks like that form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}
+    \dot{x}_0 \\
+    \dot{x}_1 
+\end{bmatrix} = \begin{bmatrix}
+		            0 &amp; \omega \\
+		            -\omega &amp; 0  
+	            \end{bmatrix} \begin{bmatrix}
+                                    x_0 \\
+                                    x_1 
+                                \end{bmatrix}\end{split}\]</div>
+<p>Let’s now take that back to defining our feed forward and feedback functions:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\dot{f}(x)= \tau f(x) + x = \tau Ax + x = \begin{bmatrix}
+		            0 &amp; \tau \omega \\
+		            -\tau \omega &amp; 0  
+	            \end{bmatrix}\begin{bmatrix}
+                                    x_0 \\
+                                    x_1 
+                                \end{bmatrix}+ \begin{bmatrix}
+                                                    x_0 \\
+                                                    x_1 
+                                                \end{bmatrix}= \begin{bmatrix}
+                                                                    \tau \omega x_1 + x_0 \\
+                                                                    -\tau \omega x_0 +x_1
+                                                                \end{bmatrix}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\dot{g}(u)=\tau g(u)  =\tau Bu = 0\]</div>
+<p>To implement <span class="math notranslate nohighlight">\(\begin{bmatrix}
+                \tau x_1 + x_0 \\
+                -\tau x_0 +x_1
+            \end{bmatrix}\)</span> in Nengo, we can use the <code class="docutils literal notranslate"><span class="pre">transform</span></code> argument to get the matrix <span class="math notranslate nohighlight">\(\begin{bmatrix}
+                                                                                                1 &amp; \tau \omega \\
+                                                                                                -\tau\omega &amp; 1
+                                                                                            \end{bmatrix}\)</span>.</p>
+<p>We will provide a brief input signal to trigger the oscillatory behavior of the neural representation as the two dimensions interact (i.e. <span class="math notranslate nohighlight">\(x[0]=1\)</span> for .1 seconds, otherwise everything is 0).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the model object</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Oscillator&quot;</span><span class="p">)</span>
+
+<span class="n">tau</span> <span class="o">=</span> <span class="mf">.1</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Create the ensemble for the oscillator</span>
+    <span class="n">neurons</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Create an input signal</span>
+    <span class="c1"># x0 is 1 for .1s, x0 and x1 are 0 otherwise</span>
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mf">0.1</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}))</span>
+
+    <span class="c1"># Connect the input signal to the neural ensemble</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">neurons</span><span class="p">)</span>
+
+    <span class="c1"># Create the feedback connection using our transform matrix</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">neurons</span><span class="p">,</span> <span class="n">neurons</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="n">tau</span><span class="o">*</span><span class="n">omega</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="n">tau</span><span class="o">*</span><span class="n">omega</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+    <span class="c1"># You could define a function and use that instead of transform</span>
+    <span class="c1">#def recurrent(x):</span>
+    <span class="c1">#    return [tau*omega*x[1]+x[0],-tau*omega*x[0]+x[1]]</span>
+    <span class="c1">#nengo.Connection(neurons, neurons, function=recurrent, synapse=0.1)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Probe it, run it, plot it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">input_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">)</span>
+    <span class="n">neuron_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">neurons</span><span class="p">,</span> <span class="s2">&quot;decoded_output&quot;</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="c1"># Create the simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 5 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">neuron_probe</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Time (s)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;large&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;$x_0$&quot;</span><span class="p">,</span> <span class="s2">&quot;$x_1$&quot;</span><span class="p">])</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">neuron_probe</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Decoded Output&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$x_0$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$x_1$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("c5969a99-aa7e-4071-a4e9-fb77a1db7a51");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="c5969a99-aa7e-4071-a4e9-fb77a1db7a51" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('c5969a99-aa7e-4071-a4e9-fb77a1db7a51');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+                  
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div><div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("26fdbe0f-0764-439b-9f9b-8f9c8454dd9d");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="26fdbe0f-0764-439b-9f9b-8f9c8454dd9d" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('26fdbe0f-0764-439b-9f9b-8f9c8454dd9d');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Simulation finished in 0:00:01.';
+                  
+            if (100.0 > 0.) {
+                fill.style.transition = 'width 0.1s linear';
+            } else {
+                fill.style.transition = 'none';
+            }
+
+            fill.style.width = '100.0%';
+            fill.style.animation = 'none';
+            fill.style.backgroundImage = 'none'
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x283a4b4e3e0&gt;
+</pre></div>
+</div>
+<img alt="_images/eceecccde17ed968513928744ba1db79c4133878a96699a5a05b2257fc83ac82.png" src="_images/eceecccde17ed968513928744ba1db79c4133878a96699a5a05b2257fc83ac82.png" />
+<img alt="_images/729bd642fdd192ff945291eefa178b128e0dd0f0468e932cdbbfe29e32249948.png" src="_images/729bd642fdd192ff945291eefa178b128e0dd0f0468e932cdbbfe29e32249948.png" />
+</div>
+</div>
+<section id="id5">
+<h3>Discussion<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>If we look at the changes to <span class="math notranslate nohighlight">\(\dot{x}\)</span>, we can see that <span class="math notranslate nohighlight">\(\dot{x}_0 = \omega x_1\)</span> and <span class="math notranslate nohighlight">\(\dot{x}_1 = -\omega x_0\)</span>
+$<span class="math notranslate nohighlight">\(\begin{bmatrix}
+    \dot{x}_0 \\
+    \dot{x}_1 
+\end{bmatrix} = \begin{bmatrix}
+		            0 &amp; \omega \\
+		            -\omega &amp; 0  
+	            \end{bmatrix} \begin{bmatrix}
+                                    x_0 \\
+                                    x_1 
+                                \end{bmatrix}\)</span>$</p>
+<p>In both plots, you can see that as <span class="math notranslate nohighlight">\(x_0\)</span> gets more positive, <span class="math notranslate nohighlight">\(x_1\)</span> gets more negative and vice versa. Recall the earlier notes on the synapses for the recurrent neurons. Smaller time constants will cause significant drift. Larger time constants will decrease the drift. <strong>Try it!</strong></p>
+<p>We can also adjust the <span class="math notranslate nohighlight">\(\omega\)</span> term to change the frequency of oscillation. We do so by (Nengo) learning new decoder weights! <strong>Try it!</strong></p>
+<p>An example for a <a class="reference external" href="https://www.nengo.ai/nengo/examples/dynamics/controlled-oscillator.html">controlled oscillator</a> is available online and is a far more elegant example. The above example does not have an additional input that controls the frequency of the oscillations. Instead, once things are kicked off they keep going at the same frequency until the amplitudes decay back to zero.</p>
+</section>
+</section>
+<section id="resources">
+<h2>Resources<a class="headerlink" href="#resources" title="Link to this heading">#</a></h2>
+<p>Other dynamics tutorials <a class="reference external" href="https://www.nengo.ai/nengo/examples.html#building-dynamical-systems">can be found here</a>.<br />
+Every example we cover in this notebook can be found <a class="reference external" href="https://youtu.be/Fl4cfZCie-w?si=eSyLzeAu2jluMFZ3">in this video</a> if you would like an alternate teaching method to assist in your understanding of the concept.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Tutorial3b_NeuronBasics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ECE495 Intro to programming neurons with Nengo: Transformation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Tutorial6_PathPlanning.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Krichmar Path Planning using Nengo - Tutorial</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrence-in-nengo">Recurrence in Nengo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#okay-but-why">Okay, but WHY?!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-feedback">Why feedback?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-actually-do-that-now">Let’s actually do that now!</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrator">Integrator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-and-run-it">Probe it and Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-it">Plot it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-memory">Working Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Probe it and Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Plot it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-oscillator">Simple Oscillator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kaitlin Fair
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
