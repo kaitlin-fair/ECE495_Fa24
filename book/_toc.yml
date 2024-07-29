@@ -4,6 +4,9 @@
 format: jb-book
 root: intro
 parts:
+  -caption: Setup
+    chapters:
+      - file: venv_setup
   - caption: In-class Tutorials
     chapters:
       - file: Tutorial3a_NeuronBasics
@@ -15,3 +18,5 @@ parts:
   - caption: Lab Assignments
     chapters:
       - file: markdown-notebooks
+      - file: notebooks
+      - file: markdown
