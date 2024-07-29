@@ -393,7 +393,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-software-and-virtual-environment">Required Software and Virtual Environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-required-software">Download Required Software</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-virtual-environment">Create your Virtual Environment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-environment">Test your environment</a></li>
 </ul>
             </nav>
@@ -406,53 +407,32 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="ece-495-setup-assignment-instructions">
+  <section id="ece-495-setup-assignment-instructions">
 <h1>ECE 495 Setup Assignment Instructions<a class="headerlink" href="#ece-495-setup-assignment-instructions" title="Link to this heading">#</a></h1>
-<section id="required-software-and-virtual-environment">
-<h2>Required Software and Virtual Environment<a class="headerlink" href="#required-software-and-virtual-environment" title="Link to this heading">#</a></h2>
-<p>(1)  For this course, you will need a Python environment that uses <strong>python 3.10.11</strong> with specific software packages listed in requirements.txt in this repository. <a class="reference external" href="https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe">Download Python 3.10.11</a> - This link will download the *.exe file for Python 3.10.11. Double click the downloaded file to start the installer. <em>Be sure to check the box that says add to PATH!</em></p>
-<p>(2) Set up a GitHub Account and familiarize yourself with how to use it. Here’s a great reference used in ECE281: <a class="reference external" href="https://usafa-ece.github.io/ece281-book/appendix/github.html">https://usafa-ece.github.io/ece281-book/appendix/github.html</a></p>
-<p>(3) Fork this repository</p>
-<p>(4) Install Git: <a class="reference external" href="https://git-scm.com/download/win">https://git-scm.com/download/win</a></p>
-<p>(5) Install VS Code: <a class="reference external" href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a></p>
-<p>(6) Link Git to GitHub. I did so using VS Code by clicking the little waving cat on the left vertical toolbar.
-For troubleshooting: <a class="reference external" href="https://code.visualstudio.com/docs/sourcecontrol/intro-to-git#_open-a-git-repository">https://code.visualstudio.com/docs/sourcecontrol/intro-to-git#_open-a-git-repository</a></p>
-<p>(7) Make a new folder called <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> in your home folder, for example, C:\Users\kaitlin.fair\495_workspace.</p>
-<p>(7) Right-click on the <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> folder and choose <code class="docutils literal notranslate"><span class="pre">Git</span> <span class="pre">Bash</span> <span class="pre">Here</span></code> from the menu.</p>
-<p>(8) In your Github forked repository, click the green <code class="docutils literal notranslate"><span class="pre">&lt;&gt;</span> <span class="pre">code</span></code> button and copy the HTTPS url.</p>
-<hr class="docutils" />
-<p>(6) Create a virtual environment using Python 3.10.11. The process to do so is to create a new environment using Python 3.10.11, activate the new environment, then download the packages using the requirements.txt file.</p>
-<p>If you are using Anaconda, these commands should do the trick:</p>
+<section id="download-required-software">
+<h2>Download Required Software<a class="headerlink" href="#download-required-software" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">--name</span> <span class="pre">495venv</span> <span class="pre">python=3.10</span></code> – This command gives your new environment a name of <em>495venv</em>, however you can name it whatever you’d like.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">activate</span> <span class="pre">495venv</span></code> – This command activates the environment so that you can install other programs within that environment. You might see the name inside of your brackets change from <em>base</em> to the name of your new environment.</p></li>
-<li><p>Once you have activated your environment, cd to the directory in which your requirements.txt is stored, then run the following command:<br />
-<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
-<li><p>Within your terminal, launch your code editor. If you’re using VS code, this command should do it: <code class="docutils literal notranslate"><span class="pre">code</span> <span class="pre">.</span></code> Within VS Code, in the search bar at the top type <code class="docutils literal notranslate"><span class="pre">&gt;Terminal:</span> <span class="pre">Create</span> <span class="pre">New</span> <span class="pre">Terminal</span></code>. Select your <em>495venv</em> environment if/when prompted.</p></li>
+<li><p>For this course, you will need a Python environment that uses <strong>python 3.10.11</strong> with specific software packages listed in requirements.txt in this repository. <a class="reference external" href="https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe">Download Python 3.10.11</a> - This link will download the *.exe file for Python 3.10.11. Double click the downloaded file to start the installer. <em>Be sure to check the box that says add to PATH!</em></p></li>
+<li><p>Install VS Code if you don’t already have it: <a class="reference external" href="https://code.visualstudio.com/download">https://code.visualstudio.com/download</a></p></li>
 </ul>
-<p>If you are using Windows without Anaconda, these commands should work inside of your Command Prompt (<strong>note: must use python 3.10</strong>):</p>
+</section>
+<section id="create-your-virtual-environment">
+<h2>Create your Virtual Environment<a class="headerlink" href="#create-your-virtual-environment" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Use your path to your downloaded Python 3.10.11 in the following command (the path below is only an example of what it might look like):<br />
-<code class="docutils literal notranslate"><span class="pre">C:\Users\C2XName\AppData\Local\Programs\Python\Python310\python.exe</span> <span class="pre">-m</span> <span class="pre">venv</span> <span class="pre">495venv</span></code> – This command gives your new environment a name of <em>495venv</em></p></li>
-<li><p>Navigate to the <code class="docutils literal notranslate"><span class="pre">Scripts</span></code> folder within your virtual environment and type the command <code class="docutils literal notranslate"><span class="pre">.\activate</span></code> – This command activates the environment so that you can install other programs within that environment. You might see the name inside of your brackets change from <em>base</em> to the name of your new environment.</p></li>
-<li><p>Once you have activated your environment, cd to the directory in which your requirements.txt is stored, then run the following command:<br />
-<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
-<li><p>Within your terminal, launch your code editor. If you’re using VS code, this command should do it: <code class="docutils literal notranslate"><span class="pre">code</span> <span class="pre">.</span></code> Within VS Code, in the search bar at the top type <code class="docutils literal notranslate"><span class="pre">&gt;Terminal:</span> <span class="pre">Create</span> <span class="pre">New</span> <span class="pre">Terminal</span></code>. Select your <em>495venv</em> environment if/when prompted.</p></li>
+<li><p>Make a new folder where you will store all files for this course titled <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code>. I’d recommend you do this in OneDrive if you’d like cloud backup.</p></li>
+<li><p><a class="reference download internal" download="" href="_downloads/33ea42e61e89ad91f773c3a73a22f11e/requirements.txt"><span class="xref download myst">Download and save this file</span></a> to your <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> folder.</p></li>
+<li><p>Create a virtual environment using Python 3.10.11. The process to do so is to create a new environment using Python 3.10.11, activate the new environment, then download the packages using the requirements.txt file.</p></li>
 </ul>
-<p>If you are using Windows and neither of the above methods worked, you can instead do this <em>within VS Code</em>. Going this route requires that you have this virtual environment in each 495 folder you intend to work in. Copy/pasting doesn’t always work, so you may need to repeat this process for each folder you will use.</p>
-<ul class="simple">
-<li><p>Add this folder to your workspace and open <code class="docutils literal notranslate"><span class="pre">nengo_495setup.ipynb</span></code>.</p></li>
-<li><p>In the searchbar at the top, type in <code class="docutils literal notranslate"><span class="pre">&gt;python:</span> <span class="pre">create</span> <span class="pre">environment</span></code>.</p></li>
-<li><p>Navigate to where python 3.10 is downloaded and select the <code class="docutils literal notranslate"><span class="pre">python.exe</span></code> file <em>for version 3.10</em></p></li>
-<li><p>Within your VSCode terminal, navigate to the folder containing your <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file and type the command <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code>.</p></li>
-</ul>
-<p>If you are using Linux or Mac, please let me know and I can find someone to provide assistance if needed.</p>
 </section>
 <section id="test-your-environment">
 <h2>Test your environment<a class="headerlink" href="#test-your-environment" title="Link to this heading">#</a></h2>
-<p>(1) Open <code class="docutils literal notranslate"><span class="pre">nengo_495setup.ipynb</span></code>. Try to run. It may ask you to install a Jupyter extension - if it does, do it! If it runs properly, move to step 2.</p>
-<p>(2) Edit the title of the plot (line 57) to also display your last name. For me, the title shows “Decoded Neuron Output - Fair”. Run your edited code. Your code should return 1 plot that displays the decoded neuron output with your last name in the title. Run again and save your file so that the updated plot shows in your notebook. Don’t worry about understanding the code yet! We will get there later.</p>
-<p>(3) Upload <em>only</em> your <code class="docutils literal notranslate"><span class="pre">nengo_495setup.ipynb</span></code> from GitHub into Gradescope under “Setup Lab” assignment by T4, 1159. You are encouraged to schedule time for EI to debug as needed: <a class="reference external" href="https://outlook.office.com/bookwithme/user/94f514961fa3476ab9598d4a2173d076&#64;afacademy.af.edu?anonymous&amp;amp;ep=plink">Book here</a></p>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="_downloads/33ea42e61e89ad91f773c3a73a22f11e/requirements.txt"><span class="xref download myst">Download and save this file</span></a> to your <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> folder.</p></li>
+<li><p>Open the file in VS Code and click <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">All</span></code>.</p></li>
+<li><p>It may ask you to install a Jupyter extension - if it does, do it!</p></li>
+<li><p>If it runs properly, edit the title of the plot (line 57) to also display your last name. For me, the title shows “Decoded Neuron Output - Fair”. Run your edited code. Your code should return 1 plot that displays the decoded neuron output with your last name in the title. Run again and save your file so that the updated plot shows in your notebook. Don’t worry about understanding the code yet! We will get there later.</p></li>
+<li><p>Upload <em>only</em> your <code class="docutils literal notranslate"><span class="pre">nengo_495setup.ipynb</span></code> from GitHub into Gradescope under “Setup Lab” assignment by T4, 1159. You are encouraged to schedule time for EI to debug as needed: <a class="reference external" href="https://outlook.office.com/bookwithme/user/94f514961fa3476ab9598d4a2173d076&#64;afacademy.af.edu?anonymous&amp;amp;ep=plink">Book here</a></p></li>
+</ul>
 </section>
 </section>
 
@@ -520,7 +500,8 @@ For troubleshooting: <a class="reference external" href="https://code.visualstud
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-software-and-virtual-environment">Required Software and Virtual Environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-required-software">Download Required Software</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-virtual-environment">Create your Virtual Environment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-environment">Test your environment</a></li>
 </ul>
   </nav></div>
