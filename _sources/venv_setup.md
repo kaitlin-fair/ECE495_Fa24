@@ -1,8 +1,14 @@
 ## ECE 495 Setup Assignment Instructions
 
-### Download Required Software
+### Download Python 3.10.11 (the version matters)
 
-- For this course, you will need a Python environment that uses **python 3.10.11** with specific software packages listed in requirements.txt in this repository. [Download Python 3.10.11](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe) - This link will download the *.exe file for Python 3.10.11. Double click the downloaded file to start the installer. *Be sure to check the box that says add to PATH!*
+- For this course, you will need a Python environment that uses **python 3.10.11** with specific software packages listed in requirements.txt in this repository. [Download Python 3.10.11](https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe) - This link will download the *.exe file for Python 3.10.11.*
+
+- Double click the downloaded file to load the installer. In the first window, *be sure to check the box that says add to PATH!* and take note of the location listed under `Install Now` (you'll need it later so write it down or take a screenshot). Then click `Install Now`.
+
+- If something pops up about disabling path length limit, go ahead and do so.
+
+### Install VS Code
 
 - [Install VS Code](https://code.visualstudio.com/download) if you don't already have it.
 
@@ -20,8 +26,13 @@
 
 - If prompted to `Select a workspace to create environment`, select your `495_workspace` folder.
 
-- Select `Enter interpreter path...` and navigate to the Python path where you downloaded **Python 3.10.11**. This is critical: it _MUST be **Python 3.10.11**_!  
+- When prompted to `Select a Python installation to create the virtual environment`, either choose `Python 3.10.11 64-bit` or select `Enter interpreter path...` and navigate to the Python path where you downloaded **Python 3.10.11**. This is critical: it _MUST be **Python 3.10.11**_!  
 
+- When prompted to `Select dependencies to install`, select the `requirements.txt` file you downloaded and added to your `495_workspace` folder. Click `OK`.
+
+- Wait for a few minutes until all the packages are installed.
+
+- If VS Code yells at you about your Python interpreter, select the interpreter you just built (`495 Workspace`) and if prompted then choose Python 3.10.11. Otherwise you may be prompted once trying to run your test file to select an interpreter. 
   
 ### Test your environment
 
@@ -30,6 +41,8 @@
 - Change the filename so that `LastName` is replaced with _your last name_.
 
 - Open the file in VS Code and click `Run All`. 
+
+- If VS Code tells you to select your Python interpreter, select the interpreter you just built (`495 Workspace`) and if prompted choose Python 3.10.11. If not prompted, in the search bar at the top of VS Code, type `>Python: Select Interpreter`, select the interpreter you just built (`495 Workspace`) and if prompted choose Python 3.10.11.
 
 - It may ask you to install a Jupyter extension - if it does, do it! 
 

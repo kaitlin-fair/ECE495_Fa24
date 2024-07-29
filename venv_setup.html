@@ -399,7 +399,8 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-required-software">Download Required Software</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-python-3-10-11-the-version-matters">Download Python 3.10.11 (the version matters)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-vs-code">Install VS Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-virtual-environment">Create your Virtual Environment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-environment">Test your environment</a></li>
 </ul>
@@ -415,10 +416,17 @@ document.write(`
                   
   <section id="ece-495-setup-assignment-instructions">
 <h1>ECE 495 Setup Assignment Instructions<a class="headerlink" href="#ece-495-setup-assignment-instructions" title="Link to this heading">#</a></h1>
-<section id="download-required-software">
-<h2>Download Required Software<a class="headerlink" href="#download-required-software" title="Link to this heading">#</a></h2>
+<section id="download-python-3-10-11-the-version-matters">
+<h2>Download Python 3.10.11 (the version matters)<a class="headerlink" href="#download-python-3-10-11-the-version-matters" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p>For this course, you will need a Python environment that uses <strong>python 3.10.11</strong> with specific software packages listed in requirements.txt in this repository. <a class="reference external" href="https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe">Download Python 3.10.11</a> - This link will download the *.exe file for Python 3.10.11. Double click the downloaded file to start the installer. <em>Be sure to check the box that says add to PATH!</em></p></li>
+<li><p>For this course, you will need a Python environment that uses <strong>python 3.10.11</strong> with specific software packages listed in requirements.txt in this repository. <a class="reference external" href="https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe">Download Python 3.10.11</a> - This link will download the <em>.exe file for Python 3.10.11.</em></p></li>
+<li><p>Double click the downloaded file to load the installer. In the first window, <em>be sure to check the box that says add to PATH!</em> and take note of the location listed under <code class="docutils literal notranslate"><span class="pre">Install</span> <span class="pre">Now</span></code> (you’ll need it later so write it down or take a screenshot). Then click <code class="docutils literal notranslate"><span class="pre">Install</span> <span class="pre">Now</span></code>.</p></li>
+<li><p>If something pops up about disabling path length limit, go ahead and do so.</p></li>
+</ul>
+</section>
+<section id="install-vs-code">
+<h2>Install VS Code<a class="headerlink" href="#install-vs-code" title="Link to this heading">#</a></h2>
+<ul class="simple">
 <li><p><a class="reference external" href="https://code.visualstudio.com/download">Install VS Code</a> if you don’t already have it.</p></li>
 </ul>
 </section>
@@ -431,7 +439,10 @@ document.write(`
 <li><p>Type in <code class="docutils literal notranslate"><span class="pre">&gt;Python:</span> <span class="pre">Create</span> <span class="pre">Environment</span></code> in the searchbar at the top of VS Code and select it.</p></li>
 <li><p>When prompted to <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">an</span> <span class="pre">environment</span> <span class="pre">type</span></code>, select <code class="docutils literal notranslate"><span class="pre">Venv</span></code></p></li>
 <li><p>If prompted to <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">a</span> <span class="pre">workspace</span> <span class="pre">to</span> <span class="pre">create</span> <span class="pre">environment</span></code>, select your <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> folder.</p></li>
-<li><p>Select <code class="docutils literal notranslate"><span class="pre">Enter</span> <span class="pre">interpreter</span> <span class="pre">path...</span></code> and navigate to the Python path where you downloaded <strong>Python 3.10.11</strong>. This is critical: it <em>MUST be <strong>Python 3.10.11</strong></em>!</p></li>
+<li><p>When prompted to <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">a</span> <span class="pre">Python</span> <span class="pre">installation</span> <span class="pre">to</span> <span class="pre">create</span> <span class="pre">the</span> <span class="pre">virtual</span> <span class="pre">environment</span></code>, either choose <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.10.11</span> <span class="pre">64-bit</span></code> or select <code class="docutils literal notranslate"><span class="pre">Enter</span> <span class="pre">interpreter</span> <span class="pre">path...</span></code> and navigate to the Python path where you downloaded <strong>Python 3.10.11</strong>. This is critical: it <em>MUST be <strong>Python 3.10.11</strong></em>!</p></li>
+<li><p>When prompted to <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">dependencies</span> <span class="pre">to</span> <span class="pre">install</span></code>, select the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file you downloaded and added to your <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> folder. Click <code class="docutils literal notranslate"><span class="pre">OK</span></code>.</p></li>
+<li><p>Wait for a few minutes until all the packages are installed.</p></li>
+<li><p>If VS Code yells at you about your Python interpreter, select the interpreter you just built (<code class="docutils literal notranslate"><span class="pre">495</span> <span class="pre">Workspace</span></code>) and if prompted then choose Python 3.10.11. Otherwise you may be prompted once trying to run your test file to select an interpreter.</p></li>
 </ul>
 </section>
 <section id="test-your-environment">
@@ -440,6 +451,7 @@ document.write(`
 <li><p><a class="reference internal" href="495setup_LastName.html"><span class="std std-doc">Go to the Setup Notebook page</span></a> and download the Jupyter Notebook by clicking the download button at the top of the page. Save the file to your <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> folder.</p></li>
 <li><p>Change the filename so that <code class="docutils literal notranslate"><span class="pre">LastName</span></code> is replaced with <em>your last name</em>.</p></li>
 <li><p>Open the file in VS Code and click <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">All</span></code>.</p></li>
+<li><p>If VS Code tells you to select your Python interpreter, select the interpreter you just built (<code class="docutils literal notranslate"><span class="pre">495</span> <span class="pre">Workspace</span></code>) and if prompted choose Python 3.10.11. If not prompted, in the search bar at the top of VS Code, type <code class="docutils literal notranslate"><span class="pre">&gt;Python:</span> <span class="pre">Select</span> <span class="pre">Interpreter</span></code>, select the interpreter you just built (<code class="docutils literal notranslate"><span class="pre">495</span> <span class="pre">Workspace</span></code>) and if prompted choose Python 3.10.11.</p></li>
 <li><p>It may ask you to install a Jupyter extension - if it does, do it!</p></li>
 <li><p>If it runs properly, edit the title of the plot (line 57) to also display your last name. For me, the title shows “Decoded Neuron Output - Fair”. Run your edited code. Your code should return 1 plot that displays the decoded neuron output with your last name in the title. Run again and save your file so that the updated plot shows in your notebook. Don’t worry about understanding the code yet! We will get there later.</p></li>
 <li><p>As we will use specifications grading for labs, here are your specifications to earn a 1 for this lab:<br />
@@ -516,7 +528,8 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-required-software">Download Required Software</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-python-3-10-11-the-version-matters">Download Python 3.10.11 (the version matters)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-vs-code">Install VS Code</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-virtual-environment">Create your Virtual Environment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-environment">Test your environment</a></li>
 </ul>
