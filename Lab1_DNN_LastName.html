@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ECE495 Lab 1: Deep Neural Networks &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+    <title>Lab 1: Deep Neural Networks &#8212; ECE495 Intro to Neuromorhic Engineering</title>
   
   
   
@@ -195,14 +195,7 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Lab 1: Deep Neural Networks</a></li>
-
-
-
-
-
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 1: Deep Neural Networks</a></li>
 </ul>
 
     </div>
@@ -419,7 +412,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ECE495 Lab 1: Deep Neural Networks</h1>
+    <h1>Lab 1: Deep Neural Networks</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -429,25 +422,19 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Lab 1: Deep Neural Networks</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-dataset">Load a dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-data">Explore the Data</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-dataset">Load a dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-data">Explore the Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-layers">Set up the layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-results">Analyze Results</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-results">Analyze Results</a></li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -458,8 +445,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="ece495-lab-1-deep-neural-networks">
-<h1>ECE495 Lab 1: Deep Neural Networks<a class="headerlink" href="#ece495-lab-1-deep-neural-networks" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lab-1-deep-neural-networks">
+<h1>Lab 1: Deep Neural Networks<a class="headerlink" href="#lab-1-deep-neural-networks" title="Link to this heading">#</a></h1>
 <p>This Lab uses TensorFlow’s Keras to:</p>
 <ol class="arabic simple">
 <li><p>Load a prebuilt dataset.</p></li>
@@ -505,9 +492,8 @@ document.write(`
 </div>
 </section>
 </section>
-</section>
 <section id="load-a-dataset">
-<h1>Load a dataset<a class="headerlink" href="#load-a-dataset" title="Link to this heading">#</a></h1>
+<h2>Load a dataset<a class="headerlink" href="#load-a-dataset" title="Link to this heading">#</a></h2>
 <p>Load and prepare the <a class="reference external" href="https://en.wikipedia.org/wiki/MNIST_database">MNIST dataset</a>. The pixel values of the images range from 0 through 255. For this network, we want to scale these values to a range of 0 to 1 (i.e. normalize the values) by dividing the values by <code class="docutils literal notranslate"><span class="pre">255.0</span></code>. This also converts the sample data from integers to floating-point numbers.</p>
 <style>
     .questioncolor {
@@ -533,7 +519,7 @@ document.write(`
 </div>
 </section>
 <section id="explore-the-data">
-<h1>Explore the Data<a class="headerlink" href="#explore-the-data" title="Link to this heading">#</a></h1>
+<h2>Explore the Data<a class="headerlink" href="#explore-the-data" title="Link to this heading">#</a></h2>
 <p>Once you’ve run the above section, a “Variables” tab will show in the toolbar of this notebook.  You should see:</p>
 <ul class="simple">
 <li><p>There are 60,000 images in the training set</p></li>
@@ -593,7 +579,8 @@ document.write(`
 </div>
 </section>
 <section id="build-a-machine-learning-model">
-<h1>Build a machine learning model<a class="headerlink" href="#build-a-machine-learning-model" title="Link to this heading">#</a></h1>
+<h2>Build a machine learning model<a class="headerlink" href="#build-a-machine-learning-model" title="Link to this heading">#</a></h2>
+</section>
 <section id="set-up-the-layers">
 <h2>Set up the layers<a class="headerlink" href="#set-up-the-layers" title="Link to this heading">#</a></h2>
 <p>The basic building block of a neural network is the <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/layers">layer</a>. Layers extract representations from the data fed into them. Hopefully, these representations are meaningful for the problem at hand.</p>
@@ -632,9 +619,8 @@ document.write(`
 </div>
 </div>
 </section>
-</section>
 <section id="compile-your-model">
-<h1>Compile your model<a class="headerlink" href="#compile-your-model" title="Link to this heading">#</a></h1>
+<h2>Compile your model<a class="headerlink" href="#compile-your-model" title="Link to this heading">#</a></h2>
 <p>Before the model is ready for training, it needs a few more settings. These are added during the model’s compile step:</p>
 <p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/optimizers">Optimizer</a> —This is how the model is updated based on the data it sees and its loss function. For this model we will use the <strong>Adam optimization</strong>, which is a stochastic gradient descent method that is based on adaptive estimation of first-order and second-order moments. According to Kingma et al., 2014, the method is “computationally efficient, has little memory requirement, invariant to diagonal rescaling of gradients, and is well suited for problems that are large in terms of data/parameters”.</p>
 <p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/losses">Loss function</a> —This measures how accurate the model is during training. You want to minimize this function to “steer” the model in the right direction. For this model, we will use the <strong>Sparse Categorical Crossentropy</strong> loss to compute the crossentropy loss between the labels and predictions.</p>
@@ -659,7 +645,7 @@ document.write(`
 </div>
 </section>
 <section id="train-and-evaluate-your-model">
-<h1>Train and evaluate your model<a class="headerlink" href="#train-and-evaluate-your-model" title="Link to this heading">#</a></h1>
+<h2>Train and evaluate your model<a class="headerlink" href="#train-and-evaluate-your-model" title="Link to this heading">#</a></h2>
 <p>Training the neural network model requires the following steps:</p>
 <ol class="arabic simple">
 <li><p>Feed the training data to the model. In this example, the training data is in the train_images and train_labels arrays.</p></li>
@@ -700,7 +686,7 @@ document.write(`
 <p>You have now verified that the image classifier is trained to ~98% accuracy on this dataset.</p>
 </section>
 <section id="make-predictions">
-<h1>Make Predictions<a class="headerlink" href="#make-predictions" title="Link to this heading">#</a></h1>
+<h2>Make Predictions<a class="headerlink" href="#make-predictions" title="Link to this heading">#</a></h2>
 <p>Adding a softmax layer will convert the logits output of the final layer to more intuitive probability values. You may also hear this referred to as a “confidence value” since the softmax (and DNN) output array represents the model’s “confidence” that the image corresponds to each of the 10 different digits.</p>
 <p>Note: It is possible to bake a softmax function into the activation function for the last layer of the network. While this can make the model output more directly interpretable, this approach is discouraged as it’s impossible to provide an exact and numerically stable loss calculation for all models when using a softmax output.</p>
 <style>
@@ -749,7 +735,7 @@ document.write(`
 </div>
 </section>
 <section id="analyze-results">
-<h1>Analyze Results<a class="headerlink" href="#analyze-results" title="Link to this heading">#</a></h1>
+<h2>Analyze Results<a class="headerlink" href="#analyze-results" title="Link to this heading">#</a></h2>
 <p>We can use a package called <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> (installed during your virtual environment setup) to look at the performance of our network class by class. For this exercise, the only data we really care about is the <em>precision</em> (i.e. how often predictions equal labels). Take note of which labels don’t do as well as others and think through why that might be (hint: this would be a really good concept to takeaway from this ICE).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -827,6 +813,7 @@ document.write(`
 </div>
 </div>
 </section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -883,25 +870,19 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Lab 1: Deep Neural Networks</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-dataset">Load a dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-data">Explore the Data</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-dataset">Load a dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-data">Explore the Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-layers">Set up the layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-results">Analyze Results</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-results">Analyze Results</a></li>
-</ul>
-
   </nav></div>
 
 </div></div>
