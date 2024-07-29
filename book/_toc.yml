@@ -4,9 +4,6 @@
 format: jb-book
 root: intro
 parts:
-  - caption: Intro to Neuromorphic Engineering
-    chapters:
-      - file: faq
   - caption: In-class Tutorials
     chapters:
       - file: Tutorial3a_NeuronBasics
