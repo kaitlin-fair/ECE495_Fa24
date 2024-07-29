@@ -16,7 +16,7 @@
   
 ### Test your environment
 
-- [Download and save this file](_static/nengo_495setup.ipynb) to your `495_workspace` folder. 
+- [Download this file](nengo_495setup) by following the link and clicking the download button at the top of the page. Save the file to your `495_workspace` folder. 
 - Open the file in VS Code and click `Run All`. 
 - It may ask you to install a Jupyter extension - if it does, do it! 
 - If it runs properly, edit the title of the plot (line 57) to also display your last name. For me, the title shows "Decoded Neuron Output - Fair". Run your edited code. Your code should return 1 plot that displays the decoded neuron output with your last name in the title. Run again and save your file so that the updated plot shows in your notebook. Don't worry about understanding the code yet! We will get there later.
