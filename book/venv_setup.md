@@ -26,7 +26,16 @@
 ### Test your environment
 
 - [Go to the Setup Notebook page](nengo_495setup.ipynb) and download the Jupyter Notebook by clicking the download button at the top of the page. Save the file to your `495_workspace` folder. 
+
 - Open the file in VS Code and click `Run All`. 
+
 - It may ask you to install a Jupyter extension - if it does, do it! 
+
 - If it runs properly, edit the title of the plot (line 57) to also display your last name. For me, the title shows "Decoded Neuron Output - Fair". Run your edited code. Your code should return 1 plot that displays the decoded neuron output with your last name in the title. Run again and save your file so that the updated plot shows in your notebook. Don't worry about understanding the code yet! We will get there later.
-- Upload _only_ your `nengo_495setup.ipynb` from GitHub into Gradescope under "Setup Lab" assignment by T4, 1159. You are encouraged to schedule time for EI to debug as needed: [Book here](https://outlook.office.com/bookwithme/user/94f514961fa3476ab9598d4a2173d076@afacademy.af.edu?anonymous&ep=plink)
+
+#### As we will use specifications grading for labs, here are your specifications to earn a 1 for this lab:
+◻ Code runs error free  
+◻ Plot title edited to display your last name 
+◻ Jupyter notebook is saved such that outputs appear upon opening file (and therefore on gradescope)
+
+- Upload _only_ your `nengo_495setup.ipynb` from GitHub into Gradescope under "Setup Lab" assignment by T4, 2359. You are encouraged to schedule time for EI to debug as needed: [Book here](https://outlook.office.com/bookwithme/user/94f514961fa3476ab9598d4a2173d076@afacademy.af.edu?anonymous&ep=plink)
