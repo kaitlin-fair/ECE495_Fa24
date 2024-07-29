@@ -33,7 +33,7 @@
 
 - If it runs properly, edit the title of the plot (line 57) to also display your last name. For me, the title shows "Decoded Neuron Output - Fair". Run your edited code. Your code should return 1 plot that displays the decoded neuron output with your last name in the title. Run again and save your file so that the updated plot shows in your notebook. Don't worry about understanding the code yet! We will get there later.
 
-#### As we will use specifications grading for labs, here are your specifications to earn a 1 for this lab:
+- As we will use specifications grading for labs, here are your specifications to earn a 1 for this lab:
 ◻ Code runs error free  
 ◻ Plot title edited to display your last name 
 ◻ Jupyter notebook is saved such that outputs appear upon opening file (and therefore on gradescope)
