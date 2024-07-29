@@ -2,10 +2,10 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: My sample book
+title: ECE495: Intro to Neuromorhic Engineering
 author: DFEC
 logo: logo.png
-copyright: '2023'
+copyright: '2024'
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
@@ -13,8 +13,8 @@ execute:
   execute_notebooks: force
 
 # Add a "Launch on Google Colab" button to .ipynb files
-launch_buttons:
-  colab_url: "https://colab.research.google.com"
+#launch_buttons:
+#  colab_url: "https://colab.research.google.com"
 
 # Define the name of the latex output file for PDF builds
 latex:
@@ -27,7 +27,7 @@ latex:
 
 # Information about where the book exists on the web
 repository:
-  url: https://github.com/usafa-ece/jupyterbook-template  # Online location of your book
+  url: https://kaitlin-fair.github.io/ECE495_Fa24  # Online location of your book
   path_to_book: book  # Optional path to your book, relative to the repository root
   branch: main  # Which branch of the repository should be used when creating links (optional)
 

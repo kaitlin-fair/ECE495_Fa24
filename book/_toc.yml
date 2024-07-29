@@ -7,7 +7,12 @@ parts:
   - caption: Course Info
     chapters:
       - file: faq
-  - caption: Readings
+  - caption: In-class Tutorials
+    chapters:
+      - file: markdown
+      - file: notebooks
+      - file: markdown-notebooks
+  - caption: Lab Assignments
     chapters:
       - file: markdown
       - file: notebooks
