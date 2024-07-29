@@ -2,7 +2,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: ECE495: Intro to Neuromorhic Engineering
+title: ECE495 - Intro to Neuromorhic Engineering
 author: DFEC
 logo: logo.png
 copyright: '2024'
