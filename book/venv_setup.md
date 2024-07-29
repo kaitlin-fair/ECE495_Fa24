@@ -25,7 +25,9 @@
   
 ### Test your environment
 
-- [Go to the Setup Notebook page](nengo_495setup.ipynb) and download the Jupyter Notebook by clicking the download button at the top of the page. Save the file to your `495_workspace` folder. 
+- [Go to the Setup Notebook page](495setup_LastName.ipynb) and download the Jupyter Notebook by clicking the download button at the top of the page. Save the file to your `495_workspace` folder. 
+
+- Change the filename so that `LastName` is replaced with _your last name_.
 
 - Open the file in VS Code and click `Run All`. 
 
@@ -35,6 +37,7 @@
 
 - As we will use specifications grading for labs, here are your specifications to earn a 1 for this lab:  
 ◻ Code runs error free  
+◻ Filename changed to reflect last name of person submitting assignment    
 ◻ Plot title edited within Jupyter notebook to display your last name   
 ◻ Jupyter notebook is saved such that outputs appear upon opening file (and therefore on gradescope)  
 

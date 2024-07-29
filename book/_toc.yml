@@ -7,7 +7,7 @@ parts:
   - caption: Setup
     chapters:
       - file: venv_setup
-      - file: nengo_495setup
+      - file: 495setup_LastName
   - caption: In-class Tutorials
     chapters:
       - file: Tutorial3a_NeuronBasics
@@ -18,5 +18,5 @@ parts:
       - file: Tutorial8_AdvExamples
   - caption: Lab Assignments
     chapters:
-      - file: Lab1_DNN
-      - file: Lab2_DNN
+      - file: Lab1_DNN_LastName
+      - file: Lab2_DNN_LastName
