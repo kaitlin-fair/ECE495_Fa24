@@ -37,6 +37,8 @@ html:
   favicon: favicon.ico
   use_issues_button: true
   use_repository_button: true
+  static_path:
+    - _static
 
 # Uncomment to use mermaid diagrams
 # sphinx:

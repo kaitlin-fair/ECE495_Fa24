@@ -9,7 +9,7 @@ parts:
       - file: venv_setup
   - caption: In-class Tutorials
     chapters:
-      - file: tutorials/Tutorial3a_NeuronBasics
+      - file: Tutorial3a_NeuronBasics
       - file: Tutorial3b_NeuronBasics
       - file: Tutorial4_Dynamics
       - file: Tutorial6_PathPlanning
