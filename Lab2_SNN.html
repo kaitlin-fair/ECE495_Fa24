@@ -1,0 +1,856 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ECE495 Lab 2: Spiking Neural Networks using NengoDL &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Lab2_SNN';</script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Intro to Neuromorphic Engineering
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="venv_setup.html">ECE 495 Setup Assignment Instructions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">Nengo Neurons: Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">Nengo Neurons: Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Path Planning using Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial8_AdvExamples.html">Advanced Examples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/kaitlin-fair/ECE495_Fa24/blob/main/book/Lab2_SNN.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2FLab2_SNN.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Lab2_SNN.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ECE495 Lab 2: Spiking Neural Networks using NengoDL</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Lab 2: Spiking Neural Networks using NengoDL</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-pre-process-the-dataset">Load and pre-process the dataset</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-layers">Set up the layers</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ece495-lab-2-spiking-neural-networks-using-nengodl">
+<h1>ECE495 Lab 2: Spiking Neural Networks using NengoDL<a class="headerlink" href="#ece495-lab-2-spiking-neural-networks-using-nengodl" title="Link to this heading">#</a></h1>
+<p>This ICE uses NengoDL and TensorFlow’s Keras to:</p>
+<ol class="arabic simple">
+<li><p>Load a prebuilt dataset.</p></li>
+<li><p>Build a simple <em>spiking</em> neural network that classifies images. The neural network will utilize the equivalent layers as those from ICE1! Be sure to draw the parallels between the two networks as you work through this.</p></li>
+<li><p>Train the spiking neural network.</p></li>
+<li><p>Evaluate the accuracy of the spiking network.</p></li>
+</ol>
+<section id="set-up">
+<h2>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<p><strong>Ensure you are using your <a class="reference external" href="https://github.com/kaitlin-fair/495venv_setup">495 Virtual Environment</a> before you begin!</strong></p>
+<p>If you are using your virtual environment, the next section should run without issue. If you are not in your virtual environment (or your environment did not install properly), you’ll see a lot of red.</p>
+<p>Import Nengo, NengoDL, TensorFlow and other supporting libraries into your program to get started:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+
+<span class="kn">import</span> <span class="nn">nengo</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">nengo_dl</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="load-and-pre-process-the-dataset">
+<h1>Load and pre-process the dataset<a class="headerlink" href="#load-and-pre-process-the-dataset" title="Link to this heading">#</a></h1>
+<p>Load and prepare the <a class="reference external" href="https://en.wikipedia.org/wiki/MNIST_database">MNIST dataset</a>. The pixel values of the images range from 0 through 255. Recall in ICE1, we had to normalize the values. For this spiking neural network, we do not have to do that. <em>Ensure you understand why we don’t have to normalize the input values.</em></p>
+<p>We are going to get into how data is encoded using Nengo neuron ensembles in the next few lectures. Until then, the main point you need to understand is that we cannot simply send an image into an SNN. Recall that an SNN uses spikes (only 1’s) and an image is made up of pixel values ranging from 0 to 255 (integers) for MNIST. So, how might you encode pixels via spikes?</p>
+<p>For this network, rate encoding is used (Nengo will do this for you - don’t panic). This means that if the pixel value is higher, you’ll see more spikes over a duration of time. If your pixel value is 0, how many spikes do you think you’ll see? Hopefully your intuition says 0 spikes! If you are curious, you can read more about this encoding in <a class="reference external" href="https://forum.nengo.ai/t/how-are-spikes-generated-within-nengodl/2130">the response</a> to this forum question.</p>
+<p>Why am I telling you all of this? Nengo ensembles (which will be used to rate encode your MNIST images) can only accept vector inputs (i.e. 1xN arrays). MNIST data is made up of 70,000 28x28 matrices - remember, you can click the <code class="docutils literal notranslate"><span class="pre">Variables</span></code> tab at the top to verify this info. Therefore to encode the data, we must convert all of our training and testing data to arrays. Note: this is the exact same thing the flatten layer did in our Neural Network from ICE1. As it turns out, the flatten layer does not have any trainable parameters (no weights or biases)!</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>This is the first section you are required to edit!</p>
+<ol class="arabic simple">
+<li><p>Grab the dataset from tf.keras in the exact same way you did for ICE1. Replace <code class="docutils literal notranslate"><span class="pre">???</span></code> with the correct command on the first line.</p></li>
+<li><p>No need to normalize the data this time since Nengo will rate encode it for us (meaning the rate encoding would result in the same spike rates - consider why this might be). Instead, flatten each of your images by converting your matrices of training data from (60000,28,28) to (60000,784) and test data from (10000,28,28) to (10000,784). The <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.reshape.html"><code class="docutils literal notranslate"><span class="pre">reshape</span></code> command</a> will be helpful to you in flattening your images. If you’d like to avoid hardcoding values (a practice that will serve you well in the second half of this course), you might also take a look at the <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.shape.html"><code class="docutils literal notranslate"><span class="pre">shape</span></code> command</a>. Replace the <code class="docutils literal notranslate"><span class="pre">???</span></code> with the correct commands. Check your Variables tab to ensure you now have the correct matrix sizes for your training and test data.</p></li>
+</ol>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Load your data</span>
+<span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+
+<span class="c1">#Take a look at your data just to be sure it loaded as expected</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">train_images</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">train_labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Flatten your Images</span>
+<span class="n">train_images</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+<span class="n">test_images</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Because this is a spiking neural network, we need to perform one more pre-processing step for our testing data: we need to incorporate time since Nengo models (and SNNs in general) always contain a temporal aspect. Think about the neurons in our brain! We don’t feed our brain a photo and turn everything else off until we know what we are looking at. Our neurons are constantly taking in data and firing according to their receptive fields. Same goes for an SNN.</p>
+<p>When training the model though, NengoDL swaps out true spiking neurons for what is called a rate-based approximation - this essentially emulates spiking neurons but avoids the additional noise and difficulty spiking neurons introduce into training. This means the training data does not need time because we are essentially training the SNN using mini-CPUs instead of true spiking neurons. This means we train our SNN without the complexity of actually training it <em>with spikes</em>.</p>
+<p>Once trained, we officially have an SNN and will use it as such. That means when it’s time to test the model (perform inference), we will be using spiking neurons; therefore, we will need to run the model for multiple timesteps in order to collect the spike data over time.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<ol class="arabic">
+<li><p>For inference, as a default we will run our model for 40 time steps per image. This means we repeat the test images <code class="docutils literal notranslate"><span class="pre">n_steps</span></code> so it gives the model time to converge to a class (i.e. if we only ran it for one timestep, it’d be about 10% confidence for each of the 10 classes). Use <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.tile.html"><code class="docutils literal notranslate"><span class="pre">np.tile</span></code></a> to repeat each image 40 times (and therefore each label 40 times) in your test data array. Your resulting matrices should have dimensions (10000,40,784) and (10000,40,1).</p>
+<p>To do this, first add a new dimension to your data for time. NengoDL looks at the second dimension as the time dimension. You must do this for both the images and the labels (since you’ll be repeating the labels 40 times each as well). I’ll add the dimension to your data, you add it to your labels. <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.expand_dims.html"><code class="docutils literal notranslate"><span class="pre">np.newaxis</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code></a> may be helpful when adding your time dimension.  Once you’ve done that, tile the data along the second dimension. Replace the <code class="docutils literal notranslate"><span class="pre">???</span></code>s with the appropriate code to result in your (10000,40,784) and (10000,40,1) matrices.</p>
+</li>
+<li><p>You need to training data to have comparable dimensions. Add a single timestep to your training images and label matrices, resulting in dimensions (60000,1,784) and (60000,1,1), respectively. <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.expand_dims.html"><code class="docutils literal notranslate"><span class="pre">np.newaxis</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code></a> will be helpful here. Replace <code class="docutils literal notranslate"><span class="pre">???</span></code> with the appropriate code.</p></li>
+</ol>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add a temporal aspect (a new dimension) to the test data</span>
+<span class="n">test_images</span> <span class="o">=</span> <span class="n">test_images</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">test_labels</span> <span class="o">=</span> <span class="n">test_labels</span><span class="p">[:,</span> <span class="err">???</span><span class="p">,</span> <span class="err">???</span><span class="p">]</span>
+
+<span class="c1">#Tile the test data to repeat each image 40 times (default for n_steps)</span>
+<span class="n">n_steps</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">test_images</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+<span class="n">test_labels</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+
+<span class="c1"># Add the single timestep to the training data to ensure dimensions match</span>
+<span class="n">train_images</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+<span class="n">train_labels</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="build-a-machine-learning-model">
+<h1>Build a machine learning model<a class="headerlink" href="#build-a-machine-learning-model" title="Link to this heading">#</a></h1>
+<p>Before we dive in, I want to note that there are a few ways to go from a DNN to an SNN (be sure you understand the differences and pros/cons of each):</p>
+<ol class="arabic simple">
+<li><p>You can completely train a DNN in Keras, then <a class="reference external" href="https://www.nengo.ai/nengo-dl/examples/tensorflow-models.html">build a wrapper</a> to integrate the model into NengoDL without retraining. In this case, the neurons within the Keras model are still non-spiking. This would be well-suited for a hybrid algorithm, where part is performed outside of neuromorphic computing architectures. Note: the non-spiking part of the hybrid algorithm cannot directly run on neuromorphic hardware.</p></li>
+<li><p>You can completely train a DNN in Keras, then <a class="reference external" href="https://www.nengo.ai/nengo-dl/examples/keras-to-snn.html">convert it</a> into a SNN. We covered this at a high level during Lecture 5, specifically many of the fine-tuning that must be done to get back your original DNN performance. In fact, if you visit the link, the images should look familiar.</p></li>
+<li><p>You can train an SNN directly, which is what we will do here. This method trains the network with all of the classic DNN training in mind with the ability to map directly to neuromorphic hardware, i.e. you should get decent performance right after training. You may have to fine-tune SNN parameters, but that’s comparable to needing to fine-tune DNN parameters. Don’t let ICE1 fool you: if you ever train a legit DNN, you’ll need to fine-tune it many times to achieve state of the art results. <em>Yes, there is an example in the NengoDL literature regarding this method that I will not link here. If you find it, you are welcome to use it as a supplemental resource but please recognize that it will be abundantly clear if you copied it. Should you choose to go the copying route, your grade will suffer.</em></p></li>
+</ol>
+<section id="set-up-the-layers">
+<h2>Set up the layers<a class="headerlink" href="#set-up-the-layers" title="Link to this heading">#</a></h2>
+<p>For this network, we will build the same model as we did in ICE1. However, you have already preprocessed your data (flattened your images) to replace the Flatten layer. That means your model will consist of the following layers, in order:</p>
+<ol class="arabic simple">
+<li><p>Dense</p></li>
+<li><p>Dropout</p></li>
+<li><p>Dense</p></li>
+</ol>
+<p>Almost all deep learning methods are based on gradient descent, which means that the network being optimized needs to be differentiable. Deep neural networks are usually built using rectified linear or sigmoid neurons, as these are differentiable nonlinearities. However, in neurmorphic modelling we often want to use spiking neurons, which are not differentiable. So the challenge is how to apply deep learning methods to spiking neural networks.</p>
+<p>A method for accomplishing this is presented in Hunsberger and Eliasmith (2016). The basic idea is to use a differentiable approximation of the spiking neurons during the training process, and the actual spiking neurons during inference. <em>NengoDL will perform these transformations automatically</em> to develop a network to classify handwritten digits (MNIST) in a spiking network.</p>
+<p>We will use <a class="reference external" href="https://www.nengo.ai/nengo-dl/tensor-node.html">TensorNodes</a> to construct the same network we constructed in ICE1 within Nengo. TensorNodes allow us to directly insert TensorFlow code into Nengo - making the parallels with standard deep networks very clear (i.e. the code looks very much the same!). You will need to pay close attention to the section of the TensorNodes page regarding <code class="docutils literal notranslate"><span class="pre">nengo_dl.Layer</span></code> to construct your layers. Notice that each layer is given a name. Also notice that the given name is then passed to the next layer using a second set of parenthesis - this is how layers are connected within NengoDL.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>Given the above information, build your model by adding the appropriate layers in place of the three <code class="docutils literal notranslate"><span class="pre">???</span></code> lines. Be sure to view the TensorNode hyperlink - it will be very helpful in calling your layers correctly. Notice that the first layer is named <code class="docutils literal notranslate"><span class="pre">inp</span></code>. Be sure to keep the output layer’s name as <code class="docutils literal notranslate"><span class="pre">out</span></code> to ensure our probes used to analyze our results work correctly. Your <code class="docutils literal notranslate"><span class="pre">tf.keras.layers</span></code> should look identical to ICE1 when called within <code class="docutils literal notranslate"><span class="pre">nengo_dl.Layer</span></code>.</p>
+<p>Below your first dense and dropout layers, you’ll see an additional layer that sets these layers as LIF (<code class="docutils literal notranslate"><span class="pre">neuron_type</span></code>) layers. This ensures the network is utilizing spiking neurons. No need to touch those layers, but note the names of the layers as this will dictate in what order your layers are connected.</p>
+<p>Also note the last two lines of this section of code. We will these two probes A LOT throughout the remainder of this ICE.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="k">as</span> <span class="n">net</span><span class="p">:</span>
+
+    <span class="c1"># NengoDL default parameters for the neurons that will make</span>
+    <span class="c1"># the training progress more smoothly</span>
+    <span class="n">net</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">]</span><span class="o">.</span><span class="n">max_rates</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">dists</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="mi">100</span><span class="p">])</span>
+    <span class="n">net</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">]</span><span class="o">.</span><span class="n">intercepts</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">dists</span><span class="o">.</span><span class="n">Choice</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">net</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">]</span><span class="o">.</span><span class="n">synapse</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">neuron_type</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">LIF</span><span class="p">(</span><span class="n">amplitude</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">nengo_dl</span><span class="o">.</span><span class="n">configure_settings</span><span class="p">(</span><span class="n">stateful</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># This is the input node that will be used to rate encode in input images (i.e. our Flatten layer from ICE1)</span>
+    <span class="n">inp</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">train_images</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+
+    <span class="c1"># First dense layer</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">nengo_dl</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span><span class="n">neuron_type</span><span class="p">)(</span><span class="n">a</span><span class="p">)</span>
+
+    <span class="c1"># Dropout layer</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">nengo_dl</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span><span class="n">neuron_type</span><span class="p">)(</span><span class="n">b</span><span class="p">)</span>
+
+    <span class="c1"># Final dense layer</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+
+    <span class="c1"># Here we create two different output probes, one with a filter</span>
+    <span class="c1"># (for when we&#39;re simulating the network over time and</span>
+    <span class="c1"># accumulating spikes), and one without (for when we&#39;re</span>
+    <span class="c1"># training the network using a rate-based approximation)</span>
+    <span class="n">out_p</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;out_p&quot;</span><span class="p">)</span>
+    <span class="n">out_p_filt</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;out_p_filt&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="compile-your-model">
+<h1>Compile your model<a class="headerlink" href="#compile-your-model" title="Link to this heading">#</a></h1>
+<p>A bit more goes into compiling your model within NengoDL due to the spiking nature of the network.</p>
+<p>First, NengoDL needs to set up a simulator to run the equivalent of the <code class="docutils literal notranslate"><span class="pre">model.compile</span></code>, <code class="docutils literal notranslate"><span class="pre">model.fit</span></code>, and <code class="docutils literal notranslate"><span class="pre">model.evaluate</span></code> functions we ran in ICE1 since we are not working directly within TensorFlow anymore. We still use the TensorFlow functions, but within a spiking framework in NengoDL.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">minibatch_size</span> <span class="o">=</span> <span class="mi">256</span>
+<span class="n">sim</span> <span class="o">=</span> <span class="n">nengo_dl</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">net</span><span class="p">,</span> <span class="n">minibatch_size</span><span class="o">=</span><span class="n">minibatch_size</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Before the model is ready for training, it needs a few more settings, very similar (if not identical) to those settings we utilized in ICE1. These are added during the model’s compile step:</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p><strong>Optimizer</strong> — We will use the same Adam optimization as we used in ICE1 and call it in the exact same way (reference ICE1!). Do so by filling in the <code class="docutils literal notranslate"><span class="pre">???</span></code> in the correct line.</p>
+<p><strong>Metrics</strong> - We will use the same Accuracy metric as we used in ICE1 and call it in the exact same way (reference ICE1!). Do so by filling in the <code class="docutils literal notranslate"><span class="pre">???</span></code> in the correct line.</p>
+<p><strong>Loss function</strong> — This measures how accurate the model is during training. This is where things get a little tricky! During training, we aren’t using spiking neurons (remember why??). That means we can use the same TensorFlow Sparse Categorical Crossentropy as our loss function for our ICE1 network: <code class="docutils literal notranslate"><span class="pre">tf.losses.SparseCategoricalCrossentropy(from_logits=True)</span></code>. However, for testing we will be using our spiking neurons, which means we need a custom function that only evaluates the output from the network on the final timestep (as we are simulating the network over time). Both functions compute the same thing (accuracy of the predicted labels against the true labels), but they need to be connected to the appropriate probes we declared earlier (<code class="docutils literal notranslate"><span class="pre">out_p</span></code> for training, <code class="docutils literal notranslate"><span class="pre">out_p_filt</span></code> for test) and used at the appropriate times. You should use the Sparse Categorical Entropy when training and the custom <code class="docutils literal notranslate"><span class="pre">classification_accuracy</span></code> function when testing. If you switch back and forth, you’ll need to recompile with the appropriate loss function and probe.</p>
+<p>Noting the comments in the section of code where you built your model, choose the correct probe to connect to the loss function for training by replacing the <code class="docutils literal notranslate"><span class="pre">???</span></code>.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Custom loss function for testing</span>
+<span class="k">def</span> <span class="nf">classification_accuracy</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">sparse_categorical_accuracy</span><span class="p">(</span><span class="n">y_true</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Compile for training</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="err">???</span><span class="p">,</span>
+    <span class="n">loss</span><span class="o">=</span><span class="p">{</span><span class="err">???</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">SparseCategoricalCrossentropy</span><span class="p">(</span><span class="n">from_logits</span><span class="o">=</span><span class="kc">True</span><span class="p">)},</span>
+    <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="err">???</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="train-and-evaluate-your-model">
+<h1>Train and evaluate your model<a class="headerlink" href="#train-and-evaluate-your-model" title="Link to this heading">#</a></h1>
+<p>Training the neural network model requires the following steps (same as ICE1!):</p>
+<ol class="arabic simple">
+<li><p>Feed the training data to the model. In this example, the training data is in the train_images and train_labels arrays.</p></li>
+<li><p>The model learns to associate images and labels.</p></li>
+<li><p>You ask the model to make predictions about a test set — in this example, the test_images array.</p></li>
+<li><p>Verify that the predictions match the labels from the test_labels array.</p></li>
+</ol>
+<p>To train your network, we call the <code class="docutils literal notranslate"><span class="pre">model.fit</span></code> equivalent using our simulator. We want to use the training data and train for 5 epochs. This will complete the first two steps in training your spiking neural network.</p>
+<p>Training your network should take about 45 seconds - 2 minutes to run. You can mess with the number of epochs or the minibatch size to speed things up. <em>If you do, note how this changes your results.</em></p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>Because we train and test using different functions, we must again ensure we connect the correct probes. Connect the correct probe to the training labels by replacing the <code class="docutils literal notranslate"><span class="pre">???</span></code> with the correct probe (i.e. the output of the network). Run the training for 5 epochs by filling in the second set of <code class="docutils literal notranslate"><span class="pre">???</span></code> (this part should be identical to ICE1).</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="p">{</span><span class="err">???</span><span class="p">:</span> <span class="n">train_labels</span><span class="p">},</span> <span class="n">epochs</span><span class="o">=</span><span class="err">???</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As the model trains, the loss and accuracy metrics are displayed. This model should reach an accuracy of about 0.90 (or 90%) on the training data.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>To complete the last two steps of the training process, use the <code class="docutils literal notranslate"><span class="pre">model.evaluate</span></code> equivalent call using the simulator to check your model’s performance. Now that we are using test data, we need to change our loss function to the custom function and connect the probe that evaluates our network over time (i.e. test data). Replace both <code class="docutils literal notranslate"><span class="pre">???</span></code>s with the right probe. As with our ICE1, you can choose any version of verbose to analyze results.</p>
+<p>This will take about 30-45 seconds to run (not sure why - bonus points if you figure it out). You can check the accuracy for a fraction of the results to speed things up (recall, there are 10,000 test images) or you can check it for all of your images (choose which line to comment out). <em>If you do, consider whether or not this is truly representative of your results. Maybe try both ways to confirm your intuition.</em></p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="p">{</span><span class="err">???</span><span class="p">:</span> <span class="n">classification_accuracy</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span>
+    <span class="s2">&quot;Accuracy after training:&quot;</span><span class="p">,</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span>
+        <span class="n">test_images</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span><span class="p">],</span> <span class="p">{</span><span class="err">???</span><span class="p">:</span> <span class="n">test_labels</span><span class="p">[</span><span class="mi">0</span> <span class="p">:</span> <span class="mi">256</span> <span class="o">*</span> <span class="mi">3</span><span class="p">]},</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)[</span><span class="s2">&quot;loss&quot;</span><span class="p">],</span>
+    <span class="c1"># sim.evaluate(test_images, {???: test_labels}, verbose=0)[&quot;loss&quot;],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can see that the spiking neural network is achieving ~90% accuracy, which is lower than what we would expect for MNIST. Some options for improving performance are increasing <code class="docutils literal notranslate"><span class="pre">n_steps</span></code>, increasing the number of training epochs, or adjusting the <code class="docutils literal notranslate"><span class="pre">minibatch_size</span></code>. The way that this network was written was to match (as closely as possible) the way we implemented ICE1. Try adjusting some of these parameters and see how it impacts your performance. <em>Consider the tradeoff between training time and performance when making these adjustments.</em></p>
+</section>
+<section id="make-predictions">
+<h1>Make Predictions<a class="headerlink" href="#make-predictions" title="Link to this heading">#</a></h1>
+<p>The next bit of code plots the test image being classified by your SNN and a plot that shows the change in probability for each class over <code class="docutils literal notranslate"><span class="pre">n_steps</span></code>. The legend in the right plot corresponds to the 10 possible labels. The color with the highest probability on the last time step is classified as the image’s class by the SNN.</p>
+<p>A few conceptual things to consider (<em>hint hint</em>):</p>
+<ol class="arabic simple">
+<li><p>Notice that the probability starts at 0.10 for all classes.Does this make sense?</p></li>
+<li><p>Do any of the digits get misclassified or were they close to another digit’s probability? Based on looking at the handwritten digit(s) in question, why might this have been the case?</p></li>
+<li><p>Would more timesteps have helped with any misclassifications? Why or why not?</p></li>
+<li><p>Why do you think the SNN (without any modifications to ICE2 parameters) didn’t perform as well as the DNN from ICE1?</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_images</span><span class="p">[:</span><span class="mi">256</span><span class="p">])</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">test_images</span><span class="p">[</span><span class="mi">150</span><span class="o">+</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">out_p_filt</span><span class="p">][</span><span class="mi">150</span><span class="o">+</span><span class="n">i</span><span class="p">]))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)],</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;timesteps&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;probability&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Lab 2: Spiking Neural Networks using NengoDL</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-pre-process-the-dataset">Load and pre-process the dataset</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-layers">Set up the layers</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kaitlin Fair
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

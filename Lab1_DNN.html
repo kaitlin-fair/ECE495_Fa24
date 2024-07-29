@@ -1,0 +1,943 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ECE495 Lab 1: Deep Neural Networks &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Lab1_DNN';</script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Intro to Neuromorphic Engineering
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="venv_setup.html">ECE 495 Setup Assignment Instructions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">Nengo Neurons: Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">Nengo Neurons: Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Path Planning using Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial8_AdvExamples.html">Advanced Examples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks.html">Content with notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/kaitlin-fair/ECE495_Fa24/blob/main/book/Lab1_DNN.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2FLab1_DNN.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Lab1_DNN.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ECE495 Lab 1: Deep Neural Networks</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Lab 1: Deep Neural Networks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-dataset">Load a dataset</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-data">Explore the Data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-layers">Set up the layers</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-results">Analyze Results</a></li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ece495-lab-1-deep-neural-networks">
+<h1>ECE495 Lab 1: Deep Neural Networks<a class="headerlink" href="#ece495-lab-1-deep-neural-networks" title="Link to this heading">#</a></h1>
+<p>This Lab uses TensorFlow’s Keras to:</p>
+<ol class="arabic simple">
+<li><p>Load a prebuilt dataset.</p></li>
+<li><p>Build a simple neural network that classifies images.</p></li>
+<li><p>Train the neural network.</p></li>
+<li><p>Evaluate the accuracy of the network.</p></li>
+</ol>
+<section id="grading-specifications">
+<h2>Grading Specifications<a class="headerlink" href="#grading-specifications" title="Link to this heading">#</a></h2>
+<p>◻ Code runs error free<br />
+◻ All lines of code edited/changed contain comments with thought process behind methodology<br />
+◻ Training and test data imported correctly<br />
+◻ Training and test data normalized correctly<br />
+◻ Maximum and minimum values of normalized dataset printed<br />
+◻ DNN Layers (flatten, dense, dropout, dense) built in order and with parameters exactly as described in markdown<br />
+◻ Model compiled with correct optimizer, loss function, and metric type<br />
+◻ Model trained using training data for 5 epochs<br />
+◻ Model evaluated using test data<br />
+◻ Softmax layer appended to model after training<br />
+◻ Predictions made using test data<br />
+◻ For a single image, probability values (one per class) are printed<br />
+◻ For a single image, the sum of probability values (one per class) is equal to 1<br />
+◻ (Recommended) Results analyzed and discussed with classmates<br />
+◻ (Recommended) All markdown and resources read thoroughly</p>
+<section id="set-up">
+<h3>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h3>
+<p><strong>Ensure you are using your <a class="reference external" href="https://github.com/kaitlin-fair/495venv_setup">495 Virtual Environment</a> before you begin!</strong></p>
+<p>If you are using your virtual environment, when you run this section you should see that you are using TensorFlow version 2.10.1.</p>
+<p>Import TensorFlow and other libraries into your program to get started:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;TensorFlow version:&quot;</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+
+<span class="c1"># Helper libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="load-a-dataset">
+<h1>Load a dataset<a class="headerlink" href="#load-a-dataset" title="Link to this heading">#</a></h1>
+<p>Load and prepare the <a class="reference external" href="https://en.wikipedia.org/wiki/MNIST_database">MNIST dataset</a>. The pixel values of the images range from 0 through 255. For this network, we want to scale these values to a range of 0 to 1 (i.e. normalize the values) by dividing the values by <code class="docutils literal notranslate"><span class="pre">255.0</span></code>. This also converts the sample data from integers to floating-point numbers.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>This is the first section you are required to edit!</p>
+<ol class="arabic simple">
+<li><p>Grab the dataset from tf.keras. <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/datasets">Look here</a> to see the different datasets that TensorFlow Keras has at the ready and find commands to load the dataset. Replace <code class="docutils literal notranslate"><span class="pre">???</span></code> with the correct command on the first line. If you look further in TensorFlow documentation, you may see that there are other ways to call the MNIST dataset. It will be easiest within this notebook to use the command that begins with <code class="docutils literal notranslate"><span class="pre">tf.keras</span></code>.</p></li>
+<li><p>Normalize the pixel values of the entire dataset. Replace the appropriate <code class="docutils literal notranslate"><span class="pre">???</span></code> to do so.</p></li>
+</ol>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="err">???</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+
+<span class="c1"># Normalize values to be between 0 and 1</span>
+<span class="n">train_images</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+<span class="n">test_images</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="explore-the-data">
+<h1>Explore the Data<a class="headerlink" href="#explore-the-data" title="Link to this heading">#</a></h1>
+<p>Once you’ve run the above section, a “Variables” tab will show in the toolbar of this notebook.  You should see:</p>
+<ul class="simple">
+<li><p>There are 60,000 images in the training set</p></li>
+<li><p>Each training image is 28x28 pixels</p></li>
+<li><p>For each training image, there is an associated label (i.e. 60,000 labels)</p></li>
+<li><p>There are 10,000 images in the test set</p></li>
+<li><p>Each test image is 28x28 pixels</p></li>
+<li><p>For each test image, there is an associated label (i.e. 10,000 labels)</p></li>
+<li><p>The labels for each image are the values written in the image: 0, 1, 2, … 9</p></li>
+<li><p>The dataset is NOT in order.</p></li>
+</ul>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>You can also write Python commands to display this data which can be helpful when you are not using a Jupyter Notebook. To practice, write a command(s) to ensure you correctly normalized your dataset (i.e. your pixel values are within 0 and 1). Take a look <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.matrix.max.html">here</a> and <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.matrix.min.html">here</a> as an idea for one possible way to do so. Write your commands in the block below. You can look at <a class="reference external" href="https://www.w3schools.com/python/ref_func_print.asp">details</a> on how to use the <code class="docutils literal notranslate"><span class="pre">print</span></code> command to display data.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">???</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>View some of the training data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">train_images</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">train_labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>View some of the test data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">16</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">test_images</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">test_labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="build-a-machine-learning-model">
+<h1>Build a machine learning model<a class="headerlink" href="#build-a-machine-learning-model" title="Link to this heading">#</a></h1>
+<section id="set-up-the-layers">
+<h2>Set up the layers<a class="headerlink" href="#set-up-the-layers" title="Link to this heading">#</a></h2>
+<p>The basic building block of a neural network is the <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/layers">layer</a>. Layers extract representations from the data fed into them. Hopefully, these representations are meaningful for the problem at hand.</p>
+<p>Most of deep learning consists of chaining together simple layers. Most layers have parameters (such as weights and biases) that are learned during training.</p>
+<p>For this network, we will build a <a class="reference external" href="https://www.tensorflow.org/guide/keras/sequential_model">sequential model</a> with the following layers (in order):</p>
+<ol class="arabic simple">
+<li><p>Flatten</p></li>
+<li><p>Dense</p></li>
+<li><p>Dropout</p></li>
+<li><p>Dense</p></li>
+</ol>
+<p>Sequential models are useful for stacking layers where each layer has one input <a class="reference external" href="https://www.tensorflow.org/guide/tensor">tensor</a> and one output tensor (tensors are kind of like arrays). This is exactly how our layers will work: we will have input arrays and output arrays for each layer.</p>
+<p>For the first layer in this network, we want to use a flatten layer transform the format of the images from a two-dimensional array (of 28 by 28 pixels) to a one-dimensional array (of 28 * 28 = 784 pixels). Think of this layer as unstacking rows of pixels in the image and lining them up. This layer has no parameters to learn; it only reformats the data. The input shape will be the only required argument for the first layer of your model.</p>
+<p>After the pixels are flattened, the next layer of the network is a dense layer. This is a densely connected, or fully connected, neural layer. The first Dense layer will need to have 128 nodes (or neurons) with a “reLu” activation. The number of nodes and type of activation will be the two arguments required for the second layer of your model.</p>
+<p>The first dense layer is followed by a dropout layer. Dropout layers randomly set input units to 0 with a particular frequency of <code class="docutils literal notranslate"><span class="pre">rate</span></code> at each step during training time, which helps prevent overfitting. Inputs not set to 0 are scaled up by 1/(1 - <code class="docutils literal notranslate"><span class="pre">rate</span></code>) such that the sum over all inputs is unchanged.  Overfitting happens when a machine learning model performs worse on new, previously unseen inputs than it does on the training data. An overfitted model “memorizes” the noise and details in the training dataset to a point where it negatively impacts the performance of the model on the new data. Adding a dropout layer can prevent overfitting. The layer command does the math for you, but the rate we will set is 0.2. The rate will be the only required argument for the third layer of your model.</p>
+<p>The dropout layer is followed by another dense layer (also the last layer of the network). This layer returns a logits array (unnormalized log probabilities) with a length equivalent to the number of classes in your dataset. Each node contains a score that indicates the current image belongs to one of the classes. The number of nodes will be the only argument required for the final layer of your model.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>Given the above information, build your model by adding the appropriate layers in place of the four <code class="docutils literal notranslate"><span class="pre">???</span></code> lines (leave the commas!). Be sure to view the hyperlinks in the last section - especially those for layers and sequential models - they will be very helpful in calling your layers correctly.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="o">??</span><span class="err">?</span><span class="p">,</span>
+        <span class="o">??</span><span class="err">?</span><span class="p">,</span>
+        <span class="o">??</span><span class="err">?</span><span class="p">,</span>
+        <span class="o">??</span><span class="err">?</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="compile-your-model">
+<h1>Compile your model<a class="headerlink" href="#compile-your-model" title="Link to this heading">#</a></h1>
+<p>Before the model is ready for training, it needs a few more settings. These are added during the model’s compile step:</p>
+<p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/optimizers">Optimizer</a> —This is how the model is updated based on the data it sees and its loss function. For this model we will use the <strong>Adam optimization</strong>, which is a stochastic gradient descent method that is based on adaptive estimation of first-order and second-order moments. According to Kingma et al., 2014, the method is “computationally efficient, has little memory requirement, invariant to diagonal rescaling of gradients, and is well suited for problems that are large in terms of data/parameters”.</p>
+<p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/losses">Loss function</a> —This measures how accurate the model is during training. You want to minimize this function to “steer” the model in the right direction. For this model, we will use the <strong>Sparse Categorical Crossentropy</strong> loss to compute the crossentropy loss between the labels and predictions.</p>
+<p><a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/metrics">Metrics</a> — This is what is used to monitor the training and testing steps. For this model, we will use <strong>accuracy</strong> computed by the fraction of the images that are correctly classified. The accuracy metric calculates how often predictions equal labels.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>Compile your model by replacing the three <code class="docutils literal notranslate"><span class="pre">???</span></code> with the correct optimizer, loss function, and metric type. Be sure to view the hyperlinks to ensure correct syntax.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+    <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;???&quot;</span><span class="p">,</span>
+    <span class="n">loss</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="err">???</span><span class="p">(</span><span class="n">from_logits</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;???&quot;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="train-and-evaluate-your-model">
+<h1>Train and evaluate your model<a class="headerlink" href="#train-and-evaluate-your-model" title="Link to this heading">#</a></h1>
+<p>Training the neural network model requires the following steps:</p>
+<ol class="arabic simple">
+<li><p>Feed the training data to the model. In this example, the training data is in the train_images and train_labels arrays.</p></li>
+<li><p>The model learns to associate images and labels.</p></li>
+<li><p>You ask the model to make predictions about a test set—in this example, the test_images array.</p></li>
+<li><p>Verify that the predictions match the labels from the test_labels array.</p></li>
+</ol>
+<p>See <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/Model">TensorFlow’s Keras model documentation</a> to aid in implementing the above steps. Note that you can shift through the methods(examples: <code class="docutils literal notranslate"><span class="pre">fit</span></code>, <code class="docutils literal notranslate"><span class="pre">evaluate</span></code>) using the right hand column of the webpage.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>To train your network, call the <code class="docutils literal notranslate"><span class="pre">model.fit</span></code> method — so called because it “fits” the model to the <a class="reference external" href="https://developers.google.com/machine-learning/glossary#training_set">training data set</a> by adjusting your model parameters and minimizing the loss. Do so using the training data and 5 epochs, resulting in only three input arguments. This will complete the first two steps in training your neural network.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">???</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As the model trains, the loss and accuracy metrics are displayed. This model should reach an accuracy of about 0.98 (or 98%) on the training data.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>To complete the last two steps of the training process, use the <code class="docutils literal notranslate"><span class="pre">model.evaluate</span></code> method to check your model’s performance. This is typically performed on a <a class="reference external" href="https://developers.google.com/machine-learning/glossary#validation-set">validation set</a> or <a class="reference external" href="https://developers.google.com/machine-learning/glossary#test-set">test set</a>. To fully understand the differences between training, validation, and test datasets, view <a class="reference external" href="https://machinelearningmastery.com/difference-test-validation-datasets/">this page</a>. Choose verbose=2 and note what that means (maybe even try out verbose=1). This will result in only three input arguments.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">???</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>You have now verified that the image classifier is trained to ~98% accuracy on this dataset.</p>
+</section>
+<section id="make-predictions">
+<h1>Make Predictions<a class="headerlink" href="#make-predictions" title="Link to this heading">#</a></h1>
+<p>Adding a softmax layer will convert the logits output of the final layer to more intuitive probability values. You may also hear this referred to as a “confidence value” since the softmax (and DNN) output array represents the model’s “confidence” that the image corresponds to each of the 10 different digits.</p>
+<p>Note: It is possible to bake a softmax function into the activation function for the last layer of the network. While this can make the model output more directly interpretable, this approach is discouraged as it’s impossible to provide an exact and numerically stable loss calculation for all models when using a softmax output.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>Return to the resource page on TensorFlow <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/layers">layers</a> to understand how to add a Softmax layer. Replace the <code class="docutils literal notranslate"><span class="pre">???</span></code> with the correct code. This layer will not require any input arguments. <em>Note that you are appending a layer after training our original <code class="docutils literal notranslate"><span class="pre">model</span></code> using brackets</em> to create another deep neural network model to perform inference (i.e. determine the class of a new input image based on a trained model).</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">probability_model</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span><span class="n">model</span><span class="p">,</span> <span class="err">???</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Run the test data through the trained DNN.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>Return to the resource page on TensorFlow Keras <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/model">models</a> to understand how to predict using your new neural network called <code class="docutils literal notranslate"><span class="pre">probability_model</span></code>. Your only input argument will be your test images and the output of this line of code will be an array of labels called <code class="docutils literal notranslate"><span class="pre">predictions</span></code>. Replace the <code class="docutils literal notranslate"><span class="pre">???</span></code> to make that happen.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Each DNN output node (remember: there is 1 for each class) will display the probability that the image falls within a class. The label with the highest confidence value is the prediction from the DNN for a particular image. The sum of all output probability values should be 1 or very close to it.</p>
+<style>
+    .questioncolor {
+        background-color: #906752;
+    }
+</style>
+<div class="questioncolor">
+<p>Verify that all probability values (one per class) of one image are between 0 and 1 and that the sum of said values is equal to 1. Then determine which class your neural network believes the image belongs to based on the highest probability. <a class="reference external" href="https://www.w3schools.com/python/ref_func_print.asp">Print</a> all of this data. Choose any image! The examples on <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.sum.html">this page</a> may be helpful in determining that the probability values of one image are equal to 1. You can take a look at <a class="reference external" href="https://www.statology.org/numpy-get-row/">this page</a> to understand how to look at particular values in a matrix. Also, recall you can easily view your variables within a Jupyter notebook to understand the matrix dimensions of your prediction data.</p>
+</div><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">???</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="analyze-results">
+<h1>Analyze Results<a class="headerlink" href="#analyze-results" title="Link to this heading">#</a></h1>
+<p>We can use a package called <code class="docutils literal notranslate"><span class="pre">sklearn</span></code> (installed during your virtual environment setup) to look at the performance of our network class by class. For this exercise, the only data we really care about is the <em>precision</em> (i.e. how often predictions equal labels). Take note of which labels don’t do as well as others and think through why that might be (hint: this would be a really good concept to takeaway from this ICE).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+
+<span class="n">predictions2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">rpt</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">predictions2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rpt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Next up, we want to visualize some of our results. We will set up custom plotting functions (no need to edit) and take a look at a few images.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># setup plotting functions</span>
+<span class="k">def</span> <span class="nf">plot_image</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">predictions_array</span><span class="p">,</span> <span class="n">true_label</span><span class="p">,</span> <span class="n">img</span><span class="p">):</span>
+    <span class="n">true_label</span><span class="p">,</span> <span class="n">img</span> <span class="o">=</span> <span class="n">true_label</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">img</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">binary</span><span class="p">)</span>
+
+    <span class="n">predicted_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions_array</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">predicted_label</span> <span class="o">==</span> <span class="n">true_label</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;blue&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span>
+        <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{:2.0f}</span><span class="s2">% (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">predicted_label</span><span class="p">,</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">predictions_array</span><span class="p">),</span> <span class="n">true_label</span>
+        <span class="p">),</span>
+        <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">plot_value_array</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">predictions_array</span><span class="p">,</span> <span class="n">true_label</span><span class="p">):</span>
+    <span class="n">true_label</span> <span class="o">=</span> <span class="n">true_label</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+    <span class="n">thisplot</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">predictions_array</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#777777&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">predicted_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">predictions_array</span><span class="p">)</span>
+
+    <span class="n">thisplot</span><span class="p">[</span><span class="n">predicted_label</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+    <span class="n">thisplot</span><span class="p">[</span><span class="n">true_label</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The custom plotting functions denote correct prediction labels in blue (i.e. that image was classified correctly), incorrect prediction labels in red (i.e. that image was classified incorrectly), and confidence scores in between in gray (i.e. the neural network thought the image might be a different class but not enough to declare it as such). The percentage listed in each image gives the confidence (out of 100) that the network has that the image is the final predicted label.</p>
+<p>This visualization may help you in thinking through why some labels (digits) don’t get classified as well as others.</p>
+<p>Also note that if you rerun this entire code without reprogramming anything, your results may change! Consider why this might be as well.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">num_rows</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">num_cols</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">num_images</span> <span class="o">=</span> <span class="n">num_rows</span> <span class="o">*</span> <span class="n">num_cols</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">num_cols</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">num_rows</span><span class="p">))</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">140</span><span class="p">,</span> <span class="mi">155</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">num_rows</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">num_cols</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">plot_image</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">predictions</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">test_labels</span><span class="p">,</span> <span class="n">test_images</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="n">num_rows</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">num_cols</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">plot_value_array</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">predictions</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">test_labels</span><span class="p">)</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Lab 1: Deep Neural Networks</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-a-dataset">Load a dataset</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#explore-the-data">Explore the Data</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-layers">Set up the layers</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-results">Analyze Results</a></li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kaitlin Fair
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
