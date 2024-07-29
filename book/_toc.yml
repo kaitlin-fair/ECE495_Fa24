@@ -7,6 +7,7 @@ parts:
   - caption: Setup
     chapters:
       - file: venv_setup
+      - file: nengo_495setup
   - caption: In-class Tutorials
     chapters:
       - file: Tutorial3a_NeuronBasics
