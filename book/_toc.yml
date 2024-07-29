@@ -19,4 +19,4 @@ parts:
   - caption: Lab Assignments
     chapters:
       - file: Lab1_DNN_LastName
-      - file: Lab2_DNN_LastName
+      #- file: Lab2_SNN_LastName
