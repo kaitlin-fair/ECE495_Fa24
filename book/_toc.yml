@@ -4,7 +4,7 @@
 format: jb-book
 root: intro
 parts:
-  -caption: Setup
+  - caption: Setup
     chapters:
       - file: venv_setup
   - caption: In-class Tutorials
