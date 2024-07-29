@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ECE495 Intro to programming neurons with Nengo: Transformation &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+    <title>Nengo Neurons: Transformation &#8212; ECE495 Intro to Neuromorhic Engineering</title>
   
   
   
@@ -63,8 +63,8 @@
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ECE495 Intro to programming neurons with Nengo: Dynamics" href="Tutorial4_Dynamics.html" />
-    <link rel="prev" title="ECE495 Intro to programming neurons with Nengo: Representation" href="Tutorial3a_NeuronBasics.html" />
+    <link rel="next" title="Nengo Neurons: Dynamics" href="Tutorial4_Dynamics.html" />
+    <link rel="prev" title="Nengo Neurons: Representation" href="Tutorial3a_NeuronBasics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -178,23 +178,18 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                    Intro to Neuromorphic Engineering
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Neuromorphic Engineering</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">ECE495 Intro to programming neurons with Nengo: Representation</a></li>
-
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Intro to programming neurons with Nengo: Transformation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">ECE495 Intro to programming neurons with Nengo: Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Krichmar Path Planning using Nengo - Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo - Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial8_AdvExamples.html">ECE495 Programming neurons with Nengo: Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">Nengo Neurons: Representation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Nengo Neurons: Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">Nengo Neurons: Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Path Planning using Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial8_AdvExamples.html">Advanced Examples</a></li>
 
 
 
@@ -419,7 +414,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ECE495 Intro to programming neurons with Nengo: Transformation</h1>
+    <h1>Nengo Neurons: Transformation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -471,8 +466,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="ece495-intro-to-programming-neurons-with-nengo-transformation">
-<h1>ECE495 Intro to programming neurons with Nengo: Transformation<a class="headerlink" href="#ece495-intro-to-programming-neurons-with-nengo-transformation" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="nengo-neurons-transformation">
+<h1>Nengo Neurons: Transformation<a class="headerlink" href="#nengo-neurons-transformation" title="Link to this heading">#</a></h1>
 <p>In this demonstration we will:</p>
 <ol class="arabic simple">
 <li><p>Add using a single neuron</p></li>
@@ -574,13 +569,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<img alt="_images/c9c18fe8faf204563015225e0901f12d91c7a9935fdc28ac663ab2cfaa75ffc6.png" src="_images/c9c18fe8faf204563015225e0901f12d91c7a9935fdc28ac663ab2cfaa75ffc6.png" />
-</div>
 </div>
 <p>If this is not intuitive to you, I encourage you to use a single neuron to encode .2 at 100Hz and a single neuron to encode .3 at 100Hz. View your output spikes. Add them together using a third (single) neuron at 100Hz and view the output spikes.</p>
 <section id="let-s-talk-decoders-again">
@@ -650,12 +638,6 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="view-your-data">
@@ -675,12 +657,6 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x18f58982560&gt;]
-</pre></div>
-</div>
-<img alt="_images/5732408f6a6621de29a031d304c59e8d6c6850dc9e1002ca9a4e21ac73a65139.png" src="_images/5732408f6a6621de29a031d304c59e8d6c6850dc9e1002ca9a4e21ac73a65139.png" />
-</div>
 </div>
 </section>
 <section id="view-decoders">
@@ -696,32 +672,6 @@ Simulation finished in 0:00:01.
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; [  A Decoders   |   B Decoders  ]&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">decodersA</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">decodersB</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
- [  A Decoders   |   B Decoders  ]
-[[ 4.64126109e-05  1.32826088e-04]
- [ 5.23381837e-05 -4.75002269e-05]
- [ 4.99313481e-05  5.37908195e-05]
- [-3.64730625e-05 -6.70219617e-05]
- [-7.11860111e-05  8.21147291e-05]
- [-7.49998934e-05 -4.74085492e-05]
- [ 6.15482641e-05  5.20171473e-05]
- [ 4.26688595e-05 -5.50187033e-05]
- [ 5.32589237e-05 -4.74957120e-05]
- [ 7.15766063e-05  5.69782597e-05]
- [-5.27714705e-05  6.50100690e-05]
- [ 5.37314662e-05  5.91606403e-05]
- [-5.08394522e-05 -4.52157453e-05]
- [-7.87096671e-05  5.05218423e-05]
- [ 5.92808480e-05  5.55746586e-05]
- [-5.93313028e-05  7.77861119e-05]
- [-5.16157276e-05  4.70795883e-05]
- [-4.93086278e-05  5.70029918e-05]
- [-5.77830036e-05  5.32583616e-05]
- [-7.58175002e-05  6.61269101e-05]]
 </pre></div>
 </div>
 </div>
@@ -787,32 +737,6 @@ Simulation finished in 0:00:01.
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; [  A Decoders   |   B Decoders  ]&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">decodersA</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">decodersB</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
- [  A Decoders   |   B Decoders  ]
-[[ 1.95933510e-04  1.95856255e-04]
- [-9.72016871e-05 -9.76026217e-05]
- [ 1.97704685e-04  1.97646404e-04]
- [-9.44058766e-05 -9.47443559e-05]
- [ 2.02017310e-04  2.01866918e-04]
- [-9.60053444e-05 -9.60326660e-05]
- [ 2.07169629e-04  2.07084203e-04]
- [-1.01017965e-04 -1.01075403e-04]
- [ 2.12316543e-04  2.12298655e-04]
- [-1.07542985e-04 -1.07916871e-04]
- [ 2.17326832e-04  2.17160102e-04]
- [-1.15546481e-04 -1.15372724e-04]
- [ 2.21856681e-04  2.21759196e-04]
- [-1.23847611e-04 -1.23719764e-04]
- [ 2.25851735e-04  2.25851191e-04]
- [-1.31886556e-04 -1.32013932e-04]
- [ 2.29581934e-04  2.29544522e-04]
- [-1.40285031e-04 -1.40170176e-04]
- [ 2.32801581e-04  2.32845197e-04]
- [-1.48340998e-04 -1.48397648e-04]]
 </pre></div>
 </div>
 </div>
@@ -889,12 +813,6 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="view-results">
@@ -917,12 +835,6 @@ Simulation finished in 0:00:01.
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Neuron&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Neuron&#39;)
-</pre></div>
-</div>
-<img alt="_images/3c9f161fdaf286f68ba9dda76b96b90d7c650b503062c49ced3c553816680a9e.png" src="_images/3c9f161fdaf286f68ba9dda76b96b90d7c650b503062c49ced3c553816680a9e.png" />
 </div>
 </div>
 </section>
@@ -977,17 +889,6 @@ Simulation finished in 0:00:01.
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Neuron&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Neuron&#39;)
-</pre></div>
-</div>
-<img alt="_images/e76a762315f993cd0a7e83fe3a3d2855367ecbdd144628911c29a58ea5939215.png" src="_images/e76a762315f993cd0a7e83fe3a3d2855367ecbdd144628911c29a58ea5939215.png" />
-<img alt="_images/9aed10d227525d25d8750fda1c70f2094730d8a8c8273dd4d1d4b746295c885e.png" src="_images/9aed10d227525d25d8750fda1c70f2094730d8a8c8273dd4d1d4b746295c885e.png" />
 </div>
 </div>
 <p>Notice that the spike trains are exactly the same!! The only difference is how we’re interpreting those spikes. We told Nengo to compute two sets of decoders, one that estimates the function <span class="math notranslate nohighlight">\(x^2\)</span> and one that estimates the input signal.</p>
@@ -1058,12 +959,6 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="plot-results">
@@ -1082,12 +977,6 @@ Simulation finished in 0:00:01.
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(-1.1, 1.1)
-</pre></div>
-</div>
-<img alt="_images/07fe257f4453607a185a367b635ab13c39dfb9ade94e2461d0c15ba68c457c35.png" src="_images/07fe257f4453607a185a367b635ab13c39dfb9ade94e2461d0c15ba68c457c35.png" />
 </div>
 </div>
 <p>What if we wanted to use values greater than 1?? Let’s take a look at our Nengo GUI!</p>
@@ -1222,7 +1111,7 @@ Simulation finished in 0:00:01.
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">ECE495 Intro to programming neurons with Nengo: Representation</p>
+        <p class="prev-next-title">Nengo Neurons: Representation</p>
       </div>
     </a>
     <a class="right-next"
@@ -1230,7 +1119,7 @@ Simulation finished in 0:00:01.
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">ECE495 Intro to programming neurons with Nengo: Dynamics</p>
+        <p class="prev-next-title">Nengo Neurons: Dynamics</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -24,8 +24,6 @@ from nengo.utils.matplotlib import rasterplot
 from nengo.dists import Uniform
 from nengo.processes import WhiteSignal
 from nengo.processes import Piecewise
-
-
 ------------------
 
 

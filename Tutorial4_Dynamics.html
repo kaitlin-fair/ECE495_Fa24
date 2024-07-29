@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ECE495 Intro to programming neurons with Nengo: Dynamics &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+    <title>Nengo Neurons: Dynamics &#8212; ECE495 Intro to Neuromorhic Engineering</title>
   
   
   
@@ -63,8 +63,8 @@
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Krichmar Path Planning using Nengo - Tutorial" href="Tutorial6_PathPlanning.html" />
-    <link rel="prev" title="ECE495 Intro to programming neurons with Nengo: Transformation" href="Tutorial3b_NeuronBasics.html" />
+    <link rel="next" title="Path Planning using Nengo" href="Tutorial6_PathPlanning.html" />
+    <link rel="prev" title="Nengo Neurons: Transformation" href="Tutorial3b_NeuronBasics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -178,23 +178,18 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                    Intro to Neuromorphic Engineering
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Neuromorphic Engineering</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">ECE495 Intro to programming neurons with Nengo: Representation</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">ECE495 Intro to programming neurons with Nengo: Transformation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Intro to programming neurons with Nengo: Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Krichmar Path Planning using Nengo - Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo - Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial8_AdvExamples.html">ECE495 Programming neurons with Nengo: Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">Nengo Neurons: Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Nengo Neurons: Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Path Planning using Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial8_AdvExamples.html">Advanced Examples</a></li>
 
 
 
@@ -419,7 +414,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ECE495 Intro to programming neurons with Nengo: Dynamics</h1>
+    <h1>Nengo Neurons: Dynamics</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -466,8 +461,8 @@ document.write(`
                 <article class="bd-article">
                   
   <p><em>Get rid of last example (oscillator) - instead maybe discuss transforms vs functions once more. Add in an example of recurrence without any f’ and g’ and what the outputs would be. this drives home the why.</em></p>
-<section id="ece495-intro-to-programming-neurons-with-nengo-dynamics">
-<h1>ECE495 Intro to programming neurons with Nengo: Dynamics<a class="headerlink" href="#ece495-intro-to-programming-neurons-with-nengo-dynamics" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="nengo-neurons-dynamics">
+<h1>Nengo Neurons: Dynamics<a class="headerlink" href="#nengo-neurons-dynamics" title="Link to this heading">#</a></h1>
 <p>In this demonstration we will:</p>
 <ol class="arabic simple">
 <li><p>Understand and implement recurrence in a Nengo network</p></li>
@@ -619,117 +614,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-                <script>
-                    if (Jupyter.version.split(".")[0] < 5) {
-                        var pb = document.getElementById("dd951e05-fecb-4572-814f-6d6998a85920");
-                        var text = document.createTextNode(
-                            "HMTL progress bar requires Jupyter Notebook >= " +
-                            "5.0 or Jupyter Lab. Alternatively, you can use " +
-                            "TerminalProgressBar().");
-                        pb.parentNode.insertBefore(text, pb);
-                    }
-                </script>
-                <div id="dd951e05-fecb-4572-814f-6d6998a85920" style="
-                    width: 100%;
-                    border: 1px solid #cfcfcf;
-                    border-radius: 4px;
-                    text-align: center;
-                    position: relative;">
-                  <div class="pb-text" style="
-                      position: absolute;
-                      width: 100%;">
-                    0%
-                  </div>
-                  <div class="pb-fill" style="
-                      background-color: #bdd2e6;
-                      width: 0%;">
-                    <style type="text/css" scoped="scoped">
-                        @keyframes pb-fill-anim {
-                            0% { background-position: 0 0; }
-                            100% { background-position: 100px 0; }
-                        }
-                    </style>
-                    &nbsp;
-                  </div>
-                </div></div><div class="output text_html"><script>
-              (function () {
-                  var root = document.getElementById('dd951e05-fecb-4572-814f-6d6998a85920');
-                  var text = root.getElementsByClassName('pb-text')[0];
-                  var fill = root.getElementsByClassName('pb-fill')[0];
-
-                  text.innerHTML = 'Build finished in 0:00:01.';
-                  
-            fill.style.width = '100%';
-            fill.style.animation = 'pb-fill-anim 2s linear infinite';
-            fill.style.backgroundSize = '100px 100%';
-            fill.style.backgroundImage = 'repeating-linear-gradient(' +
-                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
-        
-                  
-                fill.style.animation = 'none';
-                fill.style.backgroundImage = 'none';
-            
-              })();
-        </script></div><div class="output text_html">
-                <script>
-                    if (Jupyter.version.split(".")[0] < 5) {
-                        var pb = document.getElementById("981e5c54-0025-4f39-80f5-af0bf2d1957f");
-                        var text = document.createTextNode(
-                            "HMTL progress bar requires Jupyter Notebook >= " +
-                            "5.0 or Jupyter Lab. Alternatively, you can use " +
-                            "TerminalProgressBar().");
-                        pb.parentNode.insertBefore(text, pb);
-                    }
-                </script>
-                <div id="981e5c54-0025-4f39-80f5-af0bf2d1957f" style="
-                    width: 100%;
-                    border: 1px solid #cfcfcf;
-                    border-radius: 4px;
-                    text-align: center;
-                    position: relative;">
-                  <div class="pb-text" style="
-                      position: absolute;
-                      width: 100%;">
-                    0%
-                  </div>
-                  <div class="pb-fill" style="
-                      background-color: #bdd2e6;
-                      width: 0%;">
-                    <style type="text/css" scoped="scoped">
-                        @keyframes pb-fill-anim {
-                            0% { background-position: 0 0; }
-                            100% { background-position: 100px 0; }
-                        }
-                    </style>
-                    &nbsp;
-                  </div>
-                </div></div><div class="output text_html"><script>
-              (function () {
-                  var root = document.getElementById('981e5c54-0025-4f39-80f5-af0bf2d1957f');
-                  var text = root.getElementsByClassName('pb-text')[0];
-                  var fill = root.getElementsByClassName('pb-fill')[0];
-
-                  text.innerHTML = 'Simulation finished in 0:00:01.';
-                  
-            if (100.0 > 0.) {
-                fill.style.transition = 'width 0.1s linear';
-            } else {
-                fill.style.transition = 'none';
-            }
-
-            fill.style.width = '100.0%';
-            fill.style.animation = 'none';
-            fill.style.backgroundImage = 'none'
-        
-                  
-                fill.style.animation = 'none';
-                fill.style.backgroundImage = 'none';
-            
-              })();
-        </script></div><img alt="_images/cfda5ed364a66957003b34e528b4fb7ae1ddad73eccdcfd35444ac4a3c0a48cc.png" src="_images/cfda5ed364a66957003b34e528b4fb7ae1ddad73eccdcfd35444ac4a3c0a48cc.png" />
-</div>
 </div>
 </section>
 <section id="discussion">
@@ -798,116 +682,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-                <script>
-                    if (Jupyter.version.split(".")[0] < 5) {
-                        var pb = document.getElementById("66f69edd-67a2-407d-ab1c-d72aeb050d52");
-                        var text = document.createTextNode(
-                            "HMTL progress bar requires Jupyter Notebook >= " +
-                            "5.0 or Jupyter Lab. Alternatively, you can use " +
-                            "TerminalProgressBar().");
-                        pb.parentNode.insertBefore(text, pb);
-                    }
-                </script>
-                <div id="66f69edd-67a2-407d-ab1c-d72aeb050d52" style="
-                    width: 100%;
-                    border: 1px solid #cfcfcf;
-                    border-radius: 4px;
-                    text-align: center;
-                    position: relative;">
-                  <div class="pb-text" style="
-                      position: absolute;
-                      width: 100%;">
-                    0%
-                  </div>
-                  <div class="pb-fill" style="
-                      background-color: #bdd2e6;
-                      width: 0%;">
-                    <style type="text/css" scoped="scoped">
-                        @keyframes pb-fill-anim {
-                            0% { background-position: 0 0; }
-                            100% { background-position: 100px 0; }
-                        }
-                    </style>
-                    &nbsp;
-                  </div>
-                </div></div><div class="output text_html"><script>
-              (function () {
-                  var root = document.getElementById('66f69edd-67a2-407d-ab1c-d72aeb050d52');
-                  var text = root.getElementsByClassName('pb-text')[0];
-                  var fill = root.getElementsByClassName('pb-fill')[0];
-
-                  text.innerHTML = 'Build finished in 0:00:01.';
-                  
-            fill.style.width = '100%';
-            fill.style.animation = 'pb-fill-anim 2s linear infinite';
-            fill.style.backgroundSize = '100px 100%';
-            fill.style.backgroundImage = 'repeating-linear-gradient(' +
-                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
-        
-                  
-                fill.style.animation = 'none';
-                fill.style.backgroundImage = 'none';
-            
-              })();
-        </script></div><div class="output text_html">
-                <script>
-                    if (Jupyter.version.split(".")[0] < 5) {
-                        var pb = document.getElementById("c3be76e8-285c-46b4-92ae-fe00ba1eb4d9");
-                        var text = document.createTextNode(
-                            "HMTL progress bar requires Jupyter Notebook >= " +
-                            "5.0 or Jupyter Lab. Alternatively, you can use " +
-                            "TerminalProgressBar().");
-                        pb.parentNode.insertBefore(text, pb);
-                    }
-                </script>
-                <div id="c3be76e8-285c-46b4-92ae-fe00ba1eb4d9" style="
-                    width: 100%;
-                    border: 1px solid #cfcfcf;
-                    border-radius: 4px;
-                    text-align: center;
-                    position: relative;">
-                  <div class="pb-text" style="
-                      position: absolute;
-                      width: 100%;">
-                    0%
-                  </div>
-                  <div class="pb-fill" style="
-                      background-color: #bdd2e6;
-                      width: 0%;">
-                    <style type="text/css" scoped="scoped">
-                        @keyframes pb-fill-anim {
-                            0% { background-position: 0 0; }
-                            100% { background-position: 100px 0; }
-                        }
-                    </style>
-                    &nbsp;
-                  </div>
-                </div></div><div class="output text_html"><script>
-              (function () {
-                  var root = document.getElementById('c3be76e8-285c-46b4-92ae-fe00ba1eb4d9');
-                  var text = root.getElementsByClassName('pb-text')[0];
-                  var fill = root.getElementsByClassName('pb-fill')[0];
-
-                  text.innerHTML = 'Simulation finished in 0:00:01.';
-                  
-            if (100.0 > 0.) {
-                fill.style.transition = 'width 0.1s linear';
-            } else {
-                fill.style.transition = 'none';
-            }
-
-            fill.style.width = '100.0%';
-            fill.style.animation = 'none';
-            fill.style.backgroundImage = 'none'
-        
-                  
-                fill.style.animation = 'none';
-                fill.style.backgroundImage = 'none';
-            
-              })();
-        </script></div></div>
 </div>
 </section>
 <section id="plot-it">
@@ -921,12 +695,6 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x283a45d9c60&gt;
-</pre></div>
-</div>
-<img alt="_images/c2c4d541fbe2a3b3d386719958e9678bf388be4506589bc42b1eb8a8ac84ebfb.png" src="_images/c2c4d541fbe2a3b3d386719958e9678bf388be4506589bc42b1eb8a8ac84ebfb.png" />
 </div>
 </div>
 </section>
@@ -1008,116 +776,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-                <script>
-                    if (Jupyter.version.split(".")[0] < 5) {
-                        var pb = document.getElementById("5ec89b52-9427-47d8-87b0-93df3c6a8b81");
-                        var text = document.createTextNode(
-                            "HMTL progress bar requires Jupyter Notebook >= " +
-                            "5.0 or Jupyter Lab. Alternatively, you can use " +
-                            "TerminalProgressBar().");
-                        pb.parentNode.insertBefore(text, pb);
-                    }
-                </script>
-                <div id="5ec89b52-9427-47d8-87b0-93df3c6a8b81" style="
-                    width: 100%;
-                    border: 1px solid #cfcfcf;
-                    border-radius: 4px;
-                    text-align: center;
-                    position: relative;">
-                  <div class="pb-text" style="
-                      position: absolute;
-                      width: 100%;">
-                    0%
-                  </div>
-                  <div class="pb-fill" style="
-                      background-color: #bdd2e6;
-                      width: 0%;">
-                    <style type="text/css" scoped="scoped">
-                        @keyframes pb-fill-anim {
-                            0% { background-position: 0 0; }
-                            100% { background-position: 100px 0; }
-                        }
-                    </style>
-                    &nbsp;
-                  </div>
-                </div></div><div class="output text_html"><script>
-              (function () {
-                  var root = document.getElementById('5ec89b52-9427-47d8-87b0-93df3c6a8b81');
-                  var text = root.getElementsByClassName('pb-text')[0];
-                  var fill = root.getElementsByClassName('pb-fill')[0];
-
-                  text.innerHTML = 'Build finished in 0:00:01.';
-                  
-            fill.style.width = '100%';
-            fill.style.animation = 'pb-fill-anim 2s linear infinite';
-            fill.style.backgroundSize = '100px 100%';
-            fill.style.backgroundImage = 'repeating-linear-gradient(' +
-                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
-        
-                  
-                fill.style.animation = 'none';
-                fill.style.backgroundImage = 'none';
-            
-              })();
-        </script></div><div class="output text_html">
-                <script>
-                    if (Jupyter.version.split(".")[0] < 5) {
-                        var pb = document.getElementById("85b30cf4-4f49-4283-ac4c-61bc7187a504");
-                        var text = document.createTextNode(
-                            "HMTL progress bar requires Jupyter Notebook >= " +
-                            "5.0 or Jupyter Lab. Alternatively, you can use " +
-                            "TerminalProgressBar().");
-                        pb.parentNode.insertBefore(text, pb);
-                    }
-                </script>
-                <div id="85b30cf4-4f49-4283-ac4c-61bc7187a504" style="
-                    width: 100%;
-                    border: 1px solid #cfcfcf;
-                    border-radius: 4px;
-                    text-align: center;
-                    position: relative;">
-                  <div class="pb-text" style="
-                      position: absolute;
-                      width: 100%;">
-                    0%
-                  </div>
-                  <div class="pb-fill" style="
-                      background-color: #bdd2e6;
-                      width: 0%;">
-                    <style type="text/css" scoped="scoped">
-                        @keyframes pb-fill-anim {
-                            0% { background-position: 0 0; }
-                            100% { background-position: 100px 0; }
-                        }
-                    </style>
-                    &nbsp;
-                  </div>
-                </div></div><div class="output text_html"><script>
-              (function () {
-                  var root = document.getElementById('85b30cf4-4f49-4283-ac4c-61bc7187a504');
-                  var text = root.getElementsByClassName('pb-text')[0];
-                  var fill = root.getElementsByClassName('pb-fill')[0];
-
-                  text.innerHTML = 'Simulation finished in 0:00:02.';
-                  
-            if (100.0 > 0.) {
-                fill.style.transition = 'width 0.1s linear';
-            } else {
-                fill.style.transition = 'none';
-            }
-
-            fill.style.width = '100.0%';
-            fill.style.animation = 'none';
-            fill.style.backgroundImage = 'none'
-        
-                  
-                fill.style.animation = 'none';
-                fill.style.backgroundImage = 'none';
-            
-              })();
-        </script></div></div>
 </div>
 </section>
 <section id="id3">
@@ -1132,12 +790,6 @@ document.write(`
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x283a4b9d9f0&gt;
-</pre></div>
-</div>
-<img alt="_images/b8e334c3c988ffcc868488a021f984da7fda7e56deb947ffd19dc611f662e0e6.png" src="_images/b8e334c3c988ffcc868488a021f984da7fda7e56deb947ffd19dc611f662e0e6.png" />
 </div>
 </div>
 </section>
@@ -1248,121 +900,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">
-                <script>
-                    if (Jupyter.version.split(".")[0] < 5) {
-                        var pb = document.getElementById("c5969a99-aa7e-4071-a4e9-fb77a1db7a51");
-                        var text = document.createTextNode(
-                            "HMTL progress bar requires Jupyter Notebook >= " +
-                            "5.0 or Jupyter Lab. Alternatively, you can use " +
-                            "TerminalProgressBar().");
-                        pb.parentNode.insertBefore(text, pb);
-                    }
-                </script>
-                <div id="c5969a99-aa7e-4071-a4e9-fb77a1db7a51" style="
-                    width: 100%;
-                    border: 1px solid #cfcfcf;
-                    border-radius: 4px;
-                    text-align: center;
-                    position: relative;">
-                  <div class="pb-text" style="
-                      position: absolute;
-                      width: 100%;">
-                    0%
-                  </div>
-                  <div class="pb-fill" style="
-                      background-color: #bdd2e6;
-                      width: 0%;">
-                    <style type="text/css" scoped="scoped">
-                        @keyframes pb-fill-anim {
-                            0% { background-position: 0 0; }
-                            100% { background-position: 100px 0; }
-                        }
-                    </style>
-                    &nbsp;
-                  </div>
-                </div></div><div class="output text_html"><script>
-              (function () {
-                  var root = document.getElementById('c5969a99-aa7e-4071-a4e9-fb77a1db7a51');
-                  var text = root.getElementsByClassName('pb-text')[0];
-                  var fill = root.getElementsByClassName('pb-fill')[0];
-
-                  text.innerHTML = 'Build finished in 0:00:01.';
-                  
-            fill.style.width = '100%';
-            fill.style.animation = 'pb-fill-anim 2s linear infinite';
-            fill.style.backgroundSize = '100px 100%';
-            fill.style.backgroundImage = 'repeating-linear-gradient(' +
-                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
-        
-                  
-                fill.style.animation = 'none';
-                fill.style.backgroundImage = 'none';
-            
-              })();
-        </script></div><div class="output text_html">
-                <script>
-                    if (Jupyter.version.split(".")[0] < 5) {
-                        var pb = document.getElementById("26fdbe0f-0764-439b-9f9b-8f9c8454dd9d");
-                        var text = document.createTextNode(
-                            "HMTL progress bar requires Jupyter Notebook >= " +
-                            "5.0 or Jupyter Lab. Alternatively, you can use " +
-                            "TerminalProgressBar().");
-                        pb.parentNode.insertBefore(text, pb);
-                    }
-                </script>
-                <div id="26fdbe0f-0764-439b-9f9b-8f9c8454dd9d" style="
-                    width: 100%;
-                    border: 1px solid #cfcfcf;
-                    border-radius: 4px;
-                    text-align: center;
-                    position: relative;">
-                  <div class="pb-text" style="
-                      position: absolute;
-                      width: 100%;">
-                    0%
-                  </div>
-                  <div class="pb-fill" style="
-                      background-color: #bdd2e6;
-                      width: 0%;">
-                    <style type="text/css" scoped="scoped">
-                        @keyframes pb-fill-anim {
-                            0% { background-position: 0 0; }
-                            100% { background-position: 100px 0; }
-                        }
-                    </style>
-                    &nbsp;
-                  </div>
-                </div></div><div class="output text_html"><script>
-              (function () {
-                  var root = document.getElementById('26fdbe0f-0764-439b-9f9b-8f9c8454dd9d');
-                  var text = root.getElementsByClassName('pb-text')[0];
-                  var fill = root.getElementsByClassName('pb-fill')[0];
-
-                  text.innerHTML = 'Simulation finished in 0:00:01.';
-                  
-            if (100.0 > 0.) {
-                fill.style.transition = 'width 0.1s linear';
-            } else {
-                fill.style.transition = 'none';
-            }
-
-            fill.style.width = '100.0%';
-            fill.style.animation = 'none';
-            fill.style.backgroundImage = 'none'
-        
-                  
-                fill.style.animation = 'none';
-                fill.style.backgroundImage = 'none';
-            
-              })();
-        </script></div><div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x283a4b4e3e0&gt;
-</pre></div>
-</div>
-<img alt="_images/eceecccde17ed968513928744ba1db79c4133878a96699a5a05b2257fc83ac82.png" src="_images/eceecccde17ed968513928744ba1db79c4133878a96699a5a05b2257fc83ac82.png" />
-<img alt="_images/729bd642fdd192ff945291eefa178b128e0dd0f0468e932cdbbfe29e32249948.png" src="_images/729bd642fdd192ff945291eefa178b128e0dd0f0468e932cdbbfe29e32249948.png" />
-</div>
 </div>
 <section id="id5">
 <h3>Discussion<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
@@ -1425,7 +962,7 @@ Every example we cover in this notebook can be found <a class="reference externa
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">ECE495 Intro to programming neurons with Nengo: Transformation</p>
+        <p class="prev-next-title">Nengo Neurons: Transformation</p>
       </div>
     </a>
     <a class="right-next"
@@ -1433,7 +970,7 @@ Every example we cover in this notebook can be found <a class="reference externa
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Krichmar Path Planning using Nengo - Tutorial</p>
+        <p class="prev-next-title">Path Planning using Nengo</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

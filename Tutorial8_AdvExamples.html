@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ECE495 Programming neurons with Nengo: Advanced Examples &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+    <title>Advanced Examples &#8212; ECE495 Intro to Neuromorhic Engineering</title>
   
   
   
@@ -64,7 +64,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Notebooks with MyST Markdown" href="markdown-notebooks.html" />
-    <link rel="prev" title="Spiking data on Nengo - Tutorial" href="Tutorial7_SpikingData.html" />
+    <link rel="prev" title="Spiking data on Nengo" href="Tutorial7_SpikingData.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -178,23 +178,18 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                    Intro to Neuromorphic Engineering
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Neuromorphic Engineering</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">ECE495 Intro to programming neurons with Nengo: Representation</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">ECE495 Intro to programming neurons with Nengo: Transformation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">ECE495 Intro to programming neurons with Nengo: Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Krichmar Path Planning using Nengo - Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo - Tutorial</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Programming neurons with Nengo: Advanced Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">Nengo Neurons: Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">Nengo Neurons: Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Path Planning using Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Advanced Examples</a></li>
 
 
 
@@ -419,7 +414,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ECE495 Programming neurons with Nengo: Advanced Examples</h1>
+    <h1>Advanced Examples</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -429,12 +424,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Programming neurons with Nengo: Advanced Examples</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Advanced Examples</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix Multiplication</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-and-plot">Run and Plot</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix Multiplication</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-and-plot">Run and Plot</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-vec-a-vec-b">Recall:
@@ -462,12 +455,10 @@ a_{21}  b_{11} + a_{22}b_{21} &amp; a_{21}  b_{12} + a_{22}b_{22}
 \end{bmatrix}</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delays-using-nengo-nodes">Delays using Nengo Nodes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-learning">Online Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-in-learning">Add in Learning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-it-plot-it">Run it, plot it.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Discussion</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-learning">Online Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-in-learning">Add in Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-it-plot-it">Run it, plot it.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Discussion</a></li>
 </ul>
 </li>
 </ul>
@@ -483,8 +474,8 @@ a_{21}  b_{11} + a_{22}b_{21} &amp; a_{21}  b_{12} + a_{22}b_{22}
                 <article class="bd-article">
                   
   <p><em>add in read data stuff developed from final project q’s. mostly contained in data processing folder. get rid of delay node (taught that in path planning). matrix multiplication example is kind of meh. Hit hard on reading data and online learning. possibly make the lab a combo of those two.</em></p>
-<section id="ece495-programming-neurons-with-nengo-advanced-examples">
-<h1>ECE495 Programming neurons with Nengo: Advanced Examples<a class="headerlink" href="#ece495-programming-neurons-with-nengo-advanced-examples" title="Link to this heading">#</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="advanced-examples">
+<h1>Advanced Examples<a class="headerlink" href="#advanced-examples" title="Link to this heading">#</a></h1>
 <p>In this demonstration we will:</p>
 <ol class="arabic simple">
 <li><p>Perform matrix multiplication with greater than 2-dimensional neurons</p></li>
@@ -571,8 +562,9 @@ a_{21}  b_{11} + a_{22}b_{21} &amp; a_{21}  b_{12} + a_{22}b_{22}
 </div>
 </div>
 </div>
+</section>
 <section id="run-and-plot">
-<h3>Run and Plot<a class="headerlink" href="#run-and-plot" title="Link to this heading">#</a></h3>
+<h2>Run and Plot<a class="headerlink" href="#run-and-plot" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
@@ -759,7 +751,6 @@ Simulation finished in 0:00:01.
 </div>
 </div>
 <p>We have 8 outputs from C. We add two at a time to compute the four outputs of our two 2x2 matrices being multiplied together.</p>
-</section>
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="recall-vec-a-vec-b">
@@ -956,8 +947,9 @@ Simulation finished in 0:00:02.
 <img alt="_images/54cc59f95e98aedb64759a61767001c52ae43550d884a0356e4065a123ff3caf.png" src="_images/54cc59f95e98aedb64759a61767001c52ae43550d884a0356e4065a123ff3caf.png" />
 </div>
 </div>
+</section>
 <section id="add-in-learning">
-<h3>Add in Learning<a class="headerlink" href="#add-in-learning" title="Link to this heading">#</a></h3>
+<h2>Add in Learning<a class="headerlink" href="#add-in-learning" title="Link to this heading">#</a></h2>
 <p>Now, we will add an ensemble to compute our error. We know that with a proper comms channel, our output from the ensemble B should match that of ensemble A. The error is therefore the difference between the two and we will use an ensemble to compute that. The error neuron will subtract ensemble A output from ensemble B output using the <code class="docutils literal notranslate"><span class="pre">transform=-1</span></code> argument for the A connection(i.e. error <span class="math notranslate nohighlight">\(= B-A =\)</span> how far off we are from where we want to be).</p>
 <p>We will then employ an error rule on our connection between A and B, which we called <code class="docutils literal notranslate"><span class="pre">conn</span></code> in the last segment of code. The learning rule we use is called the <a class="reference external" href="https://www.researchgate.net/publication/282366687_A_Solution_to_the_Dynamics_of_the_Prescribed_Error_Sensitivity_Learning_Rule">prescribed error sensitivity (PES) learning rule</a>. The PES learning rule is a biologically plausible supervised learning rule that is frequently used with the Neural Engineering Framework (NEF) – this is Nengo’s framework! PES modifies the connection weights between populations of neurons to minimize an external error signal (being the error ensemble we’ve created). <a class="reference external" href="https://www.nengo.ai/nengo/examples/learning/learn-communication-channel.html">This page</a> describes it succinctly in the “How does this work?” section if you want the math behind how the decoders are updated.</p>
 <p>This means we compute an error and use that in our learning rule between ensembles A and B to push the weights toward a solution where <span class="math notranslate nohighlight">\(B-A=0\)</span>, i.e. <span class="math notranslate nohighlight">\(A=B\)</span>.</p>
@@ -985,7 +977,7 @@ Simulation finished in 0:00:02.
 </div>
 </section>
 <section id="run-it-plot-it">
-<h3>Run it, plot it.<a class="headerlink" href="#run-it-plot-it" title="Link to this heading">#</a></h3>
+<h2>Run it, plot it.<a class="headerlink" href="#run-it-plot-it" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
@@ -1028,9 +1020,8 @@ Simulation finished in 0:00:03.
 </div>
 </section>
 <section id="id1">
-<h3>Discussion<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<h2>Discussion<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
 <p>We can see here that toward the end of our simulation, both dimensions start to look the same. We can see from the third plot that error is reduced as we go in each dimension. Once error is reduced to near zero, the weights should always work, regardless of input to the network (i.e. if we keep those decoders between those two ensembles, we can feed in any input and we should output the same signal). How? Decoders! You can see in the fourth plot how the decoders change and then converge to a value over time. That means that instead of computing that nasty random output function, the weights have adjusted to take the same output spikes and compute <span class="math notranslate nohighlight">\(f(x)=x\)</span>. If you’re lost, please work back through the <code class="docutils literal notranslate"><span class="pre">neuron_transformations.ipynb</span></code>.</p>
-</section>
 </section>
 </section>
 
@@ -1070,7 +1061,7 @@ Simulation finished in 0:00:03.
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Spiking data on Nengo - Tutorial</p>
+        <p class="prev-next-title">Spiking data on Nengo</p>
       </div>
     </a>
     <a class="right-next"
@@ -1098,12 +1089,10 @@ Simulation finished in 0:00:03.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Programming neurons with Nengo: Advanced Examples</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Advanced Examples</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix Multiplication</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-and-plot">Run and Plot</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix Multiplication</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-and-plot">Run and Plot</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-vec-a-vec-b">Recall:
@@ -1131,12 +1120,10 @@ a_{21}  b_{11} + a_{22}b_{21} &amp; a_{21}  b_{12} + a_{22}b_{22}
 \end{bmatrix}</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#delays-using-nengo-nodes">Delays using Nengo Nodes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-learning">Online Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-in-learning">Add in Learning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-it-plot-it">Run it, plot it.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Discussion</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#online-learning">Online Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-in-learning">Add in Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-it-plot-it">Run it, plot it.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Discussion</a></li>
 </ul>
 </li>
 </ul>

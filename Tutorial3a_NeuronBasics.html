@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ECE495 Intro to programming neurons with Nengo: Representation &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+    <title>Nengo Neurons: Representation &#8212; ECE495 Intro to Neuromorhic Engineering</title>
   
   
   
@@ -61,8 +61,8 @@
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ECE495 Intro to programming neurons with Nengo: Transformation" href="Tutorial3b_NeuronBasics.html" />
-    <link rel="prev" title="FAQ" href="faq.html" />
+    <link rel="next" title="Nengo Neurons: Transformation" href="Tutorial3b_NeuronBasics.html" />
+    <link rel="prev" title="Intro to Neuromorphic Engineering" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -176,23 +176,18 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                    Intro to Neuromorphic Engineering
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Intro to Neuromorphic Engineering</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Intro to programming neurons with Nengo: Representation</a></li>
-
-<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">ECE495 Intro to programming neurons with Nengo: Transformation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">ECE495 Intro to programming neurons with Nengo: Dynamics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Krichmar Path Planning using Nengo - Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo - Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Tutorial8_AdvExamples.html">ECE495 Programming neurons with Nengo: Advanced Examples</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Nengo Neurons: Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">Nengo Neurons: Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Path Planning using Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Spiking data on Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial8_AdvExamples.html">Advanced Examples</a></li>
 
 
 
@@ -417,7 +412,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ECE495 Intro to programming neurons with Nengo: Representation</h1>
+    <h1>Nengo Neurons: Representation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -427,26 +422,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Intro to programming neurons with Nengo: Representation</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#represent-i-e-encode-input-data-using-one-neuron">Represent (i.e. Encode) Input Data using One Neuron</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-input">Create your input</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-model">Create your model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-to-your-model">Add to your model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-model">Run your model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-your-model-outputs">Analyze your model outputs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-analysis">Further Analysis</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#represent-i-e-encode-input-data-using-one-neuron">Represent (i.e. Encode) Input Data using One Neuron</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-input">Create your input</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-model">Create your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-to-your-model">Add to your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-model">Run your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-your-model-outputs">Analyze your model outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-analysis">Further Analysis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#okay-but-how-did-we-go-from-spikes-to-the-neural-representation-of-the-value">Okay, but how did we go from spikes to the neural representation of the value?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#represent-i-e-encode-input-data-using-eight-neurons">Represent (i.e. Encode) Input Data using Eight Neurons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#represent-i-e-encode-input-data-using-eight-neurons">Represent (i.e. Encode) Input Data using Eight Neurons</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
-</li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -457,8 +446,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="ece495-intro-to-programming-neurons-with-nengo-representation">
-<h1>ECE495 Intro to programming neurons with Nengo: Representation<a class="headerlink" href="#ece495-intro-to-programming-neurons-with-nengo-representation" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="nengo-neurons-representation">
+<h1>Nengo Neurons: Representation<a class="headerlink" href="#nengo-neurons-representation" title="Link to this heading">#</a></h1>
 <p>In this demonstration we will:</p>
 <ol class="arabic simple">
 <li><p>Represent a constant input value with a single neuron using Nengo</p></li>
@@ -510,8 +499,9 @@ document.write(`
 <li><p>Decode: convert spikes to numeric values (hopefully looks like our input)</p></li>
 </ul>
 <p>To understand how Nengo neurons encode inputs, we will first look at a single neuron encoding a constant value.</p>
+</section>
 <section id="create-your-input">
-<h3>Create your input<a class="headerlink" href="#create-your-input" title="Link to this heading">#</a></h3>
+<h2>Create your input<a class="headerlink" href="#create-your-input" title="Link to this heading">#</a></h2>
 <p>Start with a positive value between -1 and 1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -522,7 +512,7 @@ document.write(`
 </div>
 </section>
 <section id="create-your-model">
-<h3>Create your model<a class="headerlink" href="#create-your-model" title="Link to this heading">#</a></h3>
+<h2>Create your model<a class="headerlink" href="#create-your-model" title="Link to this heading">#</a></h2>
 <p>Every Nengo network requires a model. The model holds all of your nodes, neurons, connections, probes, and other functionality.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -533,7 +523,7 @@ document.write(`
 </div>
 </section>
 <section id="add-to-your-model">
-<h3>Add to your model<a class="headerlink" href="#add-to-your-model" title="Link to this heading">#</a></h3>
+<h2>Add to your model<a class="headerlink" href="#add-to-your-model" title="Link to this heading">#</a></h2>
 <p>You can adjust or add onto your model anytime using the same <code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">model:</span></code> command.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -578,7 +568,7 @@ document.write(`
 </div>
 </section>
 <section id="run-your-model">
-<h3>Run your model<a class="headerlink" href="#run-your-model" title="Link to this heading">#</a></h3>
+<h2>Run your model<a class="headerlink" href="#run-your-model" title="Link to this heading">#</a></h2>
 <p>Once you’ve built it, it’s time to see what it can do.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -589,16 +579,10 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="analyze-your-model-outputs">
-<h3>Analyze your model outputs<a class="headerlink" href="#analyze-your-model-outputs" title="Link to this heading">#</a></h3>
+<h2>Analyze your model outputs<a class="headerlink" href="#analyze-your-model-outputs" title="Link to this heading">#</a></h2>
 <p>Plot the outputs collected from Nengo probes.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -632,24 +616,13 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Difference between actual and decoded mean =  0.01590020807681436
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 1.0)
-</pre></div>
-</div>
-<img alt="_images/f5f6188bbbbb748d4efd849e7fd4541d32ba6a1f5c4fd0129160fd35bd4e8a76.png" src="_images/f5f6188bbbbb748d4efd849e7fd4541d32ba6a1f5c4fd0129160fd35bd4e8a76.png" />
-<img alt="_images/79434c53161d1cac5b7752c96c9b48bd1b537902c7833273133bc0c78cad2e11.png" src="_images/79434c53161d1cac5b7752c96c9b48bd1b537902c7833273133bc0c78cad2e11.png" />
-<img alt="_images/b4b003ddd50efc49944775bafba6228b3fec962374ab62c033def9f067e96640.png" src="_images/b4b003ddd50efc49944775bafba6228b3fec962374ab62c033def9f067e96640.png" />
-</div>
 </div>
 <p>We can see that this single neuron cannot perfectly represent our input value. We could fine tune parameters to a specific value to get it to perfectly represent it; however, that’s not generalizable. BUT! <strong>We will still do that to see how the parameters really affect representations (soon).</strong></p>
 <p>We would expect constant spikes evenly spaced as we are sending in a constant value. We would expect more spikes for larger values, fewer for smaller values.</p>
 <p>We can see that the membrane potential increases and reaches a certain value, a spike is emmitted, and the membrane potential resets.</p>
 </section>
 <section id="further-analysis">
-<h3>Further Analysis<a class="headerlink" href="#further-analysis" title="Link to this heading">#</a></h3>
+<h2>Further Analysis<a class="headerlink" href="#further-analysis" title="Link to this heading">#</a></h2>
 <p>Input signals drive neural populations based on each neuron’s “tuning curve”.</p>
 <p>The tuning curve describes how much a particular neuron will fire as a function of the input signal. In this case, our input signal is a constant value over 1 second. We can plot the tuning curve to better understand our outputs.</p>
 <div class="cell docutils container">
@@ -670,18 +643,8 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Firing rate (Hz)&#39;)
-</pre></div>
-</div>
-<img alt="_images/0d6fc2255b9dce27eefc1ac898f45a2539ce83a390077c952669c57ca9abf0bb.png" src="_images/0d6fc2255b9dce27eefc1ac898f45a2539ce83a390077c952669c57ca9abf0bb.png" />
-</div>
 </div>
 <p>This plot tells us that for a value just barely above zero, it will have a firing rate of about 20Hz. If we had a value nearing 1, the firing rate would be close to our max firing rate we set for the neuron, 100Hz. Anything less than zero will not fire at all.</p>
-</section>
 </section>
 <section id="okay-but-how-did-we-go-from-spikes-to-the-neural-representation-of-the-value">
 <h2>Okay, but how did we go from spikes to the neural representation of the value?<a class="headerlink" href="#okay-but-how-did-we-go-from-spikes-to-the-neural-representation-of-the-value" title="Link to this heading">#</a></h2>
@@ -707,12 +670,6 @@ Simulation finished in 0:00:01.
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Approximated Membrane Action Potential&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Approximated Membrane Action Potential&#39;)
-</pre></div>
-</div>
-<img alt="_images/dc7c92c0ecd2c466abb73f01803a40b9fbb921d6d7c8205091519ed4fb9f0489.png" src="_images/dc7c92c0ecd2c466abb73f01803a40b9fbb921d6d7c8205091519ed4fb9f0489.png" />
 </div>
 </div>
 <p>Now, we will find all of our spikes and multiply each by the Gaussian curve, sum them up, and get our decoded neural representation of our input value.</p>
@@ -755,24 +712,12 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Decoded Spikes = Neural Representation of Input&#39;)
-</pre></div>
-</div>
-<img alt="_images/2ea4c7805aa62ecc728451c3eab7731b188952eb90ec65dedab8266d60ebd735.png" src="_images/2ea4c7805aa62ecc728451c3eab7731b188952eb90ec65dedab8266d60ebd735.png" />
-<img alt="_images/1a9a12838b135aaa3910f34cc21be39b223544bb5021ae07ab79d6622149eae7.png" src="_images/1a9a12838b135aaa3910f34cc21be39b223544bb5021ae07ab79d6622149eae7.png" />
-</div>
 </div>
 <p>Voila! Now you know everything about encoding and decoding a value.</p>
 <p>**Before we move on, try hand tuning the parameters (intercept, encoder, firing rate) and see if you can get a single neuron to better represent our default input value (.5). Then try representing a different value and consider why it doesn’t do as well as the first one you tuned (or maybe it does better?).</p>
 </section>
-</section>
 <section id="represent-i-e-encode-input-data-using-eight-neurons">
-<h1>Represent (i.e. Encode) Input Data using Eight Neurons<a class="headerlink" href="#represent-i-e-encode-input-data-using-eight-neurons" title="Link to this heading">#</a></h1>
+<h2>Represent (i.e. Encode) Input Data using Eight Neurons<a class="headerlink" href="#represent-i-e-encode-input-data-using-eight-neurons" title="Link to this heading">#</a></h2>
 <p>Clearly, one neuron is not the ideal way to go when representing our data - unless we know we have a very specific constant value every single time.</p>
 <p>For when that’s not the case (examples: time-varying signals or when inputs will be different with each simulation), we need to use ensembles of multiple to many neurons.</p>
 <p>In this example, we will use 8 neurons to represent the function x(t)=2t-1. Nengo documentation recommends to use <a class="reference external" href="https://realpython.com/python-lambda/">Python’s lambda functions</a> when sending a time-varying input to a network.</p>
@@ -799,16 +744,6 @@ Simulation finished in 0:00:01.
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 1.0)
-</pre></div>
-</div>
-<img alt="_images/9c541466557ec7bc155e78c467720dbdb21a98f6b64de0e06e1b99b60ca63f0c.png" src="_images/9c541466557ec7bc155e78c467720dbdb21a98f6b64de0e06e1b99b60ca63f0c.png" />
 </div>
 </div>
 <p>We will use 8 neurons in a nengo ensemble. Nengo has defaults to randomly assign intercepts, firing rates, and encoder values; however, in this example we will choose specific parameters to (hopefully) make it very clear how multiple neurons combine to represent a single signal.</p>
@@ -846,15 +781,6 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0, 0.5, &#39;Firing rate (Hz)&#39;)
-</pre></div>
-</div>
-<img alt="_images/9a434cc0088952264be1d11f300ab64b84b31ec645d88e8c185099eb1f366d3a.png" src="_images/9a434cc0088952264be1d11f300ab64b84b31ec645d88e8c185099eb1f366d3a.png" />
-</div>
 </div>
 <p>Now, let’s connect our input to the neuron ensemble and see the encoded input signal (spiking data out of the neuron ensemble) and compare that against our tuning curves to see if the spikes make sense.</p>
 <div class="cell docutils container">
@@ -876,16 +802,6 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;Time (s)&#39;)
-</pre></div>
-</div>
-<img alt="_images/de9f9f06987ca5d392daa653cadd570c7ba5e4c2f8c36bea3b36859fdf8df5f0.png" src="_images/de9f9f06987ca5d392daa653cadd570c7ba5e4c2f8c36bea3b36859fdf8df5f0.png" />
-</div>
 </div>
 <p>These track well with our tuning curves. They start firing when the input signal crosses the threshold (intercept) and fires more when it’s farther from the intercept in the direction of preference (+1 encoder for more positive, -1 encoder for more negative).</p>
 <p>We will now decode our spikes to reconstruct our input signal. Recall how we did this for one neuron: For each binary spike, the biological equivalent is the membrane action potential at that time step. This means you can multiply each spike by the neuron action potential shape. We approximated this shape as a Gaussian curve.</p>
@@ -904,27 +820,6 @@ Simulation finished in 0:00:01.
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>([&lt;matplotlib.axis.YTick at 0x2130ab8d690&gt;,
-  &lt;matplotlib.axis.YTick at 0x2130ab8d030&gt;,
-  &lt;matplotlib.axis.YTick at 0x2130ab8c580&gt;,
-  &lt;matplotlib.axis.YTick at 0x2130ab646a0&gt;,
-  &lt;matplotlib.axis.YTick at 0x2130abba680&gt;,
-  &lt;matplotlib.axis.YTick at 0x2130abbae60&gt;,
-  &lt;matplotlib.axis.YTick at 0x2130abba830&gt;,
-  &lt;matplotlib.axis.YTick at 0x2130abbb580&gt;],
- [Text(0, 100.0, &#39;0&#39;),
-  Text(0, -80.0, &#39;1&#39;),
-  Text(0, -260.0, &#39;2&#39;),
-  Text(0, -440.0, &#39;3&#39;),
-  Text(0, -620.0, &#39;4&#39;),
-  Text(0, -800.0, &#39;5&#39;),
-  Text(0, -980.0, &#39;6&#39;),
-  Text(0, -1160.0, &#39;7&#39;)])
-</pre></div>
-</div>
-<img alt="_images/c23a913d11dcd8ab6924f82920e757710376fc8978b3a014ccb75e9cf19230ae.png" src="_images/c23a913d11dcd8ab6924f82920e757710376fc8978b3a014ccb75e9cf19230ae.png" />
 </div>
 </div>
 <p>Then, we multiply the above “filtered spike trains” with decoding weights and sum them together to give an estimate of the input based on the spikes. For a single neuron, we did not have a decoding weight. The decoding weights assign weights to each neuron output based on how important that is to the signal (i.e. more important = higher amplitude when added together).</p>
@@ -963,17 +858,6 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-Build finished in 0:00:01.                                                      
-Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 1.0)
-</pre></div>
-</div>
-<img alt="_images/063f6b8ebe30740f1b34865c89154f74229b5e24366ce078638b72a904559960.png" src="_images/063f6b8ebe30740f1b34865c89154f74229b5e24366ce078638b72a904559960.png" />
-</div>
 </div>
 <p>Let’s check how well we did by probing and filtering the output directly (i.e. letting Nengo decode the spikes for us).</p>
 <p>Note: Nengo clearly stores the decoder weights somewhere within the neuron ensemble but I haven’t found a way to access them. I draw this conclusion because we can simply probe <code class="docutils literal notranslate"><span class="pre">input_neuron</span></code> without it being connected to anything and get the same reconstructed signal that we just manually decoded {insert cranky emoji}.</p>
@@ -993,23 +877,11 @@ Simulation finished in 0:00:01.
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Build finished in 0:00:01.                                                      
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simulation finished in 0:00:01.                                                 
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.0, 1.0)
-</pre></div>
-</div>
-<img alt="_images/65fe17c8df95b0690fee45008f6e63ebb95f77743126bcbd897f7649d322543a.png" src="_images/65fe17c8df95b0690fee45008f6e63ebb95f77743126bcbd897f7649d322543a.png" />
-</div>
 </div>
 <p>These look about the same! Go us!</p>
 <p>Now you have a solid foundation for representing data using neurons, but there’s certainly more to be learned. It would be a VERY SMART idea to take a look at the examples linked in the Discussion section.</p>
 <section id="discussion">
-<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<h3>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h3>
 <p>More neurons give better representations of an input signal:</p>
 <ul class="simple">
 <li><p>Check out examples for neuron(s) representing a sinusoid: <a class="reference external" href="https://www.nengo.ai/nengo/examples/basic/single-neuron.html">one neuron</a>, <a class="reference external" href="https://www.nengo.ai/nengo/v3.1.0/examples/basic/two-neurons.html">two neurons</a>, and <a class="reference external" href="https://www.nengo.ai/nengo/examples/basic/many-neurons.html">many neurons</a></p></li>
@@ -1028,6 +900,7 @@ Simulation finished in 0:00:01.
 <li><p>We will likely stick with LIF neurons, but as we get into our final project, there may be opportunities to explore the other types.</p></li>
 <li><p>You can take a look at the <a class="reference external" href="https://www.nengo.ai/nengo/v3.0.0/_modules/nengo/neurons.html"><code class="docutils literal notranslate"><span class="pre">nengo.neurons</span></code> source code</a> and search <code class="docutils literal notranslate"><span class="pre">neuronstype</span></code> to see your options</p></li>
 </ul>
+</section>
 </section>
 </section>
 
@@ -1062,12 +935,12 @@ Simulation finished in 0:00:01.
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="faq.html"
+       href="intro.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">FAQ</p>
+        <p class="prev-next-title">Intro to Neuromorphic Engineering</p>
       </div>
     </a>
     <a class="right-next"
@@ -1075,7 +948,7 @@ Simulation finished in 0:00:01.
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">ECE495 Intro to programming neurons with Nengo: Transformation</p>
+        <p class="prev-next-title">Nengo Neurons: Transformation</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1095,26 +968,20 @@ Simulation finished in 0:00:01.
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Intro to programming neurons with Nengo: Representation</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#represent-i-e-encode-input-data-using-one-neuron">Represent (i.e. Encode) Input Data using One Neuron</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-input">Create your input</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-model">Create your model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#add-to-your-model">Add to your model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-model">Run your model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-your-model-outputs">Analyze your model outputs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-analysis">Further Analysis</a></li>
-</ul>
-</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#represent-i-e-encode-input-data-using-one-neuron">Represent (i.e. Encode) Input Data using One Neuron</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-input">Create your input</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-model">Create your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#add-to-your-model">Add to your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-your-model">Run your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analyze-your-model-outputs">Analyze your model outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-analysis">Further Analysis</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#okay-but-how-did-we-go-from-spikes-to-the-neural-representation-of-the-value">Okay, but how did we go from spikes to the neural representation of the value?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#represent-i-e-encode-input-data-using-eight-neurons">Represent (i.e. Encode) Input Data using Eight Neurons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
 </li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#represent-i-e-encode-input-data-using-eight-neurons">Represent (i.e. Encode) Input Data using Eight Neurons</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 </ul>
-</li>
-</ul>
-
   </nav></div>
 
 </div></div>
