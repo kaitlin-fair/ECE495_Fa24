@@ -2,9 +2,9 @@
 
 Welcome to ECE495 - Intro to Neuromorphic Engineering!
 
-This page contains the Jupyter notebooks you'll need for class lectures and labs. Some of these files will be throughout the semester. It's recommended you download as we go into a folder containing your virtual environment.
+This page contains the Jupyter notebooks you'll need for class lectures and labs. You will need to download these files and move them into the same folder as your virtual environment.
 
-Also note you will need to 
+Some of these files will be changed throughout the semester. It's recommended you download as we go into a folder containing your virtual environment.
 
 ```{tableofcontents}
 ```
