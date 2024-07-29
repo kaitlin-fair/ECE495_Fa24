@@ -2,8 +2,8 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: ECE495 - Intro to Neuromorhic Engineering
-author: DFEC
+title: ECE495 Intro to Neuromorhic Engineering
+author: Kaitlin Fair
 logo: logo.png
 copyright: '2024'
 
@@ -13,8 +13,8 @@ execute:
   execute_notebooks: force
 
 # Add a "Launch on Google Colab" button to .ipynb files
-#launch_buttons:
-#  colab_url: "https://colab.research.google.com"
+launch_buttons:
+  colab_url: "https://colab.research.google.com"
 
 # Define the name of the latex output file for PDF builds
 latex:
