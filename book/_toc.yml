@@ -17,6 +17,5 @@ parts:
       - file: Tutorial8_AdvExamples
   - caption: Lab Assignments
     chapters:
-      - file: markdown-notebooks
-      - file: notebooks
-      - file: markdown
+      - file: Lab1_DNN
+      - file: Lab2_DNN
