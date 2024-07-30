@@ -56,4 +56,4 @@ As we will use specifications grading for labs (as detailed in your syllabus), h
 ◻ Jupyter notebook is saved such that outputs appear upon opening file (and therefore on gradescope)  
 ```  
 
-- Upload _only_ your `495setup_LastName.ipynb` into Gradescope under "Setup Lab" assignment by T4, 2359. You are encouraged to schedule time for EI to debug as needed: [Book here](https://outlook.office.com/bookwithme/user/94f514961fa3476ab9598d4a2173d076@afacademy.af.edu?anonymous&ep=plink)
+- Upload _only_ your `495setup_LastName.ipynb` into Gradescope under "Setup Lab" assignment by end of day T6 (23 Aug on or before 2359). You are encouraged to schedule time for EI to debug as needed: [Book here](https://outlook.office.com/bookwithme/user/94f514961fa3476ab9598d4a2173d076@afacademy.af.edu?anonymous&ep=plink)
