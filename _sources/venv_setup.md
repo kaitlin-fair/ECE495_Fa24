@@ -1,4 +1,4 @@
-## ECE 495 Setup Assignment Instructions
+## ECE 495 Setup Instructions
 
 ### Download Python 3.10.11 (the version matters)
 
