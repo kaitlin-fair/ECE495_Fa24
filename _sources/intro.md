@@ -2,6 +2,8 @@
 
 Welcome to ECE495 - Intro to Neuromorphic Engineering!
 
+You can download your syllabus [here](_static/ECE495_Syllabus_fall 2024.pdf) or find it on our Teams page. 
+
 This page contains the Jupyter notebooks you'll need for class lectures and labs. You will need to download these files and move them into the same folder as your virtual environment.
 
 Some of these files will be changed throughout the semester. It's recommended you download as we go into a folder containing your virtual environment.
