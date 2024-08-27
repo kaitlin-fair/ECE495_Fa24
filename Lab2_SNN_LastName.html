@@ -61,6 +61,7 @@
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Lab 1: Deep Neural Networks" href="Lab1_DNN_LastName.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -122,8 +123,6 @@
     <div class="bd-container__inner bd-page-width">
       
       
-      
-        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -191,8 +190,14 @@
 <li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Lab1_DNN_LastName.html">Lab 1: Deep Neural Networks</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Lab 2: Spiking Neural Networks using NengoDL</a></li>
+
+
+
+
+
 </ul>
 
     </div>
@@ -420,7 +425,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Lab 2: Spiking Neural Networks using NengoDL</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-pre-process-the-dataset">Load and pre-process the dataset</a></li>
@@ -452,8 +460,24 @@ document.write(`
 <li><p>Train the spiking neural network.</p></li>
 <li><p>Evaluate the accuracy of the spiking network.</p></li>
 </ol>
+<section id="grading-specifications">
+<h2>Grading Specifications<a class="headerlink" href="#grading-specifications" title="Link to this heading">#</a></h2>
+<p>◻ Filename changed to reflect last name of person submitting assignment<br />
+◻ Code runs error free<br />
+◻ All lines of code edited/changed contain comments with thought process behind methodology<br />
+◻ Training and test data imported correctly<br />
+◻ Traning and test data flattened correctly
+◻ Training and test data correctly structured for SNN architecture
+◻ DNN Layers (dense, dropout, dense) built and connected with parameters exactly as described in markdown<br />
+◻ Model compiled with correct optimizer, probe, and metric type<br />
+◻ Model trained using training data for 5 epochs
+◻ Model probed during training using the correct probe
+◻ Model tested using the correct loss function and probe
+◻ Predictions made using test data
+◻ (Recommended) Results analyzed and discussed with classmates guided by the questions in Make Predictions section
+◻ (Recommended) All markdown and resources read thoroughly</p>
 <section id="set-up">
-<h2>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<h3>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h3>
 <p><strong>Ensure you are using your <a class="reference external" href="https://kaitlin-fair.github.io/ECE495_Fa24/venv_setup.html">495 Virtual Environment</a> before you begin!</strong></p>
 <p>If you are using your virtual environment, the next section should run without issue. If you are not in your virtual environment (or your environment did not install properly), you’ll see a lot of red.</p>
 <p>Import Nengo, NengoDL, TensorFlow and other supporting libraries into your program to get started:</p>
@@ -471,6 +495,7 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 </section>
 </section>
 <section id="load-and-pre-process-the-dataset">
@@ -765,6 +790,15 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="Lab1_DNN_LastName.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lab 1: Deep Neural Networks</p>
+      </div>
+    </a>
 </div>
                 </footer>
               
@@ -782,7 +816,10 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Lab 2: Spiking Neural Networks using NengoDL</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-pre-process-the-dataset">Load and pre-process the dataset</a></li>
