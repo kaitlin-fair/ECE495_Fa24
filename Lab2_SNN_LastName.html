@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ECE495 Lab 2: Spiking Neural Networks using NengoDL &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+    <title>Lab 2: Spiking Neural Networks using NengoDL &#8212; ECE495 Intro to Neuromorhic Engineering</title>
   
   
   
@@ -192,12 +192,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Lab1_DNN_LastName.html">Lab 1: Deep Neural Networks</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Lab 2: Spiking Neural Networks using NengoDL</a></li>
-
-
-
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 2: Spiking Neural Networks using NengoDL</a></li>
 </ul>
 
     </div>
@@ -414,7 +409,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ECE495 Lab 2: Spiking Neural Networks using NengoDL</h1>
+    <h1>Lab 2: Spiking Neural Networks using NengoDL</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -424,23 +419,15 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Lab 2: Spiking Neural Networks using NengoDL</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-pre-process-the-dataset">Load and pre-process the dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-pre-process-the-dataset">Load and pre-process the dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-layers">Set up the layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
-</ul>
-
             </nav>
         </div>
     </div>
@@ -451,8 +438,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="ece495-lab-2-spiking-neural-networks-using-nengodl">
-<h1>ECE495 Lab 2: Spiking Neural Networks using NengoDL<a class="headerlink" href="#ece495-lab-2-spiking-neural-networks-using-nengodl" title="Link to this heading">#</a></h1>
+  <section id="lab-2-spiking-neural-networks-using-nengodl">
+<h1>Lab 2: Spiking Neural Networks using NengoDL<a class="headerlink" href="#lab-2-spiking-neural-networks-using-nengodl" title="Link to this heading">#</a></h1>
 <p>This ICE uses NengoDL and TensorFlow’s Keras to:</p>
 <ol class="arabic simple">
 <li><p>Load a prebuilt dataset.</p></li>
@@ -466,18 +453,19 @@ document.write(`
 ◻ Code runs error free<br />
 ◻ All lines of code edited/changed contain comments with thought process behind methodology<br />
 ◻ Training and test data imported correctly<br />
-◻ Traning and test data flattened correctly
-◻ Training and test data correctly structured for SNN architecture
+◻ Traning and test data flattened correctly<br />
+◻ Training and test data correctly structured for SNN architecture<br />
 ◻ DNN Layers (dense, dropout, dense) built and connected with parameters exactly as described in markdown<br />
 ◻ Model compiled with correct optimizer, probe, and metric type<br />
-◻ Model trained using training data for 5 epochs
-◻ Model probed during training using the correct probe
-◻ Model tested using the correct loss function and probe
-◻ Predictions made using test data
-◻ (Recommended) Results analyzed and discussed with classmates guided by the questions in Make Predictions section
+◻ Model trained using training data for 5 epochs<br />
+◻ Model probed during training using the correct probe<br />
+◻ Model tested using the correct loss function and probe<br />
+◻ Predictions made using test data<br />
+◻ (Recommended) Results analyzed and discussed with classmates guided by the questions in Make Predictions section<br />
 ◻ (Recommended) All markdown and resources read thoroughly</p>
+</section>
 <section id="set-up">
-<h3>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h3>
+<h2>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
 <p><strong>Ensure you are using your <a class="reference external" href="https://kaitlin-fair.github.io/ECE495_Fa24/venv_setup.html">495 Virtual Environment</a> before you begin!</strong></p>
 <p>If you are using your virtual environment, the next section should run without issue. If you are not in your virtual environment (or your environment did not install properly), you’ll see a lot of red.</p>
 <p>Import Nengo, NengoDL, TensorFlow and other supporting libraries into your program to get started:</p>
@@ -496,10 +484,8 @@ document.write(`
 </div>
 </div>
 </section>
-</section>
-</section>
 <section id="load-and-pre-process-the-dataset">
-<h1>Load and pre-process the dataset<a class="headerlink" href="#load-and-pre-process-the-dataset" title="Link to this heading">#</a></h1>
+<h2>Load and pre-process the dataset<a class="headerlink" href="#load-and-pre-process-the-dataset" title="Link to this heading">#</a></h2>
 <p>Load and prepare the <a class="reference external" href="https://en.wikipedia.org/wiki/MNIST_database">MNIST dataset</a>. The pixel values of the images range from 0 through 255. Recall in ICE1, we had to normalize the values. For this spiking neural network, we do not have to do that. <em>Ensure you understand why we don’t have to normalize the input values.</em></p>
 <p>We are going to get into how data is encoded using Nengo neuron ensembles in the next few lectures. Until then, the main point you need to understand is that we cannot simply send an image into an SNN. Recall that an SNN uses spikes (only 1’s) and an image is made up of pixel values ranging from 0 to 255 (integers) for MNIST. So, how might you encode pixels via spikes?</p>
 <p>For this network, rate encoding is used (Nengo will do this for you - don’t panic). This means that if the pixel value is higher, you’ll see more spikes over a duration of time. If your pixel value is 0, how many spikes do you think you’ll see? Hopefully your intuition says 0 spikes! If you are curious, you can read more about this encoding in <a class="reference external" href="https://forum.nengo.ai/t/how-are-spikes-generated-within-nengodl/2130">the response</a> to this forum question.</p>
@@ -573,13 +559,14 @@ document.write(`
 </div>
 </section>
 <section id="build-a-machine-learning-model">
-<h1>Build a machine learning model<a class="headerlink" href="#build-a-machine-learning-model" title="Link to this heading">#</a></h1>
+<h2>Build a machine learning model<a class="headerlink" href="#build-a-machine-learning-model" title="Link to this heading">#</a></h2>
 <p>Before we dive in, I want to note that there are a few ways to go from a DNN to an SNN (be sure you understand the differences and pros/cons of each):</p>
 <ol class="arabic simple">
 <li><p>You can completely train a DNN in Keras, then <a class="reference external" href="https://www.nengo.ai/nengo-dl/examples/tensorflow-models.html">build a wrapper</a> to integrate the model into NengoDL without retraining. In this case, the neurons within the Keras model are still non-spiking. This would be well-suited for a hybrid algorithm, where part is performed outside of neuromorphic computing architectures. Note: the non-spiking part of the hybrid algorithm cannot directly run on neuromorphic hardware.</p></li>
 <li><p>You can completely train a DNN in Keras, then <a class="reference external" href="https://www.nengo.ai/nengo-dl/examples/keras-to-snn.html">convert it</a> into a SNN. We covered this at a high level during Lecture 5, specifically many of the fine-tuning that must be done to get back your original DNN performance. In fact, if you visit the link, the images should look familiar.</p></li>
 <li><p>You can train an SNN directly, which is what we will do here. This method trains the network with all of the classic DNN training in mind with the ability to map directly to neuromorphic hardware, i.e. you should get decent performance right after training. You may have to fine-tune SNN parameters, but that’s comparable to needing to fine-tune DNN parameters. Don’t let ICE1 fool you: if you ever train a legit DNN, you’ll need to fine-tune it many times to achieve state of the art results. <em>Yes, there is an example in the NengoDL literature regarding this method that I will not link here. If you find it, you are welcome to use it as a supplemental resource but please recognize that it will be abundantly clear if you copied it. Should you choose to go the copying route, your grade will suffer.</em></p></li>
 </ol>
+</section>
 <section id="set-up-the-layers">
 <h2>Set up the layers<a class="headerlink" href="#set-up-the-layers" title="Link to this heading">#</a></h2>
 <p>For this network, we will build the same model as we did in ICE1. However, you have already preprocessed your data (flattened your images) to replace the Flatten layer. That means your model will consist of the following layers, in order:</p>
@@ -637,9 +624,8 @@ document.write(`
 </div>
 </div>
 </section>
-</section>
 <section id="compile-your-model">
-<h1>Compile your model<a class="headerlink" href="#compile-your-model" title="Link to this heading">#</a></h1>
+<h2>Compile your model<a class="headerlink" href="#compile-your-model" title="Link to this heading">#</a></h2>
 <p>A bit more goes into compiling your model within NengoDL due to the spiking nature of the network.</p>
 <p>First, NengoDL needs to set up a simulator to run the equivalent of the <code class="docutils literal notranslate"><span class="pre">model.compile</span></code>, <code class="docutils literal notranslate"><span class="pre">model.fit</span></code>, and <code class="docutils literal notranslate"><span class="pre">model.evaluate</span></code> functions we ran in ICE1 since we are not working directly within TensorFlow anymore. We still use the TensorFlow functions, but within a spiking framework in NengoDL.</p>
 <div class="cell docutils container">
@@ -679,7 +665,7 @@ document.write(`
 </div>
 </section>
 <section id="train-and-evaluate-your-model">
-<h1>Train and evaluate your model<a class="headerlink" href="#train-and-evaluate-your-model" title="Link to this heading">#</a></h1>
+<h2>Train and evaluate your model<a class="headerlink" href="#train-and-evaluate-your-model" title="Link to this heading">#</a></h2>
 <p>Training the neural network model requires the following steps (same as ICE1!):</p>
 <ol class="arabic simple">
 <li><p>Feed the training data to the model. In this example, the training data is in the train_images and train_labels arrays.</p></li>
@@ -729,7 +715,7 @@ document.write(`
 <p>We can see that the spiking neural network is achieving ~90% accuracy, which is lower than what we would expect for MNIST. Some options for improving performance are increasing <code class="docutils literal notranslate"><span class="pre">n_steps</span></code>, increasing the number of training epochs, or adjusting the <code class="docutils literal notranslate"><span class="pre">minibatch_size</span></code>. The way that this network was written was to match (as closely as possible) the way we implemented ICE1. Try adjusting some of these parameters and see how it impacts your performance. <em>Consider the tradeoff between training time and performance when making these adjustments.</em></p>
 </section>
 <section id="make-predictions">
-<h1>Make Predictions<a class="headerlink" href="#make-predictions" title="Link to this heading">#</a></h1>
+<h2>Make Predictions<a class="headerlink" href="#make-predictions" title="Link to this heading">#</a></h2>
 <p>The next bit of code plots the test image being classified by your SNN and a plot that shows the change in probability for each class over <code class="docutils literal notranslate"><span class="pre">n_steps</span></code>. The legend in the right plot corresponds to the 10 possible labels. The color with the highest probability on the last time step is classified as the image’s class by the SNN.</p>
 <p>A few conceptual things to consider (<em>hint hint</em>):</p>
 <ol class="arabic simple">
@@ -758,6 +744,7 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -815,23 +802,15 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">ECE495 Lab 2: Spiking Neural Networks using NengoDL</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-pre-process-the-dataset">Load and pre-process the dataset</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-and-pre-process-the-dataset">Load and pre-process the dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-a-machine-learning-model">Build a machine learning model</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-the-layers">Set up the layers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
 </ul>
-</li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#compile-your-model">Compile your model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#train-and-evaluate-your-model">Train and evaluate your model</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#make-predictions">Make Predictions</a></li>
-</ul>
-
   </nav></div>
 
 </div></div>
