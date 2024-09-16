@@ -14,21 +14,21 @@
 
 ### Create your Virtual Environment
 
-- Make a new folder where you will store all files for this course titled `495_workspace`. I'd recommend you do this in OneDrive if you'd like cloud backup.
+- Make a folder titled `495_venv` that will store your virtual environment on your local hard drive (i.e. NOT OneDrive). 
 
-- [Download and save this file](_static/requirements.txt) to your `495_workspace` folder.
+- [Download and save this file](_static/requirements.txt) to your `495_venv` folder.
 
-- Open your `495_workspace` folder in VS Code. You can do this within `Explorer` (the double page symbol on the leftmost column) by either clicking `Open Folder` or right clicking within your workspace and selecting `Add Folder to Workspace`
+- Open your `495_venv` folder in VS Code. You can do this within `Explorer` (the double page symbol on the leftmost column) by either clicking `Open Folder` or right clicking within your workspace and selecting `Add Folder to Workspace`
 
 - Type in `>Python: Create Environment` in the searchbar at the top of VS Code and select it.
 
 - When prompted to `Select an environment type`, select `Venv`
 
-- If prompted to `Select a workspace to create environment`, select your `495_workspace` folder.
+- If prompted to `Select a workspace to create environment`, select your `495_venv` folder.
 
 - When prompted to `Select a Python installation to create the virtual environment`, either choose `Python 3.10.11 64-bit` or select `Enter interpreter path...` and navigate to the Python path where you downloaded **Python 3.10.11**. This is critical: it _MUST be **Python 3.10.11**_!  
 
-- When prompted to `Select dependencies to install`, select the `requirements.txt` file you downloaded and added to your `495_workspace` folder. Click `OK`.
+- When prompted to `Select dependencies to install`, select the `requirements.txt` file you downloaded and added to your `495_venv` folder. Click `OK`.
 
 - Wait for a few minutes until all the packages are installed.
 
@@ -36,13 +36,17 @@
   
 ### Test your environment
 
+- Make a new folder where you will store all Lab and Tutorial files for this course titled `495_workspace`.  I'd recommend you do this in OneDrive if you'd like cloud backup.
+
+- Open your `495_workspace` folder in VS Code. You can do this within `Explorer` (the double page symbol on the leftmost column) by either clicking `Open Folder` or right clicking within your workspace and selecting `Add Folder to Workspace`. You want both your `495_workspace` and `495_venv` folders within the same workspace! This will help VSCode detect your virtual environment much more easily.
+
 - [Go to the Setup Notebook page](495setup_LastName.ipynb) and download the Jupyter Notebook by clicking the download button at the top of the page. Save the file to your `495_workspace` folder. 
 
 - Change the filename so that `LastName` is replaced with _your last name_.
 
 - Open the file in VS Code and click `Run All`. 
 
-- If VS Code tells you to select your Python interpreter, select the interpreter you just built (`495 Workspace`) and if prompted choose Python 3.10.11. If not prompted, in the search bar at the top of VS Code, type `>Python: Select Interpreter`, select the interpreter you just built (`495 Workspace`) and if prompted choose Python 3.10.11.
+- If VS Code tells you to select your Python interpreter, select the interpreter you just built (`495_venv`) and if prompted choose Python 3.10.11. If not prompted, in the search bar at the top of VS Code, type `>Python: Select Interpreter`, select the interpreter you just built (`495_venv`) and if prompted choose Python 3.10.11.
 
 - It may ask you to install a Jupyter extension - if it does, do it! 
 
