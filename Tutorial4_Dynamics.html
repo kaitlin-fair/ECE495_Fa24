@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Nengo Neurons: Dynamics &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+    <title>ECE495 Intro to programming neurons with Nengo: Dynamics &#8212; ECE495 Intro to Neuromorhic Engineering</title>
   
   
   
@@ -63,6 +63,8 @@
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Lab 1: Deep Neural Networks" href="Lab1_DNN_LastName.html" />
+    <link rel="prev" title="Nengo Neurons: Transformation" href="Tutorial3b_NeuronBasics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -125,8 +127,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -188,9 +188,10 @@
 <li class="toctree-l1"><a class="reference internal" href="495setup_LastName.html">Lab 0: Virtual Environment Setup</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">Nengo Neurons: Representation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Intro to programming neurons with Nengo: Dynamics</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -413,7 +414,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Nengo Neurons: Dynamics</h1>
+    <h1>ECE495 Intro to programming neurons with Nengo: Dynamics</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -424,27 +425,30 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrence-using-neurons">Recurrence using Neurons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrence-in-nengo">Recurrence in Nengo</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#okay-but-why">Okay, but WHY?!</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-feedback">Why feedback?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-actually-do-that-now">Let’s actually do that now!</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrator">Integrator</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-and-run-it">Probe it and Run it</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-it">Plot it</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Discussion</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-memory">Working Memory</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Probe it and Run it</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Plot it</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-versus-transforms">Functions versus Transforms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrator">Integrator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-and-run-it">Probe it and Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-it">Plot it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Discussion</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-oscillator">Simple Oscillator</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-memory">Working Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Probe it and Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plot it</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-oscillator-on-your-own-for-an-additional-example">Simple Oscillator - On your own for an additional example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Discussion</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
@@ -459,9 +463,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <p><em>Get rid of last example (oscillator) - instead maybe discuss transforms vs functions once more. Add in an example of recurrence without any f’ and g’ and what the outputs would be. this drives home the why.</em></p>
-<section class="tex2jax_ignore mathjax_ignore" id="nengo-neurons-dynamics">
-<h1>Nengo Neurons: Dynamics<a class="headerlink" href="#nengo-neurons-dynamics" title="Link to this heading">#</a></h1>
+  <section id="ece495-intro-to-programming-neurons-with-nengo-dynamics">
+<h1>ECE495 Intro to programming neurons with Nengo: Dynamics<a class="headerlink" href="#ece495-intro-to-programming-neurons-with-nengo-dynamics" title="Link to this heading">#</a></h1>
 <p>In this demonstration we will:</p>
 <ol class="arabic simple">
 <li><p>Understand and implement recurrence in a Nengo network</p></li>
@@ -470,7 +473,7 @@ document.write(`
 </ol>
 <section id="set-up">
 <h2>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
-<p><strong>Ensure you are using your <a class="reference external" href="https://kaitlin-fair.github.io/ECE495_Fa24/venv_setup.html">495 Virtual Environment</a> before you begin!</strong></p>
+<p><strong>Ensure you are using your 495 Virtual Environment before you begin!</strong></p>
 <p>Import Nengo and other supporting libraries into your program to get started:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -485,10 +488,82 @@ document.write(`
 </div>
 </div>
 </section>
+<section id="recurrence-using-neurons">
+<h2>Recurrence using Neurons<a class="headerlink" href="#recurrence-using-neurons" title="Link to this heading">#</a></h2>
+<p>Recurrence in neural networks can be used to implement stable dynamics (think controls systems). Such dynamics are important for memory, noise cleanup, statistical inference, and many other dynamic transformations. Recurrent neurons can also be used if you will be performing the same computation over and over again within an algorithm (i.e. just build the neuron once and send in different inputs). Another use of recurrent neurons is online learning (edge computing), depending on the algorithm.</p>
+<p>Let’s say I have an algorithm that repeatedly needs to compare two values. I don’t want to have to build a comparator for every instance of comparing two values. <strong>Why do you think that is?</strong></p>
+<p>Instead, I decide to use the same comparator to do two comparisons in sequence. In this example, I first want to compare values .1 to .25, then i want to take the max value of those two and compare to .5, in which case the output should converge to… <strong>what??</strong></p>
+<p>Let’s see what happens.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;BasicRecurrence&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">compare</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Try these as our inputs first</span>
+    <span class="n">compareInp1</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">([</span><span class="mf">.1</span><span class="p">,</span> <span class="mf">.25</span><span class="p">])</span>
+    <span class="n">compareInp2</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">([</span><span class="mf">.5</span><span class="p">])</span>
+
+    <span class="c1"># Try these as our inputs second</span>
+    <span class="c1">#compareInp1 = []</span>
+    <span class="c1">#compareInp1.append(nengo.Node(Piecewise({0: .1, .5: 0})))</span>
+    <span class="c1">#compareInp1.append(nengo.Node(Piecewise({0: .3, .5: 0})))</span>
+    <span class="c1">#compareInp2 = nengo.Node(Piecewise({1: .5, 1.5: 0}))</span>
+    
+    <span class="n">combineNeuron</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">compareNeuron</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">compareInp1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">combineNeuron</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">compareInp1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">combineNeuron</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">combineNeuron</span><span class="p">,</span> <span class="n">compareNeuron</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">compare</span><span class="p">)</span>
+
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">compareInp2</span><span class="p">,</span> <span class="n">combineNeuron</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">compareNeuron</span><span class="p">,</span> <span class="n">combineNeuron</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">inp1_probe</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">inp1_probe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">compareInp1</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">inp1_probe</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">compareInp1</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">inp2_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">compareInp2</span><span class="p">)</span>
+    <span class="n">out_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">compareNeuron</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">.01</span><span class="p">)</span>
+
+<span class="c1"># Create our simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 6 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Plot the decoded output of the ensemble</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">inp1_probe</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">inp1_probe</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;First two values to be compared&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">inp2_probe</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Second value to be compared to max of first two&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">out_probe</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Output comparisons&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<p>When we sent in our constant inputs we immediately recieved feedback in the form of another constant - which was essentially sending two inputs at once into the same neuron ensemble and therefore saturating the neuron (aka radius = 1, max out at about 1). We then made our input piecewise to attempt one comparison at a time, but we still saturated – is there ever a piecewise that could prevent saturation?? Once we were saturated, even comparing to zero still held the max at 1, and therefore our max value was always the saturated value of 1.</p>
+<p>Due to the inherent dynamics of Nengo neurons, while the compare neuron ensemble is computing the comparison of two values, the neurons are never comparing the values we actually intend for them to compare because they are being flooded by the recurrence!</p>
+</section>
 <section id="recurrence-in-nengo">
 <h2>Recurrence in Nengo<a class="headerlink" href="#recurrence-in-nengo" title="Link to this heading">#</a></h2>
-<p>Recurrence in neural networks can be used to implement stable dynamics. Such dynamics are important for memory, noise cleanup, statistical inference, and many other dynamic transformations. Recurrent neurons can also be used if you will be performing the same computation over and over again within an algorithm (i.e. just build the neuron once and send in different inputs). Another use of recurrent neurons is online learning (edge computing), depending on the algorithm.</p>
-<p>We have discussed how to compute the neuron representation of a signal in depth (i.e. decode the spikes). As it turns out, this is something we did in ECE 346. Any guesses?</p>
+<p>Okay, so how do we ensure our neurons do not saturate <em>or</em> actually perform the computations on the values we want when we are using recurrence? Well, we need new functions (that we will call <span class="math notranslate nohighlight">\(f^{\prime}\)</span> and <span class="math notranslate nohighlight">\(g^{\prime}\)</span>) that convert the inherent Nengo neuron dynamics to our <em>desired</em> dynamics.</p>
+<p>We have discussed how to compute the neuron representation of a signal in depth (i.e. decode the spikes). As it turns out, this is something we do/did in ECE 346.</p>
 <p>Imagine this is a block diagram:<br />
 <span class="math notranslate nohighlight">\(u(t)\)</span> –&gt; [<span class="math notranslate nohighlight">\(h(t)\)</span>] –&gt; <span class="math notranslate nohighlight">\(x(t)\)</span></p>
 <p>Where <span class="math notranslate nohighlight">\(u(t)\)</span> is our input, <span class="math notranslate nohighlight">\(h(t)\)</span> is our transfer function, and <span class="math notranslate nohighlight">\(x(t)\)</span> is the transformed input (or state of the system). Here, math tells us that <span class="math notranslate nohighlight">\(x(t)=u(t)*h(t)\)</span> where <span class="math notranslate nohighlight">\(u(t)\)</span> is our output spikes, <span class="math notranslate nohighlight">\(h(t)\)</span> is our neuron action potential, and <span class="math notranslate nohighlight">\(x(t)\)</span> is our decoded signal. <em>This is how we (and Nengo) have decoded our spikes!</em></p>
@@ -499,7 +574,7 @@ document.write(`
 <p>Fun fact: if the membrane action potential is approximated as <span class="math notranslate nohighlight">\(h(t)=e^{-t/\tau}\)</span> - which is how Nengo approximates it - the Laplace is:</p>
 <div class="math notranslate nohighlight">
 \[\mathscr{L}\{h(t)\}=\frac{1}{1+s\tau}\]</div>
-<p>If we plut <span class="math notranslate nohighlight">\(H(s)\)</span> into <span class="math notranslate nohighlight">\(X(s)=U(s)H(s)\)</span> and rearrange a bit, we get the following:</p>
+<p>If we plug <span class="math notranslate nohighlight">\(H(s)\)</span> into <span class="math notranslate nohighlight">\(X(s)=U(s)H(s)\)</span> and rearrange a bit, we get the following:</p>
 <div class="math notranslate nohighlight">
 \[sX(s) = \frac{1}{\tau}(U(s)-X(s))\]</div>
 <p>The Inverse Laplace of <span class="math notranslate nohighlight">\(sX(s)\)</span> is <span class="math notranslate nohighlight">\(\dot{x}\)</span>, which we can use to describe the dynamics of our system (i.e. how much we’ve changed over time)!</p>
@@ -508,34 +583,34 @@ document.write(`
 <p>This is a lot of math, but this is simply what we did in our Jupyter Notebook on Neuron Representation. <span class="math notranslate nohighlight">\(\tau\)</span> is the rate at which we change and <span class="math notranslate nohighlight">\(x(t)-u(t)\)</span> is the total change in our system over time (output-input). You can go back to our very first example and see how <span class="math notranslate nohighlight">\(\tau\)</span> impacts the rate at which we change over time as we move toward the value we intend to represent.</p>
 <section id="okay-but-why">
 <h3>Okay, but WHY?!<a class="headerlink" href="#okay-but-why" title="Link to this heading">#</a></h3>
-<p>Well, this lays the foundation for implementing recurrence using neurons. AND it again shows you how useful ECE346 actually was, even if it was brutal along the way.</p>
-<p>Now, we are going to feedback our output state x(t) to our input - you hopefully can recall implementing feedback in block diagrams from ECE346. We will use some Laplace math to determine the functions that will be implemented in our feedback connections in Nengo.</p>
+<p>This lays the foundation for implementing recurrence using neurons. AND it again shows you that you should really pay attention in math classes.</p>
+<p>Now, we are going to feedback our output state x(t) to our input <em>without</em> saturating our neuron using functions <span class="math notranslate nohighlight">\(f^{\prime}\)</span> and <span class="math notranslate nohighlight">\(g^{\prime}\)</span> at the connections. It will take a little more Laplace math to get there.</p>
 </section>
 <section id="why-feedback">
 <h3>Why feedback?<a class="headerlink" href="#why-feedback" title="Link to this heading">#</a></h3>
-<p>I mentioned that recurrent neurons can be used to implement stable dynamics. Recall our synapse values - when they’re larger, the neurons more accurately represent our signal but it takes a while to get there. Smaller is noiser but faster. However, biological systems only offer synpatic time constants of about 2-200ms. If we decide to stay true to biological systems when we model our algorithms (totally your call), recurrence can enable larger <span class="math notranslate nohighlight">\(\tau\)</span> for the network itself. This means that if our neuron synapses are .005s in our neuron ensemble, we can feed the output of our neuron back to itself with a particular set of dynamics such that the network itself responds at a synaptic time constant of .5 instead! Let’s see how this works. In order to do so, we must math…</p>
+<p>This all sounds hard, why would we actually want to do this?? Recurrent neurons can be used to implement stable dynamics. Recall our synapse values - when they’re larger, the neurons more accurately represent our signal but it takes a while to get there. Smaller is noiser but faster. However, biological systems only offer synpatic time constants of about 2-200ms. If we decide to stay true to biological systems when we model our algorithms (totally your call), recurrence can enable larger <span class="math notranslate nohighlight">\(\tau\)</span> for the network itself. This means that if our neuron synapses are .005s in our neuron ensemble, we can feed the output of our neuron back to itself with a particular set of dynamics such that the network itself responds at a synaptic time constant of .5 instead! Let’s see how this works. In order to do so, we must math…</p>
 <p>Now, our block diagram has a feedback from <span class="math notranslate nohighlight">\(x(t)\)</span> back to the input line, with a function of <span class="math notranslate nohighlight">\(f(x(t))\)</span> attached to the feedback line. If we ignore any external input <span class="math notranslate nohighlight">\(u(t)\)</span> and assess the dynamics alone, we get the same thing as last time, except now we have <span class="math notranslate nohighlight">\(f(x(t))\)</span> instead of <span class="math notranslate nohighlight">\(u(t)\)</span> (because <span class="math notranslate nohighlight">\(f(x(t))\)</span> is now the input if there’s not external input <span class="math notranslate nohighlight">\(u(t)\)</span>).</p>
 <div class="math notranslate nohighlight">
 \[\dot{x}(t)=-\frac{1}{\tau}(x(t))-f(x(t)))\]</div>
 <p>But we know we will have an external input! We will call our external input <span class="math notranslate nohighlight">\(g(u(t))\)</span>. So now, we simply add <span class="math notranslate nohighlight">\(g(u(t))+f(x(t))\)</span> and call that our input, which updates our <span class="math notranslate nohighlight">\(\dot{x}(t)\)</span> to:</p>
 <div class="math notranslate nohighlight">
 \[\dot{x}(t)=-\frac{1}{\tau}(x(t))-g(u(t))-f(x(t)))=\frac{1}{\tau}(f(x(t)+g(u(t)))-x(t))\]</div>
-<p>Here’s the deal about controls - it’s heavily studied and instead of tring to see what we get, we can instead say what we want to get and go from there. For simplicity of notation, we will drop all <span class="math notranslate nohighlight">\(t\)</span> s.</p>
+<p>Here’s the deal about controls - it’s heavily studied and instead of trying to see what we get, we can instead say what we want to get and go from there. For simplicity of notation, we will drop all <span class="math notranslate nohighlight">\(t\)</span> s.</p>
 <p>We choose</p>
 <div class="math notranslate nohighlight">
 \[\dot{x}=f(x)+g(u)\]</div>
 <p>meaning our state is simply the feedback of <span class="math notranslate nohighlight">\(f(x)\)</span> added to our input <span class="math notranslate nohighlight">\(g(u)\)</span>. In this case, we want our output to be the representation of our input, just getting there more gradually than the neurons themselves would get us there (i.e. slower but accurate). Therefore, we create a new function that will get us to <span class="math notranslate nohighlight">\(\dot{x}(t)=f(x)+g(u)= \frac{1}{\tau}(f(x(t)+g(u(t)))-x(t))\)</span>, and that is:</p>
 <div class="math notranslate nohighlight">
-\[\dot{f}+\dot{g}=\tau (f(x) + g(u) +x)\]</div>
-<p>And we replace <span class="math notranslate nohighlight">\(f(x)+g(u)\)</span> with <span class="math notranslate nohighlight">\(\dot{f}(x)+\dot{g}(u)\)</span>:</p>
+\[f^{\prime}+g^{\prime}=\tau (f(x) + g(u) +x)\]</div>
+<p>And we replace <span class="math notranslate nohighlight">\(f(x)+g(u)\)</span> with <span class="math notranslate nohighlight">\(f^{\prime}(u)+g^{\prime}(u)\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\dot{x}(t)=\frac{1}{\tau}([\tau (f(x) + g(u) +x)]-x))=f(x)+g(u)\]</div>
-<p>Recall, we want <span class="math notranslate nohighlight">\(\dot{x}=f(x)+g(u)\)</span> and we got there! Now we just need a <span class="math notranslate nohighlight">\(\dot{f}\)</span> and a <span class="math notranslate nohighlight">\(\dot{g}\)</span> to make that happen. These two functions achieve the dynamics we are looking for:</p>
+<p>Recall, we want <span class="math notranslate nohighlight">\(\dot{x}=f(x)+g(u)\)</span> and we got there! Now we just need a <span class="math notranslate nohighlight">\(f^{\prime}\)</span> and a <span class="math notranslate nohighlight">\(g^{\prime}\)</span> to make that happen. These two functions achieve the dynamics we are looking for:</p>
 <div class="math notranslate nohighlight">
-\[\dot{f}(x(t))=\tau f(x(t)) + x(t)\]</div>
+\[f^{\prime}(x(t))=\tau f(x(t)) + x(t)\]</div>
 <div class="math notranslate nohighlight">
-\[\dot{g}(u)=\tau g(u)\]</div>
-<p>These two functions are what we will use at our connections in our Nengo model!</p>
+\[g^{\prime}(u)=\tau g(u)\]</div>
+<p><strong>These two functions are how we can convert the inherent Nengo neuron dynamics into our desired dynamics of our system.</strong> We will use these functions at our connections in our Nengo model!</p>
 </section>
 <section id="let-s-actually-do-that-now">
 <h3>Let’s actually do that now!<a class="headerlink" href="#let-s-actually-do-that-now" title="Link to this heading">#</a></h3>
@@ -545,16 +620,23 @@ document.write(`
 <p>This means that we want our network time constant to be <span class="math notranslate nohighlight">\(.05\)</span> regardless of our neuron synaptic time constants. Yes… we could just adjust each neurons time constants, but for one reason or another, maybe that’s not accessible to us.</p>
 <p>Instead, we need to implement the dynamics we just derived to make that happen, where <span class="math notranslate nohighlight">\(f(x)=-\frac{x}{.05}\)</span> and <span class="math notranslate nohighlight">\(g(u)=\frac{u}{.05}\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[\dot{f}=-\frac{\tau}{.05}x + x\]</div>
+\[f^{\prime}=-\frac{\tau}{.05}x + x\]</div>
 <div class="math notranslate nohighlight">
-\[\dot{g}=\frac{\tau}{.05}u\]</div>
-<p>These will be the functions used in our Nengo network to achieve the desired dynamics, with <span class="math notranslate nohighlight">\(\dot{f}\)</span> being the feed forward function and <span class="math notranslate nohighlight">\(\dot{g}\)</span> being the feedback function.</p>
+\[g^{\prime}=\frac{\tau}{.05}u\]</div>
+<p>These will be the functions used in our Nengo network to achieve the desired dynamics, with <span class="math notranslate nohighlight">\(f^{\prime}\)</span> being the feed forward function and <span class="math notranslate nohighlight">\(g^{\prime}\)</span> being the feedback function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Recurrence&quot;</span><span class="p">)</span>
 
 <span class="n">synaptic_tau</span> <span class="o">=</span> <span class="mf">.005</span> <span class="c1"># actual neuron tau, much smaller, responds quickly but noisily</span>
 <span class="n">desired_tau</span> <span class="o">=</span> <span class="mf">.05</span> <span class="c1"># much larger, therefore more stable for network as a whole</span>
+
+<span class="c1"># f&#39; and g&#39;</span>
+<span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">synaptic_tau</span><span class="o">/</span><span class="n">desired_tau</span><span class="p">)</span><span class="o">*</span><span class="n">u</span>
+
+<span class="k">def</span> <span class="nf">recurrent</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">synaptic_tau</span><span class="o">/</span><span class="n">desired_tau</span><span class="p">)</span><span class="o">*</span><span class="n">x</span>
 
 <span class="k">with</span> <span class="n">model</span><span class="p">:</span>
     <span class="n">a</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -563,16 +645,10 @@ document.write(`
     <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">stim</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
 
     <span class="n">b</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">synaptic_tau</span><span class="o">/</span><span class="n">desired_tau</span><span class="p">)</span><span class="o">*</span><span class="n">u</span>
     
-    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">function</span> <span class="o">=</span> <span class="n">forward</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">synaptic_tau</span><span class="p">)</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">forward</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">recurrent</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">synaptic_tau</span><span class="o">/</span><span class="n">desired_tau</span><span class="p">)</span><span class="o">*</span><span class="n">x</span>
-    
-    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">recurrent</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">synaptic_tau</span><span class="p">)</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="n">recurrent</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -603,12 +679,24 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="discussion">
-<h3>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h3>Discussion<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
 <p>In the plots, you can see that the neurons themselves have a shorter time constant than that of the network. We can choose any synaptic time constant for your neurons and you’ll get the same results for the network using this dynamical system. <strong>Try it!</strong></p>
 <p>That was a whole lot of math to do something pretty simple in Nengo. BUT I wanted you to understand how the functions were determined. Ultimately, whatever dynamics we want our system to have can be achieved using a feedback of some sort with the right associated functions.</p>
 <p>Let’s keep going with two more examples.</p>
 </section>
+</section>
+<section id="functions-versus-transforms">
+<h2>Functions versus Transforms<a class="headerlink" href="#functions-versus-transforms" title="Link to this heading">#</a></h2>
+<p>Before we hit the next example, let’s discuss how we’ve been implementing functions using neurons so far. We typically call an argument called <code class="docutils literal notranslate"><span class="pre">function</span></code> at our Nengo connection, which is exactly what we just did:</p>
+<p><code class="docutils literal notranslate"><span class="pre">def</span> <span class="pre">forward(u):</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">return</span> <span class="pre">(synaptic_tau/desired_tau)*u</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">model:</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">nengo.Connection(a,</span> <span class="pre">b,</span> <span class="pre">function=forward)</span></code></p>
+<p>Because this is a <strong>linear transformation</strong> (i.e. we scale the input value by a constant), we could save ourselves a few lines of codee and instead use something called a <code class="docutils literal notranslate"><span class="pre">transform</span></code> to acheive the same exact thing:</p>
+<p><code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">model:</span></code><br />
+<code class="docutils literal notranslate"><span class="pre">nengo.Connection(a,</span> <span class="pre">b,</span> <span class="pre">transform=synaptic_tau/desired_tau)</span></code></p>
+<p>Both functions multiply the input to Nengo ensemble <code class="docutils literal notranslate"><span class="pre">b</span></code> by <code class="docutils literal notranslate"><span class="pre">synaptic_tau/desired_tau</span></code>, they just do so with different input arguments at the connection. Going forward, for linear transformations we will typically use the <code class="docutils literal notranslate"><span class="pre">transform</span></code> argument. For more complicated transformations, we will still define functions – because how would you actually square something with a linear transform??</p>
 </section>
 <section id="integrator">
 <h2>Integrator<a class="headerlink" href="#integrator" title="Link to this heading">#</a></h2>
@@ -619,9 +707,9 @@ document.write(`
 <p>where <span class="math notranslate nohighlight">\(x\)</span> is again our output state, <span class="math notranslate nohighlight">\(u\)</span> is our input, and <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> determine the direction/strenght of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(u\)</span> contributions. We only want our outputs to change as a result of our input and we want to remember our prior input when the current input is 0. Therefore, A=0 and B=I. This tells us that at every point in time, the change to our state is the input as expected per our above definition of an integrator.</p>
 <p>We must define functions for our feed forward and feedback aspects of our recurring network:</p>
 <div class="math notranslate nohighlight">
-\[\dot{f}(x)= \tau f(x) + x = \tau Ax + x = x\]</div>
+\[f^{\prime}(x)= \tau f(x) + x = \tau Ax + x = x\]</div>
 <div class="math notranslate nohighlight">
-\[\dot{g}(u)=\tau g(u)  =\tau Bu = \tau Iu =\tau u\]</div>
+\[g^{\prime}(u)=\tau g(u)  =\tau Bu = \tau Iu =\tau u\]</div>
 <p>For this example, our input is a piecewise function so you can see that the output is integrating (i.e. summing over time) the input. Note that since the integrator constantly sums its input, it will saturate quickly if you leave the input non-zero. This makes it clear that neurons have a finite range of representation. Such saturation effects however can be exploited to perform useful computations (e.g. soft normalization).</p>
 <p>You’ll notice we call an argument <code class="docutils literal notranslate"><span class="pre">transform</span></code> instead of <code class="docutils literal notranslate"><span class="pre">function</span></code> in our connections. Because we simply multiply <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(u\)</span> by 1 and <span class="math notranslate nohighlight">\(\tau\)</span> respectively (a linear transformation), we can use the <code class="docutils literal notranslate"><span class="pre">transform</span></code> argument, which may be simpler than spending time defining a function. However, for cases in which your function is more complicated (such as implementing a reLU - i.e. a nonlinear transformation), the <code class="docutils literal notranslate"><span class="pre">function</span></code> argument will be the way to go. Read more about this <a class="reference external" href="https://www.nengo.ai/nengo/connections.html">here</a>. If this isn’t intuitive to you, feel free to instead define functions. You can always define a function and use <code class="docutils literal notranslate"><span class="pre">function</span></code> for your connections; however, note that there are cases (non-linear transformations / more complicated functions) in which <code class="docutils literal notranslate"><span class="pre">transform</span></code> will not work.</p>
 <div class="cell docutils container">
@@ -685,8 +773,8 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="id1">
-<h3>Discussion<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<section id="id2">
+<h3>Discussion<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
 <p>The graph shows the response to the input by the integrator. Because it is implemented in neurons, it will not be perfect (i.e. there will be drift). Running several times will give a sense of the kinds of drift you might expect. Drift can be reduced by increasing the number of neurons, using a larger time constant (100-200ms work pretty well for feedback), or changing the inputs more rapidly.</p>
 <p>Intuition check: this integrator function is <em>not</em> trying to represent the input signal. Instead, you can think of the input signal as a velocity at which you are moving until the input changes or becomes zero. When the input becomes zero, you can see the “memory” at play. Think through this in terms of eye movement, where the input signal is the velocity at which your eye is moving.</p>
 </section>
@@ -701,9 +789,9 @@ document.write(`
 <p>Notice that the control <span class="math notranslate nohighlight">\(\alpha\)</span> has no impact on the input itself! So if <span class="math notranslate nohighlight">\(u\)</span> is zero and <span class="math notranslate nohighlight">\(\alpha\)</span> is 0, we hold steady at the value. If <span class="math notranslate nohighlight">\(u\)</span> is zero and <span class="math notranslate nohighlight">\(alpha\)</span> is negative, we decay to zero. If <span class="math notranslate nohighlight">\(u\)</span> is nonzero and <span class="math notranslate nohighlight">\(\alpha\)</span> is negative, once <span class="math notranslate nohighlight">\(u\)</span> becomes zero again, the output will decay to zero.</p>
 <p>The functions for our feed forward and feedback aspects of our recurring network look similar to those prior, except now we want for our feedback to negate the x if we are in storage mode. Therefore, <span class="math notranslate nohighlight">\(A=I\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span> is either 0 or negative:</p>
 <div class="math notranslate nohighlight">
-\[\dot{f}(x)= \tau f(x) + x = \tau \alpha Ax + x = \tau \alpha Ix + x = \tau \alpha x + x\]</div>
+\[f^{\prime}(x)= \tau f(x) + x = \tau \alpha Ax + x = \tau \alpha Ix + x = \tau \alpha x + x\]</div>
 <div class="math notranslate nohighlight">
-\[\dot{g}(u)=\tau g(u)  =\tau Bu = \tau Iu =\tau u\]</div>
+\[g^{\prime}(u)=\tau g(u)  =\tau Bu = \tau Iu =\tau u\]</div>
 <p>Notice that our feedback function is now non-linear! Meaning we need a 2D neuron ensemble to take in both <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -746,8 +834,8 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="id2">
-<h3>Probe it and Run it<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<section id="id3">
+<h3>Probe it and Run it<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
@@ -765,8 +853,8 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="id3">
-<h3>Plot it<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<section id="id4">
+<h3>Plot it<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the decoded output of the ensemble</span>
@@ -780,13 +868,13 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="id4">
-<h3>Discussion<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<section id="id5">
+<h3>Discussion<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
 <p>The more negative <span class="math notranslate nohighlight">\(\alpha\)</span> is, the faster it decays to zero (you can see this transition within 2-4 seconds). You can also see from 4-5 seconds that if you have non-zero values for both <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span>, you won’t have a linear change in position. Recall drift to account for times when both <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(\alpha\)</span> are zero (1-2 seconds and 5-6 seconds).</p>
 </section>
 </section>
-<section id="simple-oscillator">
-<h2>Simple Oscillator<a class="headerlink" href="#simple-oscillator" title="Link to this heading">#</a></h2>
+<section id="simple-oscillator-on-your-own-for-an-additional-example">
+<h2>Simple Oscillator - On your own for an additional example<a class="headerlink" href="#simple-oscillator-on-your-own-for-an-additional-example" title="Link to this heading">#</a></h2>
 <p>Have you had to do some physics math regarding a spring on a block that’s sliding on a frictionless surface? Or a pendullum? These are good examples of simple harmonic oscillators, and we can implement these using recurrent neurons! Turns out this is also biologically plausible - think of repetitive or rhythmic movements (walking, chewing, etc) - and neurons have been measured to show this oscillatory behavior for comparable movements in fish.</p>
 <p>Let’s work through a spring on a block that slides on a frictionless surface. Here, we have</p>
 <div class="math notranslate nohighlight">
@@ -808,7 +896,7 @@ document.write(`
                                 \end{bmatrix}\end{split}\]</div>
 <p>Let’s now take that back to defining our feed forward and feedback functions:</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\dot{f}(x)= \tau f(x) + x = \tau Ax + x = \begin{bmatrix}
+\[\begin{split}f^{\prime}(x)= \tau f(x) + x = \tau Ax + x = \begin{bmatrix}
 		            0 &amp; \tau \omega \\
 		            -\tau \omega &amp; 0  
 	            \end{bmatrix}\begin{bmatrix}
@@ -822,7 +910,7 @@ document.write(`
                                                                     -\tau \omega x_0 +x_1
                                                                 \end{bmatrix}\end{split}\]</div>
 <div class="math notranslate nohighlight">
-\[\dot{g}(u)=\tau g(u)  =\tau Bu = 0\]</div>
+\[g^{\prime}(u)=\tau g(u)  =\tau Bu = 0\]</div>
 <p>To implement <span class="math notranslate nohighlight">\(\begin{bmatrix}
                 \tau x_1 + x_0 \\
                 -\tau x_0 +x_1
@@ -888,8 +976,8 @@ document.write(`
 </div>
 </div>
 </div>
-<section id="id5">
-<h3>Discussion<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<section id="id6">
+<h3>Discussion<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
 <p>If we look at the changes to <span class="math notranslate nohighlight">\(\dot{x}\)</span>, we can see that <span class="math notranslate nohighlight">\(\dot{x}_0 = \omega x_1\)</span> and <span class="math notranslate nohighlight">\(\dot{x}_1 = -\omega x_0\)</span>
 $<span class="math notranslate nohighlight">\(\begin{bmatrix}
     \dot{x}_0 \\
@@ -943,6 +1031,24 @@ Every example we cover in this notebook can be found <a class="reference externa
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="Tutorial3b_NeuronBasics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Nengo Neurons: Transformation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Lab1_DNN_LastName.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Lab 1: Deep Neural Networks</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -960,27 +1066,30 @@ Every example we cover in this notebook can be found <a class="reference externa
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrence-using-neurons">Recurrence using Neurons</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrence-in-nengo">Recurrence in Nengo</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#okay-but-why">Okay, but WHY?!</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-feedback">Why feedback?</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#let-s-actually-do-that-now">Let’s actually do that now!</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrator">Integrator</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-and-run-it">Probe it and Run it</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-it">Plot it</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Discussion</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-memory">Working Memory</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Probe it and Run it</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Plot it</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions-versus-transforms">Functions versus Transforms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integrator">Integrator</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-and-run-it">Probe it and Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-it">Plot it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Discussion</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-oscillator">Simple Oscillator</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#working-memory">Working Memory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Probe it and Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plot it</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Discussion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-oscillator-on-your-own-for-an-additional-example">Simple Oscillator - On your own for an additional example</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Discussion</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resources">Resources</a></li>
