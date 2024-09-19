@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ECE495 Intro to programming neurons with Nengo: Dynamics &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+    <title>Nengo Neurons: Dynamics &#8212; ECE495 Intro to Neuromorhic Engineering</title>
   
   
   
@@ -191,7 +191,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">Nengo Neurons: Representation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Intro to programming neurons with Nengo: Dynamics</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Nengo Neurons: Dynamics</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
 <ul class="nav bd-sidenav">
@@ -414,7 +414,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ECE495 Intro to programming neurons with Nengo: Dynamics</h1>
+    <h1>Nengo Neurons: Dynamics</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -425,8 +425,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrence-using-neurons">Recurrence using Neurons</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bad-recurrence-using-neurons">Bad Recurrence using Neurons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrence-in-nengo">Recurrence in Nengo</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#okay-but-why">Okay, but WHY?!</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-feedback">Why feedback?</a></li>
@@ -463,8 +465,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="ece495-intro-to-programming-neurons-with-nengo-dynamics">
-<h1>ECE495 Intro to programming neurons with Nengo: Dynamics<a class="headerlink" href="#ece495-intro-to-programming-neurons-with-nengo-dynamics" title="Link to this heading">#</a></h1>
+  <section id="nengo-neurons-dynamics">
+<h1>Nengo Neurons: Dynamics<a class="headerlink" href="#nengo-neurons-dynamics" title="Link to this heading">#</a></h1>
 <p>In this demonstration we will:</p>
 <ol class="arabic simple">
 <li><p>Understand and implement recurrence in a Nengo network</p></li>
@@ -488,8 +490,8 @@ document.write(`
 </div>
 </div>
 </section>
-<section id="recurrence-using-neurons">
-<h2>Recurrence using Neurons<a class="headerlink" href="#recurrence-using-neurons" title="Link to this heading">#</a></h2>
+<section id="bad-recurrence-using-neurons">
+<h2>Bad Recurrence using Neurons<a class="headerlink" href="#bad-recurrence-using-neurons" title="Link to this heading">#</a></h2>
 <p>Recurrence in neural networks can be used to implement stable dynamics (think controls systems). Such dynamics are important for memory, noise cleanup, statistical inference, and many other dynamic transformations. Recurrent neurons can also be used if you will be performing the same computation over and over again within an algorithm (i.e. just build the neuron once and send in different inputs). Another use of recurrent neurons is online learning (edge computing), depending on the algorithm.</p>
 <p>Let’s say I have an algorithm that repeatedly needs to compare two values. I don’t want to have to build a comparator for every instance of comparing two values. <strong>Why do you think that is?</strong></p>
 <p>Instead, I decide to use the same comparator to do two comparisons in sequence. In this example, I first want to compare values .1 to .25, then i want to take the max value of those two and compare to .5, in which case the output should converge to… <strong>what??</strong></p>
@@ -554,11 +556,11 @@ document.write(`
 </div>
 </div>
 </div>
-</section>
 <section id="discussion">
-<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<h3>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h3>
 <p>When we sent in our constant inputs we immediately recieved feedback in the form of another constant - which was essentially sending two inputs at once into the same neuron ensemble and therefore saturating the neuron (aka radius = 1, max out at about 1). We then made our input piecewise to attempt one comparison at a time, but we still saturated – is there ever a piecewise that could prevent saturation?? Once we were saturated, even comparing to zero still held the max at 1, and therefore our max value was always the saturated value of 1.</p>
 <p>Due to the inherent dynamics of Nengo neurons, while the compare neuron ensemble is computing the comparison of two values, the neurons are never comparing the values we actually intend for them to compare because they are being flooded by the recurrence!</p>
+</section>
 </section>
 <section id="recurrence-in-nengo">
 <h2>Recurrence in Nengo<a class="headerlink" href="#recurrence-in-nengo" title="Link to this heading">#</a></h2>
@@ -1066,8 +1068,10 @@ Every example we cover in this notebook can be found <a class="reference externa
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrence-using-neurons">Recurrence using Neurons</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bad-recurrence-using-neurons">Bad Recurrence using Neurons</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recurrence-in-nengo">Recurrence in Nengo</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#okay-but-why">Okay, but WHY?!</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-feedback">Why feedback?</a></li>
