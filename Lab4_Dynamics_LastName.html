@@ -424,7 +424,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nengo-dynamics-review">Nengo Dynamics Review</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-integrators-in-sequence">Two Integrators in Sequence</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-and-run-it">Probe it and Run it</a></li>
@@ -455,9 +458,22 @@ document.write(`
 <li><p>Implement the same thing using a multi-dimensional neuron.</p></li>
 <li><p>Extend your position, velocity, and acceleration components to two dimensions (i.e. x- and y- directions).</p></li>
 </ul>
+<hr class="docutils" />
+<section id="grading-specifications">
+<h2>Grading Specifications<a class="headerlink" href="#grading-specifications" title="Link to this heading">#</a></h2>
+<p>◻ Filename changed to reflect last name of person submitting assignment<br />
+◻ Code runs error free<br />
+◻ Jupyter notebook is saved such that outputs appear upon opening file (and therefore on gradescope)<br />
+◻ (On your honor) All markdown and resources read thoroughly and fully understood<br />
+◻ Feedback matrix <span class="math notranslate nohighlight">\(f^{\prime}\)</span> calculated and implemented correctly for 1D integrator (movement only in x-direction) using single neuron ensemble<br />
+◻ Feedforward matrix <span class="math notranslate nohighlight">\(g^{\prime}\)</span> calculated and implemented correctly for 1D integrator (movement only in x-direction) using single neuron ensemble<br />
+◻ Feedback matrix <span class="math notranslate nohighlight">\(f^{\prime}\)</span> calculated and implemented correctly for 2D integrator (movement in x- and y-directions)<br />
+◻ Feedforward matrix <span class="math notranslate nohighlight">\(g^{\prime}\)</span> calculated and implemented correctly for 2D integrator (movement in x- and y-directions)<br />
+◻ Acceleration correctly chosen for 2D integrator (x- and y-directions) to simulate a vehicle driving north, then turning right (east), right again (south), then left (east)<br />
+◻ (Recommended) Fully understand your results by analyzing and discussing outputs with classmates. Doing so will help you on your quizzes!</p>
 <section id="set-up">
-<h2>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
-<p><strong>Ensure you are using your <a class="reference external" href="https://github.com/kaitlin-fair/495venv_setup">495 Virtual Environment</a> before you begin!</strong></p>
+<h3>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h3>
+<p><strong>Ensure you are using your 495 Virtual Environment before you begin!</strong></p>
 <p>Import Nengo and other supporting libraries into your program to get started:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -473,6 +489,7 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="nengo-dynamics-review">
 <h2>Nengo Dynamics Review<a class="headerlink" href="#nengo-dynamics-review" title="Link to this heading">#</a></h2>
@@ -770,7 +787,10 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nengo-dynamics-review">Nengo Dynamics Review</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-integrators-in-sequence">Two Integrators in Sequence</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-and-run-it">Probe it and Run it</a></li>
