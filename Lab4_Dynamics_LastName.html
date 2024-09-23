@@ -1,0 +1,839 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ECE495 Lab 4: Navigation Dynamics using Nengo &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Lab4_Dynamics_LastName';</script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Lab 3: Neuron Basics using Nengo" href="Lab3_NeuronBasics_LastName.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Intro to Neuromorphic Engineering
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="venv_setup.html">ECE 495 Setup Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="495setup_LastName.html">Lab 0: Virtual Environment Setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">Nengo Neurons: Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">Nengo Neurons: Dynamics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Lab1_DNN_LastName.html">Lab 1: Deep Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab2_SNN_LastName.html">Lab 2: Spiking Neural Networks using NengoDL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab3_NeuronBasics_LastName.html">Lab 3: Neuron Basics using Nengo</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE495 Lab 4: Navigation Dynamics using Nengo</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/kaitlin-fair/ECE495_Fa24/blob/main/book/Lab4_Dynamics_LastName.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2FLab4_Dynamics_LastName.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Lab4_Dynamics_LastName.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>ECE495 Lab 4: Navigation Dynamics using Nengo</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nengo-dynamics-review">Nengo Dynamics Review</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-integrators-in-sequence">Two Integrators in Sequence</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-and-run-it">Probe it and Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-it">Plot it</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-integrators-in-sequence-into-a-single-neuron-ensemble-and-do-the-same-thing">Convert Integrators in Sequence into a Single Neuron Ensemble (and do the same thing)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-everything-2d">Make everything 2D!</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-run-it-plot-it">Probe it, run it, plot it!</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ece495-lab-4-navigation-dynamics-using-nengo">
+<h1>ECE495 Lab 4: Navigation Dynamics using Nengo<a class="headerlink" href="#ece495-lab-4-navigation-dynamics-using-nengo" title="Link to this heading">#</a></h1>
+<p>This ICE uses Nengo to sort an array using the bubble sort algorithm. The objectives of this ICE are to:</p>
+<ul class="simple">
+<li><p>Connect two integrators (building off of the integrator from <code class="docutils literal notranslate"><span class="pre">neuron_dynamics.ipynb</span></code>) to use acceleration as your input.</p></li>
+<li><p>Implement the same thing using a multi-dimensional neuron.</p></li>
+<li><p>Extend your position, velocity, and acceleration components to two dimensions (i.e. x- and y- directions).</p></li>
+</ul>
+<section id="set-up">
+<h2>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<p><strong>Ensure you are using your <a class="reference external" href="https://github.com/kaitlin-fair/495venv_setup">495 Virtual Environment</a> before you begin!</strong></p>
+<p>Import Nengo and other supporting libraries into your program to get started:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">nengo</span>
+
+<span class="kn">from</span> <span class="nn">nengo.dists</span> <span class="kn">import</span> <span class="n">Uniform</span>
+<span class="kn">from</span> <span class="nn">nengo.utils.matplotlib</span> <span class="kn">import</span> <span class="n">rasterplot</span>
+<span class="kn">from</span> <span class="nn">nengo.processes</span> <span class="kn">import</span> <span class="n">Piecewise</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="nengo-dynamics-review">
+<h2>Nengo Dynamics Review<a class="headerlink" href="#nengo-dynamics-review" title="Link to this heading">#</a></h2>
+<p>Recall from <code class="docutils literal notranslate"><span class="pre">neuron_dynamics.ipynb</span></code> that we used recurrent neurons to perform a variety of functions. As a refresh, we started each time with this linear dynamical system:</p>
+<div class="math notranslate nohighlight">
+\[\dot{x}=f(x)+g(u)=Ax+Bu\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\)</span> is our output state, <span class="math notranslate nohighlight">\(u\)</span> is our input. <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> determine the direction/strength of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(u\)</span> contributions.</p>
+<p>However, Nengo neurons have their own inherent feed forward dynamics: <span class="math notranslate nohighlight">\(\dot{x(t)}=-\frac{1}{\tau}(x(t))-u(t))\)</span>. These dynamics tell us that <span class="math notranslate nohighlight">\(x_{new} = x_{old}+\dot{x}\)</span>, where <span class="math notranslate nohighlight">\(x_{new}\)</span> is the output of our neuron ensemble and <span class="math notranslate nohighlight">\(\dot{x}\)</span> is the input to our ensemble (draw block diagram).</p>
+<p>To get the neuron ensemble to behave in the way a typical linear dynamical system behaves - i.e. <span class="math notranslate nohighlight">\(\dot{x}=f(x)+g(u)=Ax+Bu\)</span> - we must define different functions <span class="math notranslate nohighlight">\(f'\)</span> and <span class="math notranslate nohighlight">\(g'\)</span>. If this doesn’t make sense, please go back and review the beginning of our notebook and/or watch <a class="reference external" href="https://youtu.be/Fl4cfZCie-w?si=2o1grgrPgoPkuPvV">this video</a> from 5 to 28 minutes.</p>
+<p>The takeaway: Using <span class="math notranslate nohighlight">\(f'\)</span> as the feedback function and <span class="math notranslate nohighlight">\(g'\)</span> as the feed forward function, <em>we convert the inherent neuron dynamics into typical controls system dynamics.</em></p>
+</section>
+<section id="two-integrators-in-sequence">
+<h2>Two Integrators in Sequence<a class="headerlink" href="#two-integrators-in-sequence" title="Link to this heading">#</a></h2>
+<p>In <code class="docutils literal notranslate"><span class="pre">neuron_dynamics.ipynb</span></code>, we converted a 1-D velocity signal <span class="math notranslate nohighlight">\(v\)</span> into position <span class="math notranslate nohighlight">\(p\)</span> using an integrator. Given that <span class="math notranslate nohighlight">\(\dot{p}(t)=v(t)\)</span> (i.e. derivative of position is velocity), it should make sense that with each time step, we move toward a position (our output in meters) at some velocity (our input in m/s).</p>
+<p>To convert the inherent neuron dynamics to typicaly control dynamics, we defined functions for our feed forward and feedback aspects of our recurrent network for an integrator to be:</p>
+<div class="math notranslate nohighlight">
+\[f'(x)= \tau f(x) + x = \tau Ax + x = x\]</div>
+<div class="math notranslate nohighlight">
+\[g'(u)=\tau g(u)  =\tau Bu = \tau Iu =\tau u\]</div>
+<p>Intuitively, this should make sense. Each time step, our new position <span class="math notranslate nohighlight">\(p\)</span> is equal to dynamics <span class="math notranslate nohighlight">\(p = f' + g' = x + \tau u\)</span> where <span class="math notranslate nohighlight">\(x\)</span> is our output state and <span class="math notranslate nohighlight">\(u\)</span> is our input velocity. If our velocity is 1m/s and we run our simulation for 1 second, we should move 1 meter total. However, we have many time steps within that 1 second, so we move a fraction of 1m each time step - you can think of <span class="math notranslate nohighlight">\(\tau\)</span> as the scale term, i.e. how quickly we respond to the input velocity.</p>
+<p>For this example, we will connect the integrator we created in <code class="docutils literal notranslate"><span class="pre">neuron_dynamics.ipynb</span></code> to an identical integrator. The final output of the network is position <span class="math notranslate nohighlight">\(p\)</span> (i.e. the output of the second neuron ensemble), and the input to that ensemble is velocity (i.e. <span class="math notranslate nohighlight">\(\dot{p}\)</span>). We connect an neuron ensemble to the front end, from which the output is velocity (given that’s the input to the second ensemble). That means the input to the first ensemble (and therefore entire network) is…. acceleration (<span class="math notranslate nohighlight">\(\dot{v}\)</span>)!</p>
+<p>Our input acceleration is a piecewise function so you can see that the output is integrating the input (i.e. summing over time). If we have a constant acceleration, we should see velocity ramp up. Recall, for a constant velocity, we have position ramp up. This time, with a velocity changing over time, we should see position change faster for higher velocities - so we should <em>not</em> see a straight line output from the network. Let’s give it a go:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Sequence Integrators&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># create the recurrent neuron ensemble</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># create piecewise input</span>
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="mf">.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">0</span><span class="p">}))</span>
+
+    <span class="c1"># Using a long time constant for stability (less noise)</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="mf">0.1</span> 
+    
+    <span class="c1"># if you wanted to define functions, they might look like this</span>
+    <span class="c1">#def forward(u):</span>
+    <span class="c1">#    return tau*u</span>
+    <span class="c1">#def recurrent(x):</span>
+    <span class="c1">#    return x</span>
+
+    <span class="c1"># Connect the input to the network (Ensemble A)</span>
+    <span class="c1"># The same time constant as recurrent to make it more &#39;ideal&#39;</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="p">[[</span><span class="n">tau</span><span class="p">]],</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span>
+    <span class="c1"># Connect the population to itself</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span>  
+    
+  
+    <span class="c1"># Connect the output of Ensemble A to Ensemble B</span>
+    <span class="c1"># The same time constant as recurrent to make it more &#39;ideal&#39;</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="p">[[</span><span class="n">tau</span><span class="p">]],</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span> 
+    <span class="c1"># Connect the population to itself</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="p">[[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<section id="probe-it-and-run-it">
+<h3>Probe it and Run it<a class="headerlink" href="#probe-it-and-run-it" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Add probes</span>
+    <span class="n">input_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+    <span class="n">A_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">B_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="c1"># Create our simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 6 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-it">
+<h3>Plot it<a class="headerlink" href="#plot-it" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the decoded output of the ensemble</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Network Input - Acceleration&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">A_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Ensemble B Input - Velocity&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">B_probe</span><span class="p">],</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Network Output - position&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Cool!</p>
+</section>
+</section>
+<section id="convert-integrators-in-sequence-into-a-single-neuron-ensemble-and-do-the-same-thing">
+<h2>Convert Integrators in Sequence into a Single Neuron Ensemble (and do the same thing)<a class="headerlink" href="#convert-integrators-in-sequence-into-a-single-neuron-ensemble-and-do-the-same-thing" title="Link to this heading">#</a></h2>
+<p>We can make this more efficient by creating a 2D neuron that outputs both velocity <span class="math notranslate nohighlight">\(v\)</span> and position <span class="math notranslate nohighlight">\(p\)</span> as a function of input acceleration <span class="math notranslate nohighlight">\(a\)</span>, similarly constructed to the oscillator example from <code class="docutils literal notranslate"><span class="pre">neuron_dynamics.ipynb</span></code>. In this case, our input <span class="math notranslate nohighlight">\(u\)</span> is acceleration, i.e. <span class="math notranslate nohighlight">\(a=\dot{v}\)</span> and our output is both position <span class="math notranslate nohighlight">\(p\)</span> and velocity <span class="math notranslate nohighlight">\(v\)</span>, i.e. <span class="math notranslate nohighlight">\(x = \begin{bmatrix} p \\ v \end{bmatrix}\)</span>.</p>
+<p>Now we just need our matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> for linear dynamics <span class="math notranslate nohighlight">\(\dot{x}=f(x)+g(u)=Ax+Bu\)</span> in order to compute <span class="math notranslate nohighlight">\(f'\)</span> and <span class="math notranslate nohighlight">\(g'\)</span>.</p>
+<p>Let’s think through this: <span class="math notranslate nohighlight">\(u\)</span> is acceleration <span class="math notranslate nohighlight">\(a=\dot{v}\)</span>. We don’t want to mess with that - we just want our input acceleration to be our chosen acceleration (the blue piecewise function above). That’s 1D and our neuron ensemble is 2D, which means we need a matrix that converts our 1D acceleration to a 2D input.  Therefore, matrix <span class="math notranslate nohighlight">\(B=\begin{bmatrix} 0 \\ 1 \end{bmatrix}\)</span>. Why?? Because our output <span class="math notranslate nohighlight">\(x\)</span> is equal to <span class="math notranslate nohighlight">\(\begin{bmatrix} p \\ v \end{bmatrix}\)</span> and in our integrator, our input <span class="math notranslate nohighlight">\(u=\begin{bmatrix} \dot{p} \\ \dot{v} \end{bmatrix}\)</span>. We do not have an input velocity, only an input acceleration. Given <span class="math notranslate nohighlight">\(a=\dot{v}\)</span>, we get <span class="math notranslate nohighlight">\(B=\begin{bmatrix} 0 \\ 1 \end{bmatrix}\)</span>.</p>
+<p>Before we dive into determining A, do you remember our working memory example? If you had any contribution from A, you gradually reset your output to zero. This means we need an <span class="math notranslate nohighlight">\(\alpha\)</span> term that’s only active when we provide acceleration and zero when we don’t (so it holds velocity instead of resetting it).</p>
+<p>Now, we know <span class="math notranslate nohighlight">\(\dot{x}=Ax+Bu\)</span>. Let’s find A by relating <span class="math notranslate nohighlight">\(\dot{x}\)</span> to <span class="math notranslate nohighlight">\(x\)</span>. Given we know <span class="math notranslate nohighlight">\(\dot{x}=\begin{bmatrix} \dot{p} \\ \dot{v} \end{bmatrix}\)</span> and <span class="math notranslate nohighlight">\(x=\begin{bmatrix} p \\ v \end{bmatrix}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\dot{x} = \begin{bmatrix}
+    \dot{p} \\
+    \dot{v} 
+\end{bmatrix} = \begin{bmatrix}
+		            0 &amp; 1 \\
+		            0 &amp; 0  
+	            \end{bmatrix} \begin{bmatrix}
+                                    p \\
+                                    v 
+                                \end{bmatrix} = Ax\end{split}\]</div>
+<p>From there, define your <span class="math notranslate nohighlight">\(f'\)</span> and <span class="math notranslate nohighlight">\(g'\)</span> to create the 2D neuron ensemble to implement these dynamics (insert your matrices in place of the <code class="docutils literal notranslate"><span class="pre">???</span></code>). You should get a very similar plot to the integrators in sequence.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;2D Nav Dynamics&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Create the recurrent neuron ensemble</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># Create piecewise acceleration controli nput</span>
+    <span class="n">input_accel</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">Piecewise</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span>  <span class="mf">.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">0</span><span class="p">}))</span>
+
+    <span class="c1"># Using a long time constant for stability (less noise)</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+    <span class="n">feedback_matrix</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">feedback_matrix</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span>  
+    
+    <span class="n">feedfwd_matrix</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">input_accel</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">feedfwd_matrix</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span>  
+
+    <span class="c1"># Probe and run</span>
+    <span class="c1"># Add probes</span>
+    <span class="n">input_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">input_accel</span><span class="p">)</span>
+    <span class="n">position_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+    <span class="n">velocity_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">C</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="c1"># Create our simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 10 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+
+<span class="c1"># Plot the decoded output (poisiton) of the ensemble</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input - Acceleration&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">velocity_probe</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Output - Velocity&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">position_probe</span><span class="p">],</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Output - Position&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="make-everything-2d">
+<h2>Make everything 2D!<a class="headerlink" href="#make-everything-2d" title="Link to this heading">#</a></h2>
+<p>The two above integrators only account for movement in one dimension/direction (i.e. we are only moving east/west). We’d like to add a second dimension/direction to our input signal (i.e. north/south) and use acceleration to control the movement of our “vehicle”.</p>
+<p>Using the same methodology above for your 2D integrator, find your <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> matrices and use those to find your Nengo <span class="math notranslate nohighlight">\(f'\)</span> and <span class="math notranslate nohighlight">\(g'\)</span> functions to achieve the dynamics.</p>
+<p>Then using acceleration as your input (now with <span class="math notranslate nohighlight">\(a_x\)</span> for east/west and <span class="math notranslate nohighlight">\(a_y\)</span> for north/south), start off by heading north, then make your “vehicle” turn right (east), then right (south), then left (east).</p>
+<p>Hints:</p>
+<ul class="simple">
+<li><p>You will use a <a class="reference external" href="https://www.nengo.ai/nengo/examples/advanced/processes.html">Nengo process called <code class="docutils literal notranslate"><span class="pre">PresentInput</span></code></a>, which is similar to Piecewise, except now you can make your input 2 dimensions, one for <span class="math notranslate nohighlight">\(a_x\)</span> and one for <span class="math notranslate nohighlight">\(a_y\)</span>. The argument <code class="docutils literal notranslate"><span class="pre">presentation_time</span></code> is how long that input value is “presented”. The initialized acceleration values in each direction are identical to <code class="docutils literal notranslate"><span class="pre">Piecewise({0:</span>&#160; <span class="pre">.5,</span> <span class="pre">1:</span> <span class="pre">0,</span> <span class="pre">2:</span> <span class="pre">-1,</span> <span class="pre">3:</span> <span class="pre">0,</span> <span class="pre">4:</span> <span class="pre">1,</span> <span class="pre">5:</span> <span class="pre">0})</span></code></p></li>
+<li><p>Your output state vector should be <span class="math notranslate nohighlight">\(x=\begin{bmatrix} p_x \\ p_y \\ v_x \\ v_y \end{bmatrix}\)</span> and your input should be <span class="math notranslate nohighlight">\(u=\begin{bmatrix} a_x \\ a_y \end{bmatrix}\)</span></p></li>
+<li><p>The size of your <span class="math notranslate nohighlight">\(f'\)</span> matrix should be <span class="math notranslate nohighlight">\(4\times4\)</span> and the size of your <span class="math notranslate nohighlight">\(g'\)</span> matrix should be <span class="math notranslate nohighlight">\(4\times2\)</span>.</p></li>
+<li><p>Negative velocity moves you in a negative direction. If you start with positive acceleration, changing it to negative gradually gets you to a negative velocity (because it does not instantaneously change from positive to negative - you should have seen that in your last two plots). <em>Your direction will not change until your velocity is negative!</em></p></li>
+<li><p>Your neurons will drift (you can try this out by putting in zero acceleration and seeing what happens to velocity and position… it’s bad!). This is real-world stuff! Kalman filters help us know where we are in between GPS signals and require feedback just like our neurons. Not only are you feeding back signal, but you are also feeding back noise and/or error (also much like our neurons - think through our noisy plots!). Said noise/error only grows over time as it continues to be fed back in and accumulate. This is the definition of drift - you are drifting away from your actual position - in this case, 0.  Even if you aren’t wanting to move in a particular direction (yet), it might be wise to try to stabilize your dynamics using a small input in a particular direction you know you might be using soon. Such as… I know I want my vehicle to head north in a few seconds, so I’ll start it off with a super small positive number (instead of zero) to make sure it’s heading in the right direction when it’s time. Note: this will bias your signal when you try to send your velocity back to zero (next hint).</p></li>
+<li><p>To make a 90 degree turn, if you already have movement in the y direction (north), you’ll need to pump the breaks hard to quickly turn right (east) – just like driving! That way you aren’t continuously moving north with velocity greater than 0 (per the last hint) while trying to actually move east . You need your velocity to get back to zero in the north direction to change your direction to east.</p></li>
+<li><p>I used 8 time steps (and therefore ran my simulation for 8s) to complete my turns (2 time steps  for each turn, 1 second each, total 4*2=8)</p></li>
+</ul>
+<p><strong>Your plots will not look the same twice, ever! But it should be clear that you’re making the correct turns with your “vehicle” the majority of the time.</strong> This is due to noise and initial neuron parameters. Think through what your velocity plots should look like (in terms of shape). If that looks close, it works for me. <strong><em>Be sure to SAVE YOUR BEST PLOTS FOR YOUR SUBMISSION!</em></strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Multidirectional Nav Dynamics&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Create the recurrent neuron ensemble</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="n">dimensions</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># Create piecewise acceleration control input using a Nengo Process</span>
+    <span class="c1"># Note, I am initializing BOTH directions as the exact same dynamics from the past two parts</span>
+    <span class="c1"># That way, you can confirm everything is connected properly first</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="c1">#          [north],  [brakes], [east] , [brakes], [south], [brakes], [east], [brakes]</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">processes</span><span class="o">.</span><span class="n">PresentInput</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">presentation_time</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">accel_input</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">process</span><span class="p">)</span>
+
+    <span class="c1"># Using a long time constant for stability (less noise)</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="mf">0.2</span>
+
+    <span class="n">feedback_matrix</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+    <span class="c1">#print(feedback_matrix)</span>
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">feedback_matrix</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span>  
+    
+    <span class="n">feedfwd_matrix</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+    <span class="c1">#print(feedfwd_matrix)</span>
+
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">accel_input</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">feedfwd_matrix</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="n">tau</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+</div>
+<section id="probe-it-run-it-plot-it">
+<h3>Probe it, run it, plot it!<a class="headerlink" href="#probe-it-run-it-plot-it" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Probe and run</span>
+    <span class="c1"># Add probes</span>
+    <span class="n">input_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">accel_input</span><span class="p">)</span>
+    <span class="n">output_probe</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="n">synapse</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="c1"># Create our simulator</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="c1"># Run it for 10 seconds</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">][:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input - Acceleration&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">output_probe</span><span class="p">][:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Output - Velocity&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">output_probe</span><span class="p">][:,</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Output - Position&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;X Dynamics&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the decoded outputs</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">input_probe</span><span class="p">][:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Input - Acceleration&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">output_probe</span><span class="p">][:,</span><span class="mi">3</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Output - Velocity&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">(),</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">output_probe</span><span class="p">][:,</span><span class="mi">1</span><span class="p">],</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Output - Position&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Y Dynamics&quot;</span><span class="p">)</span>
+
+<span class="c1"># Plot the birds-eye view of position</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">output_probe</span><span class="p">][:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">output_probe</span><span class="p">][:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;2D Position&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Lab3_NeuronBasics_LastName.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lab 3: Neuron Basics using Nengo</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nengo-dynamics-review">Nengo Dynamics Review</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#two-integrators-in-sequence">Two Integrators in Sequence</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-and-run-it">Probe it and Run it</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-it">Plot it</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-integrators-in-sequence-into-a-single-neuron-ensemble-and-do-the-same-thing">Convert Integrators in Sequence into a Single Neuron Ensemble (and do the same thing)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#make-everything-2d">Make everything 2D!</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probe-it-run-it-plot-it">Probe it, run it, plot it!</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kaitlin Fair
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
