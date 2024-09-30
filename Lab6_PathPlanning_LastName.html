@@ -448,7 +448,7 @@ document.write(`
                   
   <section id="lab6-krichmar-path-planning-using-nengo">
 <h1>Lab6: Krichmar Path Planning using Nengo<a class="headerlink" href="#lab6-krichmar-path-planning-using-nengo" title="Link to this heading">#</a></h1>
-<p>This Lab uses Nengo to find the optimal path of a square or rectangular map using Krichmar’s spike-wave propagation algorithm. The objectives of this lab are to:</p>
+<p>This Lab uses Nengo to find the optimal path of a <span class="math notranslate nohighlight">\(3 \times 3\)</span> map using Krichmar’s spike-wave propagation algorithm. The objectives of this lab are to:</p>
 <ul class="simple">
 <li><p>Implement Krichmar’s spike-wave propagation algorithm using Nengo neurons</p></li>
 <li><p>Ensure the spike wave works for any rectangular or square map</p></li>
@@ -477,11 +477,11 @@ document.write(`
 </section>
 <section id="input-map">
 <h2>Input Map<a class="headerlink" href="#input-map" title="Link to this heading">#</a></h2>
-<p>You will implement path planning such that your spike-wave propagation and AER generate the fastest route for the following <span class="math notranslate nohighlight">\(3\times 3\)</span> map, with start location 0 (top left) and end location 8 (bottom right).
-$<span class="math notranslate nohighlight">\(\begin{bmatrix} 1 &amp; 2 &amp; 1 \\
+<p>You will implement path planning such that your spike-wave propagation and AER generate the fastest route for the following <span class="math notranslate nohighlight">\(3\times 3\)</span> map, with start location 0 (top left) and end location 8 (bottom right):
+<span class="math notranslate nohighlight">\(\begin{bmatrix} 1 &amp; 2 &amp; 1 \\
                   1 &amp; 3 &amp; 5 \\
                   7 &amp; 1 &amp; 1
-                      \end{bmatrix}\)</span>$</p>
+                      \end{bmatrix}\)</span></p>
 <p>Note that you can work in 2 dimensions (for your 2D map) or 1 dimension (flatten your map) when indexing everything. For example: you can either end at <code class="docutils literal notranslate"><span class="pre">end_loc</span> <span class="pre">=</span> <span class="pre">[2,2]</span></code> or at <code class="docutils literal notranslate"><span class="pre">end_loc=8</span></code>.</p>
 <blockquote>
 <div><p>Code Block Specs:<br />
