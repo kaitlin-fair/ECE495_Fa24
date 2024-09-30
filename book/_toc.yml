@@ -22,3 +22,4 @@ parts:
       - file: Lab2_SNN_LastName
       - file: Lab3_NeuronBasics_LastName
       - file: Lab4_Dynamics_LastName
+      #- file: Lab5_BubbleSort_LastName
