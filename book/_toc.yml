@@ -13,7 +13,7 @@ parts:
       - file: Tutorial3a_NeuronBasics
       - file: Tutorial3b_NeuronBasics
       - file: Tutorial4_Dynamics
-      #- file: Tutorial6_PathPlanning
+      - file: Tutorial6_PathPlanning
       #- file: Tutorial7_SpikingData
       #- file: Tutorial8_AdvExamples
   - caption: Lab Assignments
@@ -22,5 +22,5 @@ parts:
       - file: Lab2_SNN_LastName
       - file: Lab3_NeuronBasics_LastName
       - file: Lab4_Dynamics_LastName
-      #- file: Lab5_BubbleSort_LastName
-      #- file: Lab6_PathPlanning_LastName
+      - file: Lab5_BubbleSort_LastName
+      - file: Lab6_PathPlanning_LastName
