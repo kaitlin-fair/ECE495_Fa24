@@ -1,0 +1,1034 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lab 5: Bubble Sort using Nengo Neurons &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Lab5_BubbleSort_LastName';</script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Intro to Neuromorphic Engineering
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="venv_setup.html">ECE 495 Setup Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="495setup_LastName.html">Lab 0: Virtual Environment Setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">Nengo Neurons: Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">Nengo Neurons: Dynamics</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Lab1_DNN_LastName.html">Lab 1: Deep Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab2_SNN_LastName.html">Lab 2: Spiking Neural Networks using NengoDL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab3_NeuronBasics_LastName.html">Lab 3: Neuron Basics using Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab4_Dynamics_LastName.html">Lab 4: Navigation Dynamics using Nengo</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/kaitlin-fair/ECE495_Fa24/blob/main/book/Lab5_BubbleSort_LastName.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2FLab5_BubbleSort_LastName.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Lab5_BubbleSort_LastName.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab 5: Bubble Sort using Nengo Neurons</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lab 5: Bubble Sort using Nengo Neurons</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-bubble-sort-works">How Bubble Sort Works</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-array-to-be-sorted">Create your array to be sorted</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encode-all-inputs-for-sorting">Encode all inputs for sorting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-neurons-to-perform-the-comparisons-required-for-bubble-sort">Set up neurons to perform the comparisons required for Bubble Sort</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-and-probe-all-the-things">Connect and Probe all the things!</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-data">Plot the data!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="lab-5-bubble-sort-using-nengo-neurons">
+<h1>Lab 5: Bubble Sort using Nengo Neurons<a class="headerlink" href="#lab-5-bubble-sort-using-nengo-neurons" title="Link to this heading">#</a></h1>
+<p>This lab uses Nengo to sort an array using the bubble sort algorithm. The objectives of this lab are to:</p>
+<ol class="arabic simple">
+<li><p>Utilize the fundamentals we’ve learned to implement the bubble sort algorithm</p></li>
+<li><p>Using our model, sort an array of 4 values</p></li>
+</ol>
+<section id="grading-specifications">
+<h2>Grading Specifications<a class="headerlink" href="#grading-specifications" title="Link to this heading">#</a></h2>
+<p>◻ Filename changed to reflect last name of person submitting assignment<br />
+◻ Code runs error free<br />
+◻ Jupyter notebook is saved such that outputs appear upon opening file (and therefore on gradescope)<br />
+◻ (On your honor) All markdown and resources read thoroughly and fully understood<br />
+◻ <strong>Comment your code</strong> - this lab requires a lot of independent work. You’re ready for it! To ensure you earn the score you deserve and/or to ensure I can provide valuable feedback, please help me understand your thought process by commenting as you go!<br />
+◻ Create an array of four <em>unique</em> values between -1 and 1 at rounded to one decimal place that changes each time you run this notebook<br />
+◻ Create a multi-dimensional node for your input array<br />
+◻ Create a multi-dimensional neuron ensemble to represent your input array<br />
+◻ Plot the neural representation of your input array using a single probe<br />
+◻ Build combine ensemble(s), compare ensemble(s), comparison function(s), and connect everything such that your model implements all comparisons required to sort the input array of four values<br />
+◻ As part of the last section, plot the neural representation of your input array using a single probe once more<br />
+◻ Plot the final sorted array by probing the appropriate output neurons<br />
+◻ Include a key in your final sorted array plot<br />
+◻ (Recommended) Fully understand your results by analyzing and discussing outputs with classmates using the discussion section at the end of this lab</p>
+<hr class="docutils" />
+<section id="set-up">
+<h3>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h3>
+<p><strong>Ensure you are using your 495 Virtual Environment before you begin!</strong></p>
+<p>Import Nengo and other supporting libraries into your program to get started:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">nengo</span>
+
+<span class="kn">from</span> <span class="nn">nengo.dists</span> <span class="kn">import</span> <span class="n">Uniform</span>
+<span class="kn">from</span> <span class="nn">nengo.utils.matplotlib</span> <span class="kn">import</span> <span class="n">rasterplot</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="how-bubble-sort-works">
+<h2>How Bubble Sort Works<a class="headerlink" href="#how-bubble-sort-works" title="Link to this heading">#</a></h2>
+<p>Working left to right, compare two elements at a time and swap (if necessary) so that the higher number is to the right. By working all the way left to right, the highest number should end up in the correct position (the last position) after the “first pass”. In the 4-element array case, element 1 is compared with element 2 and swapped if applicable, then the (possibly new) element 2 is compared with element 3, swapped if applicable, then the (possibly new) element 3 is compared with element 4, swapped if applicable. The final element 4 is the largest number in the array and will not move for any future pass.</p>
+<p>After the first pass is completed, we work left to right again, but this time for just the first three positions, since the fourth is already locked in from the previous step. The second largest value should end up in the third position after this pass.</p>
+<p>Once the second pass is completed, we just need to rearrange the first two digits and we have a fully sorted array!</p>
+</section>
+<section id="create-your-array-to-be-sorted">
+<h2>Create your array to be sorted<a class="headerlink" href="#create-your-array-to-be-sorted" title="Link to this heading">#</a></h2>
+<p>We will use an array of four <em>unique</em> values between -1 and 1 rounded to 1 decimal place (to make it easier to interpret results). This array should change each time you run your code to ensure your algorithm is running for all cases. Things to consider:</p>
+<ul class="simple">
+<li><p>You may want to start of with a predictable array as you debug your program</p></li>
+<li><p>When you’re ready to make your input array random, you’ll need to do two things: (1) Create an array between -1 and 1 at .1 increments. See here for <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html">help</a>. (2) You’ll need to choose four of those values as your array in random order <strong>but</strong> ensure the values are not repeated. See here for <a class="reference external" href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.choice.html">help</a>. You’ll have three arguments, the first being all possible values, the second being the length of your array, and the third being <code class="docutils literal notranslate"><span class="pre">replace</span></code> to ensure values do not repeat.</p></li>
+<li><p>Call your final input array <code class="docutils literal notranslate"><span class="pre">input_array</span></code></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">???</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">input_array</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.7  0.8  0.  -0.6]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="encode-all-inputs-for-sorting">
+<h2>Encode all inputs for sorting<a class="headerlink" href="#encode-all-inputs-for-sorting" title="Link to this heading">#</a></h2>
+<p>Create the model and add input nodes, neuron ensembles, connections, and probes to visualize our encoded input array.</p>
+<p>Tips:</p>
+<ul class="simple">
+<li><p>Nengo nodes can be multidimensional. You can feed your 4-element input array directly into a Nengo node, probe the single node, and view the output of each dimension at once.</p></li>
+<li><p>Consider how many dimensions your input ensemble needs to be to accomodate your multi-dimensional input node.</p></li>
+<li><p>Consider the radius for your multi-dimensonal input ensemble given you will need to represent values -1 and 1.</p></li>
+<li><p>For probing and plotting, same goes for Neuron ensembles as it did for nodes.</p></li>
+<li><p>Based on the dimensions of your input ensemble, consider how many neurons will be necessary to accurately represent all elements of your input array.</p></li>
+<li><p>Nengo can interpret how to connect a multidimensional node to a multidimensional neuron ensemble automatically. Simply connect the two to one another.</p></li>
+<li><p>Your input values aren’t changing. Pick a simulation time accordingly.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a model to perform the sorting</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;SortArray&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Add input node</span>
+    <span class="n">input_node</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+
+    <span class="c1"># Add neuron ensembles to encode each value of the array</span>
+    <span class="n">input_ensemble</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+
+    <span class="c1"># Connect the node to the neuron ensemble</span>
+    <span class="o">???</span>
+
+    <span class="c1"># Add probes to your node and ensemble</span>
+    <span class="o">???</span>
+    <span class="o">???</span>
+
+<span class="c1"># Build the simulator to run the model containing just input encoding</span>
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="err">???</span><span class="p">)</span>
+
+<span class="c1"># Plot the input array and the respective decoded ensemble values</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="err">???</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="err">???</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time [s]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Encoded Input Values&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("726cd1e1-6db9-4286-8c1a-30145961395e");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="726cd1e1-6db9-4286-8c1a-30145961395e" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('726cd1e1-6db9-4286-8c1a-30145961395e');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:01.';
+                  
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div><div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("cae08cf3-cb58-4356-a057-679674af2fcc");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="cae08cf3-cb58-4356-a057-679674af2fcc" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('cae08cf3-cb58-4356-a057-679674af2fcc');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Simulation finished in 0:00:01.';
+                  
+            if (100.0 > 0.) {
+                fill.style.transition = 'width 0.1s linear';
+            } else {
+                fill.style.transition = 'none';
+            }
+
+            fill.style.width = '100.0%';
+            fill.style.animation = 'none';
+            fill.style.backgroundImage = 'none'
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div><img alt="_images/402d770dbc15f289b548dcb25309fdd63c04a5528740c3b0bb85a99c27d74efb.png" src="_images/402d770dbc15f289b548dcb25309fdd63c04a5528740c3b0bb85a99c27d74efb.png" />
+</div>
+</div>
+</section>
+<section id="set-up-neurons-to-perform-the-comparisons-required-for-bubble-sort">
+<h2>Set up neurons to perform the comparisons required for Bubble Sort<a class="headerlink" href="#set-up-neurons-to-perform-the-comparisons-required-for-bubble-sort" title="Link to this heading">#</a></h2>
+<p>We need neuron ensembles to compare each of the inputs from left to right, two at a time.</p>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>You will need a <code class="docutils literal notranslate"><span class="pre">combine_ensemble</span></code> and a <code class="docutils literal notranslate"><span class="pre">compare_ensemble</span></code> for each comparison since you will compare 2 distinct values at a time.</p></li>
+<li><p>For an array of four values, determine how many total comparisons <span class="math notranslate nohighlight">\(N\)</span> will be required to sort the array into ascending order. You can either have a <span class="math notranslate nohighlight">\(2\times N\)</span> dimensional <code class="docutils literal notranslate"><span class="pre">combine_ensemble</span></code> that holds all of your values that will feed into your comparisons and index accordingly, or you can have <span class="math notranslate nohighlight">\(N\)</span> 2-D <code class="docutils literal notranslate"><span class="pre">combine_ensemble_n</span></code>, where <code class="docutils literal notranslate"><span class="pre">n</span></code> is the increment number (i.e. <span class="math notranslate nohighlight">\(1, 2, 3, ...\)</span>).</p></li>
+<li><p>You will need to retain the smaller values of the comparison for the next pass. Consider the impact on your <code class="docutils literal notranslate"><span class="pre">compare_ensemble</span></code> dimensions. Again, you can either have <code class="docutils literal notranslate"><span class="pre">compare_ensemble</span></code> or <code class="docutils literal notranslate"><span class="pre">compare_ensemble_n</span></code></p></li>
+<li><p>Whichever route you use for programming your combine and compare ensembles, be sure to choose enough neurons to best represent these functions!</p></li>
+<li><p>Also consider your radii! What happens if you are comparing the extremes?</p></li>
+<li><p>Build your compare function(s) outside of the model</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Create combine and compare ensembles</span>
+    <span class="o">???</span>
+
+<span class="c1"># Create a function to return the largest value</span>
+<span class="k">def</span> <span class="err">?</span><span class="o">??</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="connect-and-probe-all-the-things">
+<h1>Connect and Probe all the things!<a class="headerlink" href="#connect-and-probe-all-the-things" title="Link to this heading">#</a></h1>
+<p>Now, connect all of your neuron ensembles to implement bubble sort. Watch your indexing!!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Create connections to implement bubblesort!</span>
+    <span class="o">???</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Add probes to the outputs to see how well our neurons sorted your input array. Don’t forget your <code class="docutils literal notranslate"><span class="pre">synapse</span></code> argument.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># add probes to 4 output neurons (those contributing to the sorted array)</span>
+    <span class="o">???</span>
+    <span class="o">???</span>
+    <span class="o">???</span>
+    <span class="o">???</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Run your updated model with a simulation time that makes sense</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="err">???</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("877f2732-2651-4066-8859-b192b9b5da5b");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="877f2732-2651-4066-8859-b192b9b5da5b" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('877f2732-2651-4066-8859-b192b9b5da5b');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Build finished in 0:00:03.';
+                  
+            fill.style.width = '100%';
+            fill.style.animation = 'pb-fill-anim 2s linear infinite';
+            fill.style.backgroundSize = '100px 100%';
+            fill.style.backgroundImage = 'repeating-linear-gradient(' +
+                '90deg, #bdd2e6, #edf2f8 40%, #bdd2e6 80%, #bdd2e6)';
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div><div class="output text_html">
+                <script>
+                    if (Jupyter.version.split(".")[0] < 5) {
+                        var pb = document.getElementById("070676fe-8bce-4bb7-a648-17f35829b20f");
+                        var text = document.createTextNode(
+                            "HMTL progress bar requires Jupyter Notebook >= " +
+                            "5.0 or Jupyter Lab. Alternatively, you can use " +
+                            "TerminalProgressBar().");
+                        pb.parentNode.insertBefore(text, pb);
+                    }
+                </script>
+                <div id="070676fe-8bce-4bb7-a648-17f35829b20f" style="
+                    width: 100%;
+                    border: 1px solid #cfcfcf;
+                    border-radius: 4px;
+                    text-align: center;
+                    position: relative;">
+                  <div class="pb-text" style="
+                      position: absolute;
+                      width: 100%;">
+                    0%
+                  </div>
+                  <div class="pb-fill" style="
+                      background-color: #bdd2e6;
+                      width: 0%;">
+                    <style type="text/css" scoped="scoped">
+                        @keyframes pb-fill-anim {
+                            0% { background-position: 0 0; }
+                            100% { background-position: 100px 0; }
+                        }
+                    </style>
+                    &nbsp;
+                  </div>
+                </div></div><div class="output text_html"><script>
+              (function () {
+                  var root = document.getElementById('070676fe-8bce-4bb7-a648-17f35829b20f');
+                  var text = root.getElementsByClassName('pb-text')[0];
+                  var fill = root.getElementsByClassName('pb-fill')[0];
+
+                  text.innerHTML = 'Simulation finished in 0:00:01.';
+                  
+            if (100.0 > 0.) {
+                fill.style.transition = 'width 0.1s linear';
+            } else {
+                fill.style.transition = 'none';
+            }
+
+            fill.style.width = '100.0%';
+            fill.style.animation = 'none';
+            fill.style.backgroundImage = 'none'
+        
+                  
+                fill.style.animation = 'none';
+                fill.style.backgroundImage = 'none';
+            
+              })();
+        </script></div></div>
+</div>
+<section id="plot-the-data">
+<h2>Plot the data!<a class="headerlink" href="#plot-the-data" title="Link to this heading">#</a></h2>
+<p><strong>Recommendation:</strong> Probe and plot debug nodes throughout the bubble sort implementation to ensure you are comparing the right things! Hand crank the computations and compare to the plots as you debug.</p>
+<p><strong>Required for final Gradescope submission:</strong></p>
+<ul class="simple">
+<li><p>Plot 1: Plot your <em>encoded</em> input</p></li>
+<li><p>Plot 2: Plot the probes associated with those that will give the correct sorted array. This will require indexing. <strong>Include a key, otherwise I won’t know if it sorted correctly!</strong></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Plot the results!</span>
+<span class="c1"># Plot the input signals and decoded ensemble values</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="err">???</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time [s]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Input Array (not sorted)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Input Array =&quot;</span><span class="p">,</span> <span class="n">input_array</span><span class="p">)</span>
+
+<span class="c1">## Plot the results!</span>
+<span class="c1"># Plot the input signals and decoded ensemble values</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="err">???</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="err">???</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="err">???</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="err">???</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time [s]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Sorted Array&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1864ebf9d3c3e60117d3a382c873d242dfeb96e0b7b33a20afd99ec95f6df726.png" src="_images/1864ebf9d3c3e60117d3a382c873d242dfeb96e0b7b33a20afd99ec95f6df726.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Input Array = [ 0.7  0.8  0.  -0.6]
+</pre></div>
+</div>
+<img alt="_images/7eaa63dc278f6c9e04ce865a899923044a783aa72c5eb95a85d5672f8069c14a.png" src="_images/7eaa63dc278f6c9e04ce865a899923044a783aa72c5eb95a85d5672f8069c14a.png" />
+</div>
+</div>
+</section>
+<section id="discussion">
+<h2>Discussion<a class="headerlink" href="#discussion" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Why do your sorted outputs have a weird curve at the beginning? Consider inherent Nengo neuron dynamics.</p></li>
+<li><p>Why didn’t we try to reuse the comparison functions instead of doing separate comparisons <span class="math notranslate nohighlight">\(N\)</span> times? Recall our dynamics lectures.</p></li>
+<li><p>How would we do this for any-dimensional array (i.e. how would we generalize this implementation)?</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Lab 5: Bubble Sort using Nengo Neurons</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grading-specifications">Grading Specifications</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-bubble-sort-works">How Bubble Sort Works</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-array-to-be-sorted">Create your array to be sorted</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#encode-all-inputs-for-sorting">Encode all inputs for sorting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up-neurons-to-perform-the-comparisons-required-for-bubble-sort">Set up neurons to perform the comparisons required for Bubble Sort</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-and-probe-all-the-things">Connect and Probe all the things!</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-data">Plot the data!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discussion">Discussion</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kaitlin Fair
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
