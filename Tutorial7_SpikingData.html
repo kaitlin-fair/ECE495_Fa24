@@ -452,7 +452,7 @@ document.write(`
                   
   <section id="algorithms-in-nengo-spiking-data">
 <h1>Algorithms in Nengo: Spiking data<a class="headerlink" href="#algorithms-in-nengo-spiking-data" title="Link to this heading">#</a></h1>
-<p>Before you start, be sure to <a class="reference download internal" download="" href="_downloads/98c24b4f95c7be74e8e02191dad4087b/City_Data.csv"><span class="xref download myst">Download and save this file</span></a> to your <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> folder.</p>
+<p>Before you start, be sure to <a class="reference download internal" download="" href="_downloads/98c24b4f95c7be74e8e02191dad4087b/City_Data.csv"><span class="xref download myst">Download and save this file</span></a> and <a class="reference download internal" download="" href="_downloads/e06241f198b4ef7f2463cf1c6efcca23/10msLED.csv"><span class="xref download myst">this file</span></a>] to your <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> folder.</p>
 <p><a class="reference external" href="https://www.nengo.ai/nengo-examples/loihi/dvs-from-file.html">(Some of the) Code Cred</a></p>
 <p>This tutorial covers the following:</p>
 <ul class="simple">
@@ -528,15 +528,15 @@ We can also generate data if we don’t have our own (copy code from <a class="r
 <span class="c1"># the csv file we will convert and the time range of our events</span>
 
 <span class="c1"># ======= DVS camera - Physics dept ===========</span>
-<span class="n">csv_filename</span> <span class="o">=</span> <span class="s1">&#39;ILAN City Frame Data.csv&#39;</span>
+<span class="n">csv_filename</span> <span class="o">=</span> <span class="s1">&#39;City_Data.csv&#39;</span>
 <span class="n">start_time</span> <span class="o">=</span> <span class="mi">585861</span>
 <span class="n">end_time</span> <span class="o">=</span> <span class="mi">685846</span>
 <span class="c1"># =============================================</span>
 
 <span class="c1"># ======== Prophesee camera - ECE dept ========</span>
-<span class="c1"># csv_filename = &#39;prophesee.csv&#39;</span>
-<span class="c1"># start_time = 55e5</span>
-<span class="c1"># end_time = 7e6</span>
+<span class="sd">&quot;&quot;&quot;csv_filename = &#39;10msLED.csv&#39;</span>
+<span class="sd">start_time = 0.99e6</span>
+<span class="sd">end_time = 1.07e6&quot;&quot;&quot;</span>
 <span class="c1"># =============================================</span>
 
 <span class="c1"># Our events array we will feed in through a Nengo node</span>
@@ -553,22 +553,22 @@ We can also generate data if we don’t have our own (copy code from <a class="r
 <p>You can read all about animations <a class="reference external" href="https://matplotlib.org/stable/users/explain/animations/animations.html">here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ======== Prophesee camera - ECE dept ========</span>
-<span class="c1"># img_height = 720</span>
-<span class="c1"># img_width = 1280</span>
-<span class="c1"># t_length_us = end_time - start_time #value is in microseconds</span>
-<span class="c1"># t_length_s = t_length_us * 1e-6 #convert prior value to seconds</span>
-<span class="c1"># dt_frame_us = (10 * 1e-3) * 1e6 #this value is also in microseconds</span>
-<span class="c1"># t_frames = dt_frame_us * np.arange(int(round(t_length_us / dt_frame_us))) #number of frames in video</span>
-<span class="c1"># =============================================</span>
-
-<span class="c1"># ======= DVS camera - Physics dept ===========</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ======= DVS camera - Physics dept ===========</span>
 <span class="n">img_height</span> <span class="o">=</span> <span class="mi">180</span>
 <span class="n">img_width</span> <span class="o">=</span> <span class="mi">240</span>
 <span class="n">t_length_us</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span> <span class="c1">#value is in microseconds</span>
 <span class="n">t_length_s</span> <span class="o">=</span> <span class="n">t_length_us</span> <span class="o">*</span> <span class="mf">1e-6</span> <span class="c1">#convert prior value to seconds</span>
 <span class="n">dt_frame_us</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mf">1e-3</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="c1">#this value is also in microseconds</span>
 <span class="n">t_frames</span> <span class="o">=</span> <span class="n">dt_frame_us</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t_length_us</span> <span class="o">/</span> <span class="n">dt_frame_us</span><span class="p">)))</span> <span class="c1">#number of frames in video</span>
+<span class="c1"># =============================================</span>
+
+<span class="c1"># ======== Prophesee camera - ECE dept ========</span>
+<span class="sd">&quot;&quot;&quot;img_height = 720</span>
+<span class="sd">img_width = 1280</span>
+<span class="sd">t_length_us = end_time - start_time #value is in microseconds</span>
+<span class="sd">t_length_s = t_length_us * 1e-6 #convert prior value to seconds</span>
+<span class="sd">dt_frame_us = (10 * 1e-3) * 1e6 #this value is also in microseconds</span>
+<span class="sd">t_frames = dt_frame_us * np.arange(int(round(t_length_us / dt_frame_us))) #number of frames in video&quot;&quot;&quot;</span>
 <span class="c1"># =============================================</span>
 
 <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
