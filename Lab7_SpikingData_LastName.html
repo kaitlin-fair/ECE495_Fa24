@@ -1,0 +1,851 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Lab7: Spiking data &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Lab7_SpikingData_LastName';</script>
+    <link rel="icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Lab 6: Krichmar Path Planning using Nengo Neurons" href="Lab6_PathPlanning_LastName.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="ECE495 Intro to Neuromorhic Engineering - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Intro to Neuromorphic Engineering
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="venv_setup.html">ECE 495 Setup Instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="495setup_LastName.html">Lab 0: Virtual Environment Setup</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3a_NeuronBasics.html">Nengo Neurons: Representation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial3b_NeuronBasics.html">Nengo Neurons: Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial4_Dynamics.html">Nengo Neurons: Dynamics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial6_PathPlanning.html">Algorithms in Nengo: Path Planning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorial7_SpikingData.html">Algorithms in Nengo: Spiking data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lab Assignments</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Lab1_DNN_LastName.html">Lab 1: Deep Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab2_SNN_LastName.html">Lab 2: Spiking Neural Networks using NengoDL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab3_NeuronBasics_LastName.html">Lab 3: Neuron Basics using Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab4_Dynamics_LastName.html">Lab 4: Navigation Dynamics using Nengo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab5_BubbleSort_LastName.html">Lab 5: Bubble Sort using Nengo Neurons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab6_PathPlanning_LastName.html">Lab 6: Krichmar Path Planning using Nengo Neurons</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab7: Spiking data</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/kaitlin-fair/ECE495_Fa24/blob/main/book/Lab7_SpikingData_LastName.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2FLab7_SpikingData_LastName.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Lab7_SpikingData_LastName.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lab7: Spiking data</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-your-spiking-data-i-e-your-aer">Build your spiking data (i.e. your AER)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#view-the-data-not-using-neurons-yet">View the data (NOT using neurons yet)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-spike-data-function-to-input-into-nengo">Read Spike Data function to input into Nengo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-your-model">Build your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#view-the-data-using-nengo-neurons">View the data (using Nengo neurons!)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="lab7-spiking-data">
+<h1>Lab7: Spiking data<a class="headerlink" href="#lab7-spiking-data" title="Link to this heading">#</a></h1>
+<p>The objectives of this lab are:</p>
+<ul class="simple">
+<li><p>To understand the format of event-based data</p></li>
+<li><p>To undersatnd how event-based data is read by Nengo neurons</p></li>
+</ul>
+<blockquote>
+<div><h3 class="rubric" id="specifications">Specifications</h3>
+<p>◻ Filename changed to reflect last name of person submitting assignment<br />
+◻ Code runs error free<br />
+◻ Jupyter notebook is saved such that outputs appear upon opening file (and therefore on gradescope)<br />
+◻ (On your honor) All markdown and resources read thoroughly and fully understood
+◻ AER is in proper format, either created by CSV or a python array<br />
+◻ Video generated from AER can be displayed outside of Nengo<br />
+◻ Video generated from AER can be read by Nengo neurons<br />
+◻ Video generated from AER can be displayed from Nengo simulation output spikes<br />
+◻ Video displayed from Nengo simulation output spikes can be clearly interpreted</p>
+</div></blockquote>
+<hr class="docutils" />
+<section id="set-up">
+<h2>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h2>
+<p><strong>Ensure you are using your <a class="reference external" href="https://github.com/kaitlin-fair/495venv_setup">495 Virtual Environment</a> before you begin!</strong></p>
+<p>Then, import Nengo, and other supporting libraries into your program to get started:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">matplotlib.animation</span> <span class="kn">import</span> <span class="n">ArtistAnimation</span>
+
+<span class="kn">import</span> <span class="nn">nengo</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="build-your-spiking-data-i-e-your-aer">
+<h2>Build your spiking data (i.e. your AER)<a class="headerlink" href="#build-your-spiking-data-i-e-your-aer" title="Link to this heading">#</a></h2>
+<p>Your goal is to create an interesting spiking video with a *.csv file just like <code class="docutils literal notranslate"><span class="pre">ILAN</span> <span class="pre">City</span> <span class="pre">Frame</span> <span class="pre">Data.csv</span></code> OR with an event array (therefore bypassing the need for this line of code: <code class="docutils literal notranslate"><span class="pre">events</span> <span class="pre">=</span> <span class="pre">csv_to_event_array(csv_filename,</span> <span class="pre">start_time,</span> <span class="pre">end_time)</span></code>).</p>
+<p><em>Most interesting video gets a prize</em> - have fun with this!</p>
+<p><strong>.csv file</strong></p>
+<p>Take a look at the <code class="docutils literal notranslate"><span class="pre">ILAN</span> <span class="pre">City</span> <span class="pre">Frame</span> <span class="pre">Data.csv</span></code> file. You will see in that file that you have x- and y-coordinates at which an event took place, a polarity of said event, and the time of said event. Your video must be at least 50x50 pixels and contain 10 frames (after you’ve read your data over windows of time). If you would like for your video to have both positive and negative spiking events, use polarities of 1 and 0, respectively.</p>
+<p><strong>events_array</strong></p>
+<p>The events array contains a list for every event consisting of the following values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">y</span></code>: The vertical coordinate of the event.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code>: The horizontal coordinate of the event.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span></code>: The polarity of the event (0 for off, 1 for on).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t</span></code>: The event timestamp <em>in microseconds</em>.</p></li>
+</ul>
+<p>You can see the format of this list - <code class="docutils literal notranslate"><span class="pre">[(y,</span> <span class="pre">x,</span> <span class="pre">p,</span> <span class="pre">t)]</span></code> for each event - within the <code class="docutils literal notranslate"><span class="pre">csv_to_event_array</span></code> function. You then fill the final <code class="docutils literal notranslate"><span class="pre">events_array</span></code> with <code class="docutils literal notranslate"><span class="pre">np.array(events_list,</span> <span class="pre">dtype=[('x',</span> <span class="pre">'i4'),</span> <span class="pre">('y',</span> <span class="pre">'i4'),</span> <span class="pre">('p',</span> <span class="pre">'i4'),</span> <span class="pre">('t',</span> <span class="pre">'i4')])</span></code>.</p>
+<p><strong>Notes</strong></p>
+<ul class="simple">
+<li><p>You are welcome to add in negative polarity, but only if it’s a trailing edge! Don’t try to have “color” using negative polarity. Think of it more as a shadow to your positive polarity (leading edge).</p></li>
+<li><p>You will see a spot to build a CSV or to build an array. CHOOSE ONE. Comment out / delete the other.</p></li>
+<li><p>Do NOT mess with the <code class="docutils literal notranslate"><span class="pre">csv_to_event_array</span></code> function</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">csv_to_event_array</span><span class="p">(</span><span class="n">csv_filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">start_frame</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end_frame</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="c1"># ======= DVS camera - Physics dept ===========</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">csv_filename</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">])</span>
+    
+    <span class="c1"># set initial time to 0 for Nengo simulator to run data right away</span>
+    <span class="n">sub_df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[(</span><span class="n">start_frame</span> <span class="o">&lt;=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">end_frame</span><span class="p">)]</span>
+
+    <span class="n">sub_df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sub_df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">sub_df</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">events_list</span> <span class="o">=</span> <span class="p">[(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">sub_df</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+    <span class="n">events_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">events_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">)])</span>
+
+    <span class="k">return</span> <span class="n">events_array</span>
+
+<span class="c1">####################################### CHOOSE ONE ######################################</span>
+
+<span class="c1">#----------------Build a CSV--------------------</span>
+
+<span class="c1"># Your data! </span>
+<span class="n">csv_filename</span> <span class="o">=</span> <span class="s1">&#39;???.csv&#39;</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+<span class="n">events</span> <span class="o">=</span> <span class="n">csv_to_event_array</span><span class="p">(</span><span class="n">csv_filename</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Successfully read </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">csv_filename</span><span class="p">)</span>
+
+<span class="c1">#----------------Build an Array------------------</span>
+
+<span class="c1"># Your data!</span>
+<span class="n">events_list</span> <span class="o">=</span>  <span class="err">?</span><span class="o">??</span>
+               <span class="c1">#[(x_loc1, y_loc1, polarity1, time event1 occurred),</span>
+               <span class="c1"># (x_loc2, y_loc2, polarity2, time event2 occurred),</span>
+               <span class="c1"># ...,</span>
+               <span class="c1"># (x_locN, y_locN, polarityN, time eventN occurred)]</span>
+<span class="n">events</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">events_list</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;i4&#39;</span><span class="p">)])</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="view-the-data-not-using-neurons-yet">
+<h2>View the data (NOT using neurons yet)<a class="headerlink" href="#view-the-data-not-using-neurons-yet" title="Link to this heading">#</a></h2>
+<p>You will need to adjust your image size. Depending on when you placed your events, you may need to adjust your dt_frame_us to determine the number of frames you will have in your video. For now, I’m leaving the time parameters as they were in our tutorial.</p>
+<p>This is your chance to ensure your video is doing what you thought it would!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ======= Your Data! ===========</span>
+<span class="n">img_height</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+<span class="n">img_width</span> <span class="o">=</span> <span class="err">?</span><span class="o">??</span>
+<span class="n">t_length_us</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span> <span class="c1">#value is in microseconds</span>
+<span class="n">t_length_s</span> <span class="o">=</span> <span class="n">t_length_us</span> <span class="o">*</span> <span class="mf">1e-6</span> <span class="c1">#convert prior value to seconds</span>
+<span class="n">dt_frame_us</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mf">1e-3</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e6</span> <span class="c1">#this value is also in microseconds</span>
+<span class="n">t_frames</span> <span class="o">=</span> <span class="n">dt_frame_us</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t_length_us</span> <span class="o">/</span> <span class="n">dt_frame_us</span><span class="p">)))</span> <span class="c1">#number of frames in video</span>
+<span class="c1"># ==============================</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">imgs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">t_frame</span> <span class="ow">in</span> <span class="n">t_frames</span><span class="p">:</span>
+    <span class="n">t0_us</span> <span class="o">=</span> <span class="n">t_frame</span>
+    <span class="n">t1_us</span> <span class="o">=</span> <span class="n">t0_us</span> <span class="o">+</span> <span class="n">dt_frame_us</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">events</span><span class="p">[:][</span><span class="s2">&quot;t&quot;</span><span class="p">]</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;=</span> <span class="n">t0_us</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">t</span> <span class="o">&lt;</span> <span class="n">t1_us</span><span class="p">)</span>
+    <span class="n">events_m</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+
+    <span class="c1"># Empty frame</span>
+    <span class="n">frame_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">img_height</span><span class="p">,</span> <span class="n">img_width</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">sub_event</span> <span class="ow">in</span> <span class="n">events_m</span><span class="p">:</span>
+        <span class="c1"># show &quot;off&quot; (0) events as -1 and &quot;on&quot; (1) events as +1</span>
+        <span class="n">event_sign</span> <span class="o">=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">sub_event</span><span class="p">[</span><span class="s2">&quot;p&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">frame_img</span><span class="p">[</span><span class="n">sub_event</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">sub_event</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">frame_img</span><span class="p">[</span><span class="n">sub_event</span><span class="p">[</span><span class="s2">&quot;y&quot;</span><span class="p">],</span> <span class="n">sub_event</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">]]</span> <span class="o">+</span> <span class="n">event_sign</span>
+    
+    <span class="n">img</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">frame_img</span><span class="p">[:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">imgs</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">img</span><span class="p">])</span>
+
+<span class="n">ani</span> <span class="o">=</span> <span class="n">ArtistAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">imgs</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">ani</span><span class="o">.</span><span class="n">to_jshtml</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="read-spike-data-function-to-input-into-nengo">
+<h2>Read Spike Data function to input into Nengo<a class="headerlink" href="#read-spike-data-function-to-input-into-nengo" title="Link to this heading">#</a></h2>
+<p>We can now load our data into a Nengo model using the <code class="docutils literal notranslate"><span class="pre">readSpikeData</span></code> function we will create. Recall, input arguments to this function are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span></code>:The path of the file to read from. Can be a .aedat or .events file. Format of the file will be detected from the file extension.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pool</span></code>: Number of pixels to pool over in the vertical (first argument) and horizontal directions (second argument), respectively. The larger the pool, the fewer neurons required and the faster things run. <strong>NOTE: image indices must be evenly divisible by pool size in respective directions.</strong></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">img_height</span></code> and <code class="docutils literal notranslate"><span class="pre">image_width</span></code>: Dimensions of the camera data.</p></li>
+</ul>
+<p>Recall: we can have positive (leading edge) and negative (trailing edge) spikes from our camera called the polarity of the event. In this case we have 2: one for positive events, one for negative. The first half of our neurons represent positive events, the second half negative.</p>
+<p><em>DO NOT MESS WITH THE <code class="docutils literal notranslate"><span class="pre">read_spike_data</span></code> function!</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We&#39;ll make a simple object to implement the delayed connection</span>
+<span class="k">class</span> <span class="nc">readSpikeData</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event_data</span><span class="p">,</span> <span class="n">img_height</span><span class="p">,</span> <span class="n">img_width</span><span class="p">,</span> <span class="n">pool</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">xvals</span> <span class="o">=</span> <span class="n">event_data</span><span class="p">[:][</span><span class="s2">&quot;x&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">yvals</span> <span class="o">=</span> <span class="n">event_data</span><span class="p">[:][</span><span class="s2">&quot;y&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">event_data</span><span class="p">[:][</span><span class="s2">&quot;t&quot;</span><span class="p">]</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">pol</span> <span class="o">=</span> <span class="n">event_data</span><span class="p">[:][</span><span class="s2">&quot;p&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img_ht</span> <span class="o">=</span> <span class="n">img_height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">img_wt</span> <span class="o">=</span> <span class="n">img_width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">pool</span>
+
+    <span class="k">def</span> <span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+
+        <span class="n">dt</span> <span class="o">=</span> <span class="mf">.001</span>
+        <span class="n">t_lower</span> <span class="o">=</span> <span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">dt</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e6</span>
+        <span class="n">t_upper</span> <span class="o">=</span> <span class="n">t</span> <span class="o">*</span> <span class="mf">1e6</span>
+
+        <span class="n">times</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nonzero</span><span class="p">((</span><span class="n">times</span> <span class="o">&gt;=</span> <span class="n">t_lower</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">times</span> <span class="o">&lt;</span> <span class="n">t_upper</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">pool_y</span><span class="p">,</span> <span class="n">pool_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span>
+        
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">img_ht</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">img_wt</span><span class="o">*</span><span class="mi">2</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pol</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># Manually flatten data using (i*y_len)+j **note x,y vals swapped</span>
+                <span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">yvals</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">img_wt</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">xvals</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">dt</span> 
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">img_ht</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">img_wt</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">yvals</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">img_wt</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">xvals</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">dt</span>
+        
+        <span class="c1"># reshape the data so pooling computations are more intuitive</span>
+        <span class="n">data_sz</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">pos_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">data_sz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="n">neg_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">data_sz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span><span class="p">)::]</span>
+        <span class="n">pos_data</span> <span class="o">=</span> <span class="n">pos_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_ht</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_wt</span><span class="p">)</span>
+        <span class="n">neg_data</span> <span class="o">=</span> <span class="n">neg_data</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_ht</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_wt</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">pool_x</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">pool_y</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">pooled_ht</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_ht</span><span class="o">/</span><span class="n">pool_y</span><span class="p">)</span>
+            <span class="n">pooled_wt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">img_wt</span><span class="o">/</span><span class="n">pool_x</span><span class="p">)</span>
+            <span class="n">pooled_posdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">pooled_ht</span><span class="p">,</span><span class="n">pooled_wt</span><span class="p">))</span>
+            <span class="n">pooled_negdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">pooled_ht</span><span class="p">,</span><span class="n">pooled_wt</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_ht</span><span class="p">,</span> <span class="n">pool_y</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_wt</span><span class="p">,</span> <span class="n">pool_x</span><span class="p">):</span>  
+                    <span class="n">pooled_posdata</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="n">pool_y</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="o">/</span><span class="n">pool_x</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pos_data</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">pool_y</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="n">pool_x</span><span class="p">])</span>
+                    <span class="n">pooled_negdata</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="n">pool_y</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">j</span><span class="o">/</span><span class="n">pool_x</span><span class="p">)]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">neg_data</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">pool_y</span><span class="p">,</span> <span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="n">pool_x</span><span class="p">])</span>
+            
+            <span class="n">pooled_posdata</span> <span class="o">=</span> <span class="n">pooled_posdata</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">pooled_ht</span><span class="o">*</span> <span class="n">pooled_wt</span><span class="p">)</span>
+            <span class="n">pooled_negdata</span> <span class="o">=</span> <span class="n">pooled_negdata</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">pooled_ht</span><span class="o">*</span> <span class="n">pooled_wt</span><span class="p">)</span>
+
+            <span class="n">pooled_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pooled_posdata</span><span class="p">,</span> <span class="n">pooled_negdata</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">pooled_data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">data</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="build-your-model">
+<h2>Build your model<a class="headerlink" href="#build-your-model" title="Link to this heading">#</a></h2>
+<p>This should all look familiar! We are feeding in our input values (i.e. our spike data) through a node, representing the pixel changes with neurons, and reading the data out using probes.</p>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>You will likely not need to pool, but feel free to give it a go just to ensure you understand the pooling function.</p></li>
+<li><p>Ensure your sim time accommodates all frames of your video</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pool</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">#(pool_height y direction, pool_width x direction)</span>
+    <span class="c1"># NOTE // image indices must be evenly divisible by pool size in respective directions!</span>
+
+<span class="n">inp</span> <span class="o">=</span> <span class="n">readSpikeData</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">img_height</span><span class="p">,</span> <span class="n">img_width</span><span class="p">,</span> <span class="n">pool</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Network</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;Spiking Data&quot;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">input_node</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Node</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+
+    <span class="n">input_neurons</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Ensemble</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">img_height</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">img_width</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">nengo</span><span class="o">.</span><span class="n">Connection</span><span class="p">(</span><span class="n">input_node</span><span class="p">,</span> <span class="n">input_neurons</span><span class="o">.</span><span class="n">neurons</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span><span class="c1"># / np.prod(pool))</span>
+
+    <span class="n">probes_nodes</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">input_node</span><span class="p">)</span>
+    <span class="n">probes</span> <span class="o">=</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Probe</span><span class="p">(</span><span class="n">input_neurons</span><span class="o">.</span><span class="n">neurons</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">nengo</span><span class="o">.</span><span class="n">Simulator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="k">as</span> <span class="n">sim</span><span class="p">:</span>
+    <span class="n">sim</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="err">???</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="view-the-data-using-nengo-neurons">
+<h2>View the data (using Nengo neurons!)<a class="headerlink" href="#view-the-data-using-nengo-neurons" title="Link to this heading">#</a></h2>
+<p>This section should not require any edits. <strong>However, critically analyze your data! If I can’t tell what’s going on in this plot, you will earn a 0 in the lab. Why?</strong> Keep reading.</p>
+<p>Well… if you see your images and you cannot actually see your events, remember that neurons are <em>noisy</em>. If your events are a single pixel in size, that will easily get lost in the noise. If this occurs, adjust your AER.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sim_t</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">trange</span><span class="p">()</span>
+<span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sim_t</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">img_height</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">img_width</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+<span class="n">output_spikes_pos</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">probes</span><span class="p">][:,</span><span class="mi">0</span><span class="p">:</span><span class="nb">int</span><span class="p">(</span><span class="n">img_height</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">img_width</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">sim</span><span class="o">.</span><span class="n">dt</span>
+<span class="n">output_spikes_neg</span> <span class="o">=</span> <span class="n">sim</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">probes</span><span class="p">][:,</span><span class="nb">int</span><span class="p">(</span><span class="n">img_height</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">img_width</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span><span class="nb">int</span><span class="p">(</span><span class="n">img_height</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="nb">int</span><span class="p">(</span><span class="n">img_width</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="n">sim</span><span class="o">.</span><span class="n">dt</span>
+
+<span class="n">dt_frame</span> <span class="o">=</span> <span class="n">dt_frame_us</span> <span class="o">*</span> <span class="mf">1e-6</span> <span class="c1"># this is in seconds</span>
+<span class="n">t_frames</span> <span class="o">=</span> <span class="n">dt_frame</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">t_length_s</span> <span class="o">/</span> <span class="n">dt_frame</span><span class="p">)))</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">imgs</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">t_frame</span> <span class="ow">in</span> <span class="n">t_frames</span><span class="p">:</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">t_frame</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">t_frame</span> <span class="o">+</span> <span class="n">dt_frame</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">sim_t</span> <span class="o">&gt;=</span> <span class="n">t0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">sim_t</span> <span class="o">&lt;</span> <span class="n">t1</span><span class="p">)</span>
+
+    <span class="n">frame_img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">int</span><span class="p">(</span><span class="n">img_height</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">img_width</span><span class="o">/</span><span class="n">pool</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+    <span class="n">frame_img</span> <span class="o">-=</span> <span class="n">output_spikes_neg</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">frame_img</span> <span class="o">+=</span> <span class="n">output_spikes_pos</span><span class="p">[</span><span class="n">m</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">frame_img</span> <span class="o">=</span> <span class="n">frame_img</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">frame_img</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="n">img</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">frame_img</span><span class="p">[:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">animated</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">imgs</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">img</span><span class="p">])</span>
+
+<span class="n">ani</span> <span class="o">=</span> <span class="n">ArtistAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">imgs</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">ani</span><span class="o">.</span><span class="n">to_jshtml</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Lab6_PathPlanning_LastName.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Lab 6: Krichmar Path Planning using Nengo Neurons</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-your-spiking-data-i-e-your-aer">Build your spiking data (i.e. your AER)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#view-the-data-not-using-neurons-yet">View the data (NOT using neurons yet)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-spike-data-function-to-input-into-nengo">Read Spike Data function to input into Nengo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#build-your-model">Build your model</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#view-the-data-using-nengo-neurons">View the data (using Nengo neurons!)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kaitlin Fair
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
