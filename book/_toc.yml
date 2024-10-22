@@ -26,3 +26,6 @@ parts:
       - file: Lab6_PathPlanning_LastName
       - file: Lab7_SpikingData_LastName
       #- file: Lab8_AdvExamples_LastName
+  - caption: Final Project
+    chapters:
+      - file: FinalProject_LastName
