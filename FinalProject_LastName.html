@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>ECE 495 Setup Instructions &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+    <title>Final Project: Template &#8212; ECE495 Intro to Neuromorhic Engineering</title>
   
   
   
@@ -57,12 +57,11 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'venv_setup';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'FinalProject_LastName';</script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Lab 0: Virtual Environment Setup" href="495setup_LastName.html" />
-    <link rel="prev" title="Intro to Neuromorphic Engineering" href="intro.html" />
+    <link rel="prev" title="Lab7: Spiking data processed by Nengo Neurons" href="Lab7_SpikingData_LastName.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -181,8 +180,8 @@
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Setup</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">ECE 495 Setup Instructions</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="venv_setup.html">ECE 495 Setup Instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="495setup_LastName.html">Lab 0: Virtual Environment Setup</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">In-class Tutorials</span></p>
@@ -204,8 +203,8 @@
 <li class="toctree-l1"><a class="reference internal" href="Lab7_SpikingData_LastName.html">Lab7: Spiking data processed by Nengo Neurons</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Final Project</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="FinalProject_LastName.html">Final Project: Template</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Final Project: Template</a></li>
 </ul>
 
     </div>
@@ -252,6 +251,37 @@
 
 
 
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/kaitlin-fair/ECE495_Fa24/blob/main/book/FinalProject_LastName.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
 <div class="dropdown dropdown-source-buttons">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
     <i class="fab fa-github"></i>
@@ -277,7 +307,7 @@
       
       
       
-      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2Fvenv_setup.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2FFinalProject_LastName.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -307,7 +337,7 @@
       
       
       
-      <li><a href="_sources/venv_setup.md" target="_blank"
+      <li><a href="_sources/FinalProject_LastName.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -317,7 +347,7 @@
 <span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.md</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
 </li>
       
@@ -391,7 +421,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>ECE 495 Setup Instructions</h1>
+    <h1>Final Project: Template</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -401,10 +431,18 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-python-3-10-11-the-version-matters">Download Python 3.10.11 (the version matters)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-vs-code">Install VS Code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-virtual-environment">Create your Virtual Environment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-environment">Test your environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plans-for-jupyter-notebook-checkpoint-1">Plans for Jupyter Notebook Checkpoint 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-challenges">Technical Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#work-plan-adjustments">Work Plan Adjustments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plans-for-jupyter-notebook-checkpoint-2">Plans for Jupyter Notebook Checkpoint 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Technical Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Work Plan Adjustments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plans-for-jupyter-notebook-final-checkpoint">Plans for Jupyter Notebook Final Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Technical Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Work Plan Adjustments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-forward">Path Forward</a></li>
 </ul>
             </nav>
         </div>
@@ -416,61 +454,95 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="ece-495-setup-instructions">
-<h1>ECE 495 Setup Instructions<a class="headerlink" href="#ece-495-setup-instructions" title="Link to this heading">#</a></h1>
-<section id="download-python-3-10-11-the-version-matters">
-<h2>Download Python 3.10.11 (the version matters)<a class="headerlink" href="#download-python-3-10-11-the-version-matters" title="Link to this heading">#</a></h2>
+  <section id="final-project-template">
+<h1>Final Project: Template<a class="headerlink" href="#final-project-template" title="Link to this heading">#</a></h1>
+<p><strong>This is a single, running document that will be used for <em>all</em> Jupyter Notebook submissions.</strong></p>
+<p>Think of it as a somewhat formal journal for your project. Instead of a final paper, you will be documenting your methodology and observations as you go using markdown. You can find some tips and tricks for <a class="reference external" href="https://medium.com/analytics-vidhya/the-ultimate-markdown-guide-for-jupyter-notebook-d5e5abf728fd">markdown here</a> and/or use ECE495 tutorials and lab markdown as examples.</p>
+<p><strong>Important: Please be sure to reference your <a class="reference internal" href="#_static/FinalProject_LastName.ipynb"><span class="xref myst">Final Project Information Document</span></a> to ensure you meet all specs for each submission.</strong></p>
+<p><em>Delete this section and make this notebook your own.</em></p>
+<hr class="docutils" />
+<section id="plans-for-jupyter-notebook-checkpoint-1">
+<h2>Plans for Jupyter Notebook Checkpoint 1<a class="headerlink" href="#plans-for-jupyter-notebook-checkpoint-1" title="Link to this heading">#</a></h2>
+<p>List an overview of your work plan for this checkpoint</p>
 <ul class="simple">
-<li><p>For this course, you will need a Python environment that uses <strong>python 3.10.11</strong> with specific software packages listed in requirements.txt in this repository. <a class="reference external" href="https://www.python.org/ftp/python/3.10.11/python-3.10.11-amd64.exe">Download Python 3.10.11</a> - This link will download the <em>.exe file for Python 3.10.11.</em></p></li>
-<li><p>Double click the downloaded file to load the installer. In the first window, <em>be sure to check the box that says add to PATH!</em> and take note of the location listed under <code class="docutils literal notranslate"><span class="pre">Install</span> <span class="pre">Now</span></code> (you’ll need it later so write it down or take a screenshot). Then click <code class="docutils literal notranslate"><span class="pre">Install</span> <span class="pre">Now</span></code>.</p></li>
-<li><p>If something pops up about disabling path length limit, go ahead and do so.</p></li>
+<li><p>Feel free to make it a bulleted list</p></li>
+<li><p>Then get to work!</p></li>
 </ul>
-</section>
-<section id="install-vs-code">
-<h2>Install VS Code<a class="headerlink" href="#install-vs-code" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://code.visualstudio.com/download">Install VS Code</a> if you don’t already have it.</p></li>
-</ul>
-</section>
-<section id="create-your-virtual-environment">
-<h2>Create your Virtual Environment<a class="headerlink" href="#create-your-virtual-environment" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Make a folder titled <code class="docutils literal notranslate"><span class="pre">495_venv</span></code> that will store your virtual environment on your local hard drive (i.e. NOT OneDrive).</p></li>
-<li><p><a class="reference download internal" download="" href="_downloads/33ea42e61e89ad91f773c3a73a22f11e/requirements.txt"><span class="xref download myst">Download and save this file</span></a> to your <code class="docutils literal notranslate"><span class="pre">495_venv</span></code> folder.</p></li>
-<li><p>Open your <code class="docutils literal notranslate"><span class="pre">495_venv</span></code> folder in VS Code. You can do this within <code class="docutils literal notranslate"><span class="pre">Explorer</span></code> (the double page symbol on the leftmost column) by either clicking <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Folder</span></code> or right clicking within your workspace and selecting <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">Folder</span> <span class="pre">to</span> <span class="pre">Workspace</span></code></p></li>
-<li><p>Type in <code class="docutils literal notranslate"><span class="pre">&gt;Python:</span> <span class="pre">Create</span> <span class="pre">Environment</span></code> in the searchbar at the top of VS Code and select it.</p></li>
-<li><p>When prompted to <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">an</span> <span class="pre">environment</span> <span class="pre">type</span></code>, select <code class="docutils literal notranslate"><span class="pre">Venv</span></code></p></li>
-<li><p>If prompted to <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">a</span> <span class="pre">workspace</span> <span class="pre">to</span> <span class="pre">create</span> <span class="pre">environment</span></code>, select your <code class="docutils literal notranslate"><span class="pre">495_venv</span></code> folder.</p></li>
-<li><p>When prompted to <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">a</span> <span class="pre">Python</span> <span class="pre">installation</span> <span class="pre">to</span> <span class="pre">create</span> <span class="pre">the</span> <span class="pre">virtual</span> <span class="pre">environment</span></code>, either choose <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.10.11</span> <span class="pre">64-bit</span></code> or select <code class="docutils literal notranslate"><span class="pre">Enter</span> <span class="pre">interpreter</span> <span class="pre">path...</span></code> and navigate to the Python path where you downloaded <strong>Python 3.10.11</strong>. This is critical: it <em>MUST be <strong>Python 3.10.11</strong></em>!</p></li>
-<li><p>When prompted to <code class="docutils literal notranslate"><span class="pre">Select</span> <span class="pre">dependencies</span> <span class="pre">to</span> <span class="pre">install</span></code>, select the <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> file you downloaded and added to your <code class="docutils literal notranslate"><span class="pre">495_venv</span></code> folder. Click <code class="docutils literal notranslate"><span class="pre">OK</span></code>.</p></li>
-<li><p>Wait for a few minutes until all the packages are installed.</p></li>
-<li><p>If VS Code yells at you about your Python interpreter, select the interpreter you just built (<code class="docutils literal notranslate"><span class="pre">495</span> <span class="pre">Workspace</span></code>) and if prompted then choose Python 3.10.11. Otherwise you may be prompted once trying to run your test file to select an interpreter.</p></li>
-</ul>
-</section>
-<section id="test-your-environment">
-<h2>Test your environment<a class="headerlink" href="#test-your-environment" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p>Make a new folder where you will store all Lab and Tutorial files for this course titled <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code>.  I’d recommend you do this in OneDrive if you’d like cloud backup.</p></li>
-<li><p>Open your <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> folder in VS Code. You can do this within <code class="docutils literal notranslate"><span class="pre">Explorer</span></code> (the double page symbol on the leftmost column) by either clicking <code class="docutils literal notranslate"><span class="pre">Open</span> <span class="pre">Folder</span></code> or right clicking within your workspace and selecting <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">Folder</span> <span class="pre">to</span> <span class="pre">Workspace</span></code>. You want both your <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> and <code class="docutils literal notranslate"><span class="pre">495_venv</span></code> folders within the same workspace! This will help VSCode detect your virtual environment much more easily.</p></li>
-<li><p><a class="reference internal" href="495setup_LastName.html"><span class="std std-doc">Go to the Setup Notebook page</span></a> and download the Jupyter Notebook by clicking the download button at the top of the page. Save the file to your <code class="docutils literal notranslate"><span class="pre">495_workspace</span></code> folder.</p></li>
-<li><p>Change the filename so that <code class="docutils literal notranslate"><span class="pre">LastName</span></code> is replaced with <em>your last name</em>.</p></li>
-<li><p>Open the file in VS Code and click <code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">All</span></code>.</p></li>
-<li><p>If VS Code tells you to select your Python interpreter, select the interpreter you just built (<code class="docutils literal notranslate"><span class="pre">495_venv</span></code>) and if prompted choose Python 3.10.11. If not prompted, in the search bar at the top of VS Code, type <code class="docutils literal notranslate"><span class="pre">&gt;Python:</span> <span class="pre">Select</span> <span class="pre">Interpreter</span></code>, select the interpreter you just built (<code class="docutils literal notranslate"><span class="pre">495_venv</span></code>) and if prompted choose Python 3.10.11.</p></li>
-<li><p>It may ask you to install a Jupyter extension - if it does, do it!</p></li>
-<li><p>If it runs properly, edit the title of the plot (line 57) to also display your last name. For me, the title shows “Decoded Neuron Output - Fair”. Run your edited code. Your code should return 1 plot that displays the decoded neuron output with your last name in the title. Run again and save your file so that the updated plot shows in your notebook. Don’t worry about understanding the code yet! We will get there later.</p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>As we will use specifications grading for labs (as detailed in your syllabus), here are your specifications to earn a 1 for this lab:<br />
-◻ Code runs error free<br />
-◻ Filename changed to reflect last name of person submitting assignment<br />
-◻ Plot title edited within Jupyter notebook to display your last name<br />
-◻ Jupyter notebook is saved such that outputs appear upon opening file (and therefore on gradescope)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Put all of your code here.</span>
+</pre></div>
 </div>
-<ul class="simple">
-<li><p><em>Optional:</em> Run Black to check your code for minor errors and improper formatting using the following command in the terminal within VS code: <code class="docutils literal notranslate"><span class="pre">black</span> <span class="pre">--check</span> <span class="pre">.</span></code> If the output <em>does not</em> say “All done! ✨ 🍰 ✨ 1 file would be left unchanged.”, it will instead give a message along the lines of a file should be reformatted. This simply means that your code may not be as neat as possible. When your code is neat, it’s far easier to grade and therefore easier to give you the credit you deserve! To resolve the issue you’ll need to edit your code; however, this is not a requirement. If you choose to make edits, you can take a look at how Black would reformat your code using <code class="docutils literal notranslate"><span class="pre">black</span> <span class="pre">--diff</span> <span class="pre">.</span></code> Edit the code accordingly to resolve the issue and run again. Repeat until the output is “All done! ✨ 🍰 ✨ 1 file would be left unchanged.”. You could also simply run <code class="docutils literal notranslate"><span class="pre">black</span> <span class="pre">.</span></code> to automatically make the changes, but I strongly recommend you understand what changes are made prior to submitting your file. Note that the autograder in Gradescope will run black and display results much like those described above. You will not lose any credit for not getting the “All done!” statement, BUT if your code is illegible or tough to understand, it’ll be difficult to grade and please recall that you either earn a score of entirely right (1) or some version of wrong (0). Make your submission count! For troubleshooting and more ways to use Black you can visit <a class="reference external" href="https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html">this site</a>.</p></li>
-<li><p>Upload <em>only</em> your <code class="docutils literal notranslate"><span class="pre">495setup_LastName.ipynb</span></code> into Gradescope under “Lab 0 - Setup” assignment by end of day T6 (23 Aug on or before 2359). You are encouraged to schedule time for EI to debug as needed: <a class="reference external" href="https://outlook.office.com/bookwithme/user/94f514961fa3476ab9598d4a2173d076&#64;afacademy.af.edu?anonymous&amp;amp;ep=plink">Book here</a></p></li>
-</ul>
+</div>
+</div>
+<p>Break your code up into as many sections as you need to and “narrate” what you are doing using markdown. Be sure to provide detailed methodology, to include any assumptions that are required to get certain things to work (example: not implementing real-time learning of delays for path planning).</p>
+<p>If you want to know what I mean by detailed, mimic the markdown for your tutorials! You will be the expert on this and will need to give me as much detail as possible (in a concise manner) to help me understand what’s going on.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># more code</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="technical-challenges">
+<h2>Technical Challenges<a class="headerlink" href="#technical-challenges" title="Link to this heading">#</a></h2>
+<p>You can have a section here or you can list these throughout your markdown as you work through your methodology. If it makes sense to do so, you can combine this with your work plan adjustments. Just make sure it’s clear that you have documented any issues you’ve run into and how you have resolved them.</p>
+</section>
+<section id="work-plan-adjustments">
+<h2>Work Plan Adjustments<a class="headerlink" href="#work-plan-adjustments" title="Link to this heading">#</a></h2>
+<p>Discuss any work plans that changed as you worked through this checkpoint and <em>why</em> the changes are justified. You ran out of time or it was too hard are not acceptable reasons.</p>
+<p>These changes may be things that changed as you worked through Checkpoint 1, or it could be that as a result of your findings from Checkpoint 1, you’ll need to make adjustments to Checkpoint 2, or both. Just make sure it’s clear.</p>
+<hr class="docutils" />
+</section>
+<section id="plans-for-jupyter-notebook-checkpoint-2">
+<h2>Plans for Jupyter Notebook Checkpoint 2<a class="headerlink" href="#plans-for-jupyter-notebook-checkpoint-2" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CODE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id1">
+<h2>Technical Challenges<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+</section>
+<section id="id2">
+<h2>Work Plan Adjustments<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<hr class="docutils" />
+</section>
+<section id="plans-for-jupyter-notebook-final-checkpoint">
+<h2>Plans for Jupyter Notebook Final Checkpoint<a class="headerlink" href="#plans-for-jupyter-notebook-final-checkpoint" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CODE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>Technical Challenges<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+</section>
+<section id="id4">
+<h2>Work Plan Adjustments<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># CODE</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Link to this heading">#</a></h2>
+</section>
+<section id="path-forward">
+<h2>Path Forward<a class="headerlink" href="#path-forward" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -505,22 +577,13 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="intro.html"
+       href="Lab7_SpikingData_LastName.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Intro to Neuromorphic Engineering</p>
+        <p class="prev-next-title">Lab7: Spiking data processed by Nengo Neurons</p>
       </div>
-    </a>
-    <a class="right-next"
-       href="495setup_LastName.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lab 0: Virtual Environment Setup</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -538,10 +601,18 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#download-python-3-10-11-the-version-matters">Download Python 3.10.11 (the version matters)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#install-vs-code">Install VS Code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-your-virtual-environment">Create your Virtual Environment</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-your-environment">Test your environment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plans-for-jupyter-notebook-checkpoint-1">Plans for Jupyter Notebook Checkpoint 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#technical-challenges">Technical Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#work-plan-adjustments">Work Plan Adjustments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plans-for-jupyter-notebook-checkpoint-2">Plans for Jupyter Notebook Checkpoint 2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Technical Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Work Plan Adjustments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plans-for-jupyter-notebook-final-checkpoint">Plans for Jupyter Notebook Final Checkpoint</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Technical Challenges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Work Plan Adjustments</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#path-forward">Path Forward</a></li>
 </ul>
   </nav></div>
 
