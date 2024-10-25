@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Lab 6: Krichmar Path Planning using Nengo Neurons &#8212; ECE495 Intro to Neuromorhic Engineering</title>
+    <title>Lab 8: Advanced Neuron Functionality &#8212; ECE495 Intro to Neuromorhic Engineering</title>
   
   
   
@@ -60,14 +60,12 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'Lab6_PathPlanning_LastName';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Lab8_AdvExamples_LastName';</script>
     <link rel="icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Lab7: Spiking data processed by Nengo Neurons" href="Lab7_SpikingData_LastName.html" />
-    <link rel="prev" title="Lab 5: Bubble Sort using Nengo Neurons" href="Lab5_BubbleSort_LastName.html" />
+    <link rel="next" title="Final Project: Template" href="FinalProject_LastName.html" />
+    <link rel="prev" title="Lab7: Spiking data processed by Nengo Neurons" href="Lab7_SpikingData_LastName.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
@@ -192,9 +190,9 @@
 <li class="toctree-l1"><a class="reference internal" href="Lab3_NeuronBasics_LastName.html">Lab 3: Neuron Basics using Nengo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab4_Dynamics_LastName.html">Lab 4: Navigation Dynamics using Nengo</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab5_BubbleSort_LastName.html">Lab 5: Bubble Sort using Nengo Neurons</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 6: Krichmar Path Planning using Nengo Neurons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Lab6_PathPlanning_LastName.html">Lab 6: Krichmar Path Planning using Nengo Neurons</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Lab7_SpikingData_LastName.html">Lab7: Spiking data processed by Nengo Neurons</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Lab8_AdvExamples_LastName.html">Lab 8: Advanced Neuron Functionality</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lab 8: Advanced Neuron Functionality</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Final Project</span></p>
 <ul class="nav bd-sidenav">
@@ -253,7 +251,7 @@
       
       
       
-      <li><a href="https://colab.research.google.com/github/kaitlin-fair/ECE495_Fa24/blob/main/book/Lab6_PathPlanning_LastName.ipynb" target="_blank"
+      <li><a href="https://colab.research.google.com/github/kaitlin-fair/ECE495_Fa24/blob/main/book/Lab8_AdvExamples_LastName.ipynb" target="_blank"
    class="btn btn-sm dropdown-item"
    title="Launch on Colab"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -301,7 +299,7 @@
       
       
       
-      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2FLab6_PathPlanning_LastName.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/kaitlin-fair/ECE495_Fa24/issues/new?title=Issue%20on%20page%20%2FLab8_AdvExamples_LastName.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -331,7 +329,7 @@
       
       
       
-      <li><a href="_sources/Lab6_PathPlanning_LastName.ipynb" target="_blank"
+      <li><a href="_sources/Lab8_AdvExamples_LastName.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -407,7 +405,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Lab 6: Krichmar Path Planning using Nengo Neurons</h1>
+    <h1>Lab 8: Advanced Neuron Functionality</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -417,14 +415,11 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specifications">Specifications</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-map">Input Map</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spike-wave-propagation-nengo-model">Spike-wave propagation Nengo model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-aer-off-neuron">Create AER off-neuron</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-results">Visualize the results!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-your-libraries">Import your Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-learning-to-reduce-the-response">Implement Learning to Reduce the Response</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#view-results">View Results</a></li>
 </ul>
             </nav>
         </div>
@@ -436,125 +431,83 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="lab-6-krichmar-path-planning-using-nengo-neurons">
-<h1>Lab 6: Krichmar Path Planning using Nengo Neurons<a class="headerlink" href="#lab-6-krichmar-path-planning-using-nengo-neurons" title="Link to this heading">#</a></h1>
-<p>This Lab uses Nengo to find the optimal path of a <span class="math notranslate nohighlight">\(3 \times 3\)</span> map using Krichmar’s spike-wave propagation algorithm. The objectives of this lab are to:</p>
+  <section id="lab-8-advanced-neuron-functionality">
+<h1>Lab 8: Advanced Neuron Functionality<a class="headerlink" href="#lab-8-advanced-neuron-functionality" title="Link to this heading">#</a></h1>
+<p>The objectives of this lab are:</p>
 <ul class="simple">
-<li><p>Implement Krichmar’s spike-wave propagation algorithm using Nengo neurons</p></li>
-<li><p>Ensure the spike wave works for any rectangular or square map</p></li>
-<li><p>Utilize an “off-chip” AER to compute the fastest route to get from any starting point (location) to any ending point (location)</p></li>
+<li><p>To read in a 1D data signal in Nengo that represents a baseline response to a stimulus</p></li>
+<li><p>Implement a learning rule to show how an animal reduces its response to a repeated, benign stimulus (aka habituation)</p></li>
 </ul>
-<section id="specifications">
-<h2>Specifications<a class="headerlink" href="#specifications" title="Link to this heading">#</a></h2>
-<p>You will quickly notice that this notebook is merely an outline. You know everything you need to know to write this algorithm on your own! <em><strong>You will find specs for each associated coding block in the markdown prior to said block.</strong></em> Otherwise, you have the usuals.</p>
 <blockquote>
-<div><p>Overall Specs:<br />
+<div><p>Main Specs:<br />
 ◻ Filename changed to reflect last name of person submitting assignment<br />
 ◻ Code runs error free<br />
 ◻ Jupyter notebook is saved such that outputs appear upon opening file (and therefore on gradescope)<br />
-◻ <strong>Comment your code</strong> To ensure you earn the score you deserve and/or to ensure I can provide valuable feedback, please help me understand your thought process by commenting as you go!<br />
+◻ <strong>Comment non-trivial code</strong><br />
 ◻ (On your honor) All markdown and resources read thoroughly and fully understood</p>
 </div></blockquote>
 <hr class="docutils" />
-<section id="set-up">
-<h3>Set up<a class="headerlink" href="#set-up" title="Link to this heading">#</a></h3>
-<p>Ensure you are using your 495 Virtual Environment before you begin!</p>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Link to this heading">#</a></h2>
+<p>Habituation: This is a form of learning where an animal learns to ignore a stimulus that is neither harmful nor beneficial. For instance, a loud noise may startle a creature initially, but after repeated exposure to the same noise without any negative consequences, the creature’s response diminishes.</p>
+<p>For this lab, you will import a baseline stimulus response where the animal hears the loud noise three times. When you plot the data, you should notice that the amplitude of the response is the same every time. This would be the animal’s response <em>if no learning occurred</em>.</p>
+<p>You will then implement a learning rule to gradually reduce the animal’s response to the stimuli, meaning that by the time the animal hears the noise the third time, the amplitude of the response <em>after learning</em> should be much smaller.</p>
+</section>
+<section id="import-your-libraries">
+<h2>Import your Libraries<a class="headerlink" href="#import-your-libraries" title="Link to this heading">#</a></h2>
 <blockquote>
 <div><p>Code Block Specs:<br />
-◻ Import Nengo and other supporting libraries into your program to get started</p>
+◻ Import all required libraries to implement  your lab</p>
 </div></blockquote>
 </section>
-</section>
-<section id="input-map">
-<h2>Input Map<a class="headerlink" href="#input-map" title="Link to this heading">#</a></h2>
-<p>You will implement path planning such that your spike-wave propagation and AER generate the fastest route for the following <span class="math notranslate nohighlight">\(3\times 3\)</span> map, with start location 0 (top left) and end location 8 (bottom right):
-<span class="math notranslate nohighlight">\(\begin{bmatrix} 1 &amp; 2 &amp; 1 \\
-                  1 &amp; 3 &amp; 5 \\
-                  7 &amp; 1 &amp; 1
-                      \end{bmatrix}\)</span></p>
-<p>Note that you can work in 2 dimensions (for your 2D map) or 1 dimension (flatten your map) when indexing everything. For example: you can either end at <code class="docutils literal notranslate"><span class="pre">end_loc</span> <span class="pre">=</span> <span class="pre">[2,2]</span></code> or at <code class="docutils literal notranslate"><span class="pre">end_loc=8</span></code>.</p>
+<section id="load-data">
+<h2>Load Data<a class="headerlink" href="#load-data" title="Link to this heading">#</a></h2>
+<p>Download your data <a class="reference download internal" download="" href="_downloads/d50036019f30940f4b2725923f8893a7/continuous_time_data.csv"><span class="xref download myst">by clicking here</span></a> and save the *.csv file into the same folder as this lab.</p>
+<p>The first column of the data file is the time, the second is the amplitude of the signal. The signal is measured every 1ms, so the samples will align perfectly with the Nengo simulator, meaning you won’t have to do any tricks to grab the right time when it’s time to pull it into Nengo. Meaning that if you use the <code class="docutils literal notranslate"><span class="pre">readData</span></code> function from the the Advanced Examples tutorial, you will simply feed it the second column of data. You’re welcome!</p>
+<p>Read the *.csv file into this notebook using <code class="docutils literal notranslate"><span class="pre">pd.read_csv</span></code> (we’ve used this before!) such that you save off the second column as your input data. If you’re confused, take a look at your variables from the tutorial compared to what you are generating for your data.</p>
 <blockquote>
 <div><p>Code Block Specs:<br />
-◻ Create an array for your map<br />
-◻ Define your start and end locations</p>
+◻ Load 1D time-varying signal into Jupyter notebook (not into Nengo yet)</p>
+</div></blockquote>
+<p>Utilize the <code class="docutils literal notranslate"><span class="pre">readData</span></code> function to view your data using a <em>Nengo node</em>. Take a look at the first column of your imported data to know for how long to run your simulator. Use your Nengo node to visualize your data (i.e. probe, run, and plot).</p>
+<blockquote>
+<div><p>Code Block Specs:<br />
+◻ Build a Nengo node that utilizes the class <code class="docutils literal notranslate"><span class="pre">readData</span></code> to pull the time-varying signal into Nengo<br />
+◻ Probe your node<br />
+◻ Run your simulator for the appropriate amount of time (based on downloaded data!)<br />
+◻ Plot the output of your Node</p>
 </div></blockquote>
 </section>
-<section id="spike-wave-propagation-nengo-model">
-<h2>Spike-wave propagation Nengo model<a class="headerlink" href="#spike-wave-propagation-nengo-model" title="Link to this heading">#</a></h2>
-<p>Start off by setting up your input to the map, which should be a simple spike. This looks a little different in Nengo. Instead, let’s send in a 1 for a short time, then 0 for the remainder into only the start location. The spike wave will do the rest to flow through the map.</p>
-<p>While we are here, let’s build our neuron ensembles to represent each map location.</p>
+<section id="implement-learning-to-reduce-the-response">
+<h2>Implement Learning to Reduce the Response<a class="headerlink" href="#implement-learning-to-reduce-the-response" title="Link to this heading">#</a></h2>
+<p>We will start with the same Nengo model structure as we did in the tutorial:
+[Input] —&gt; (A) —&gt; (B) —&gt; [Output]</p>
+<p>You can also reference the image in our OneNote lecture notes. (A) and (B) are both neuron ensembles. The output of (A) will be the neuron representation of the input (i.e. the same as the node output but a little noisier). The output of (B) will start out by looking the same as the output of (A). You will add an error ensemble and use the PES learning rule to “push” the output of (B) toward a very small or no response.</p>
+<p><strong>HOWEVER</strong>, we won’t be minimizing the difference between A and B like we did in class (think through why!! A and B are already the same - will our decoders change if the error is 0??).</p>
+<p>You will instead need to build a neuron node and respective ensemble (C), which will reqpresent your <em>desired output</em>. Use ensemble (C) in conjunction with your error ensemble to “push” the output of (B) toward your desired response!</p>
+<p>Think through what your desired response for habituation might be: eventually, if the fire alarm goes off enough times without an actual fire, we learn to ignore it. What would that function look like?</p>
+<p><em><strong>In the end, you will have an input represented by ensemble (A), and you will train the decoders for (B) in real time to reduce the response to the repeated stimuli.</strong></em></p>
+<p>Build your model and run for the appropriate amount of time.</p>
 <blockquote>
 <div><p>Code Block Specs:<br />
-◻ Create a piecewise function to kick off the spike wave.<br />
-◻ Be sure your input connects to your <em>start location.</em><br />
-◻ Use a Nengo Ensemble for each map location (you can use an Ensemble array, a multidimensional ensemble, or a list of ensembles).</p>
-</div></blockquote>
-<p>Each map location should have a delay equal to the weight (difficulty of traversal) of the location. Once a map location is traversed, we want to turn it off forever to make it easier than the inhibition implemented in Krichmar’s algorithm. We will use a node (starting with the delay node we discussed during the path planning tutorial) and add inhibition. See the Path Planning Tutorial for notes on how you might achieve inhibition within this node.</p>
-<blockquote>
-<div><p>Code Block Specs:<br />
-◻ Create a class with a function (outside of your model) to emulate an axonal delay <em>and</em> emulate inhibition from Krichmar’s algorithm.<br />
-◻ Create a Nengo Node for each map location (recommend a list of ensembles) to implement the function you bulit to generate a delay and inhibition.</p>
-</div></blockquote>
-<p>Now, it’s time to connect the rest. This gets complex! Every map location has anywhere from 3 (corner locations) to 8 (inside locations) neighbors to which it can send a spike. This is tough to generalize, so I did it for you! So you can understand what this code did, I assumed each map location had 8 possible locations, but for corners and edges I deleted any locations that were “off-map”.</p>
-<p>You now have an array called <code class="docutils literal notranslate"><span class="pre">connections</span></code>. You will want to view your variables to dive into this array.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">[i,j]</span></code> is the current map location</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">k</span></code> are the 8 neighbors associated with the current map location</p></li>
-<li><p>The neighbors are values -1 to 8</p></li>
-<li><p>Only positive values of <code class="docutils literal notranslate"><span class="pre">k</span></code> are the neighbors (i.e. ignore any -1s)</p></li>
-<li><p>Neighbor at location <code class="docutils literal notranslate"><span class="pre">k[0]=8</span></code> corresponds to map location [2,2] (python indexing)</p></li>
-<li><p>Neighbor at location <code class="docutils literal notranslate"><span class="pre">k[1]=4</span></code> corresponds to map location [1,0]</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">k</span></code> values were determined by <code class="docutils literal notranslate"><span class="pre">(i*y_len)+j</span></code></p></li>
-<li><p>If you’d rather work in 2D, you can use <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">int(np.floor(k[0]/y_len))</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span> <span class="pre">=</span> <span class="pre">k[0]-x*y_len</span></code></p></li>
-</ul>
-<p>If you do not like my connections array, you do not have to use it! You are welcome to build your own.</p>
-<blockquote>
-<div><p>Code Block Specs:<br />
-◻ Connect your map location ensembles to your delay/inhibition nodes</p>
-</div></blockquote>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">connections</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x_len</span><span class="p">,</span><span class="n">y_len</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span> <span class="c1"># 8 connections per node, some valid, some not</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x_len</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">y_len</span><span class="p">):</span>
-        <span class="n">connections_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">],[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">],[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]])</span>
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">connections_temp</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">x_len</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">connections_temp</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">connections_temp</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">y_len</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="n">connections_temp</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">):</span>
-                <span class="n">connections</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">connections_temp</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">y_len</span> <span class="o">+</span> <span class="n">connections_temp</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">connections</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="c1"># not a valid location on the map</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Add probes and run your model</p>
-<blockquote>
-<div><p>Code Block Specs:<br />
-◻ Probe your map location ensembles to use for your AER later<br />
-◻ Run your simulation for an appropriate amount of time. Account for the size of your map and duration of your piecewise input.</p>
+◻ Build a Nengo node with your desired response to the stimulus<br />
+◻ Build Nengo ensembles (A), (B), and (C)<br />
+◻ Implement the PES learning rule (just like the tutorial)<br />
+◻ Build a Nengo ensemble for your error<br />
+◻ Make the correct connections to push the output of (B) toward that of (C) - use the tutorial as a guide<br />
+◻ Probe ensembles (A), (B), and (C)<br />
+◻ Probe the decoders between (A) and (B)</p>
 </div></blockquote>
 </section>
-<section id="create-aer-off-neuron">
-<h2>Create AER off-neuron<a class="headerlink" href="#create-aer-off-neuron" title="Link to this heading">#</a></h2>
-<p>Pay attention to how Krichmar says he uses the AER to determine the path:</p>
-<ul class="simple">
-<li><p>The AER contains a location and a time of first spike.</p></li>
-<li><p>Start at the end location and work backward!</p></li>
-<li><p>I found that by looking at the first spike times of all possible neighboring map locations and choosing the smallest time allowed me to work from end node to start node for my optimal path.</p></li>
-</ul>
+<section id="view-results">
+<h2>View Results<a class="headerlink" href="#view-results" title="Link to this heading">#</a></h2>
+<p>Plot your outputs of ensembles A, B, and C. Plot a few decoders to see how they evolve over time.</p>
 <blockquote>
 <div><p>Code Block Specs:<br />
-◻ Create your AER that contains a location and time of first spike<br />
-◻ Determine your optimal path by working backward from the end location</p>
-</div></blockquote>
-</section>
-<section id="visualize-the-results">
-<h2>Visualize the results!<a class="headerlink" href="#visualize-the-results" title="Link to this heading">#</a></h2>
-<p>You can print your map locations as x- and y- coordinates (examples: <code class="docutils literal notranslate"><span class="pre">start_loc</span> <span class="pre">=</span> <span class="pre">[0,0]</span></code>, <code class="docutils literal notranslate"><span class="pre">end_loc</span> <span class="pre">=</span> <span class="pre">[2,2]</span></code>) or flattened locations (examples: <code class="docutils literal notranslate"><span class="pre">start_loc</span> <span class="pre">=</span> <span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">end_loc=8</span></code>). If you’d like to get super fancy, you can create a picture of a map (like in Krichmar’s paper) where you draw out your final path based on the results of <em>your</em> AER.</p>
-<blockquote>
-<div><p>Code Block Specs:<br />
-◻ Print your optimal path.<br />
-◻ Plot the outputs of your final path to confirm the results of your AER. We should see a piecewise function flowing through as a spike-wave.</p>
+◻ Run your simulator for the appropriate amount of time (based on downloaded data!)<br />
+◻ Plot the output of ensembles (A), (B), and (C)<br />
+◻ Plot three decoders to see the learning occur over time<br />
+◻ Ensure there is a legend on each plot</p>
 </div></blockquote>
 </section>
 </section>
@@ -590,20 +543,20 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="Lab5_BubbleSort_LastName.html"
+       href="Lab7_SpikingData_LastName.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Lab 5: Bubble Sort using Nengo Neurons</p>
+        <p class="prev-next-title">Lab7: Spiking data processed by Nengo Neurons</p>
       </div>
     </a>
     <a class="right-next"
-       href="Lab7_SpikingData_LastName.html"
+       href="FinalProject_LastName.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lab7: Spiking data processed by Nengo Neurons</p>
+        <p class="prev-next-title">Final Project: Template</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -624,14 +577,11 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#specifications">Specifications</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#set-up">Set up</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-map">Input Map</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spike-wave-propagation-nengo-model">Spike-wave propagation Nengo model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-aer-off-neuron">Create AER off-neuron</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualize-the-results">Visualize the results!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background">Background</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-your-libraries">Import your Libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-data">Load Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-learning-to-reduce-the-response">Implement Learning to Reduce the Response</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#view-results">View Results</a></li>
 </ul>
   </nav></div>
 
