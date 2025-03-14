@@ -1,3 +1,5 @@
+Link to course website: https://kaitlin-fair.github.io/ECE495_Fa24/intro.html
+
 # Jupyter Book Template for GitHub Pages
 
 A simple demo of how to deploy a [Jupyter Book](https://jupyterbook.org/en/stable/intro.html) static website to [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages) that is automatically built with [GitHub Actions](https://docs.github.com/en/actions).
